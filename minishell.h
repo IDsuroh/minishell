@@ -25,6 +25,8 @@
 # include <limits.h>
 # include <unistd.h>
 
+volatile int	g_signal = 0;
+
 typedef struct s_shell
 {
 	char	*cmd;
