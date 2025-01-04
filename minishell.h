@@ -6,11 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/01/02 21:13:37 by suroh            ###   ########.fr       */
-=======
-/*   Updated: 2025/01/04 15:31:04 by suroh            ###   ########.fr       */
->>>>>>> 8809c1e (42push)
+/*   Updated: 2025/01/04 15:52:41 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +27,7 @@
 # include <limits.h>
 # include <unistd.h>
 
-<<<<<<< HEAD
-volatile int	g_signal = 0;
-=======
 extern volatile int	g_signal;
->>>>>>> 8809c1e (42push)
 
 typedef struct s_shell
 {
