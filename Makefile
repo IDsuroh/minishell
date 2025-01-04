@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 
-SRCS = main.c ft_strtok.c
+SRCS = main.c ft_strtok.c signals.c
 OBJDIR = obj_dir
 OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
 LIB = ./libft/
