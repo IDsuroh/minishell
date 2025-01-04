@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2024/12/29 20:55:31 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/02 21:13:37 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <dirent.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -40,6 +42,8 @@ void	populate_argv(t_shell *shell, char **argv);
 void	ft_argv_printf(char **argv);
 
 char	*ft_strtok(char *str, const char *delim);
-ssize_t	ft_getline(char **lineptr, size_t *n, int fd);
+
+//maybe we need this function
+//ssize_t	ft_getline(char **lineptr, size_t *n, int fd);
 
 #endif
