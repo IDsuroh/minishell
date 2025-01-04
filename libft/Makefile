@@ -30,7 +30,7 @@ bonus: $(OBJ_B)
 
 makeall: $(OBJ) $(OBJ_B)
 	@ar crs $(NAME) $(OBJ) $(OBJ_B)
-	@echo "\033[33m------Compiled Whole File------"
+	@echo "\033[33mCompiled All of LIBFT"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@

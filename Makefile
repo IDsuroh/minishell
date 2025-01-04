@@ -22,7 +22,7 @@ $(NAME): $(OBJS) $(LIBFT)
 
 $(LIBFT):
 	@echo "\033[1;31mCompiling libft\033[0m"
-	@make makeall -C $(LIB)
+	@make makeall -C $(LIB) --no-print-directory
 
 clean:
 	@rm -f $(OBJDIR)/*.o
@@ -31,8 +31,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@rm -rf $(OBJDIR)
-	@find . -type f ! -name "*.c" ! -name "*.h" ! -name "Makefile" ! -path "./libft/*" -exec rm -f {} +
-	@find . -type d ! -path "./libft" ! -path "." -exec rm -rf {} +
+	@rm -f $(LIBFT) $(LIB)*.o
 	@echo "\033[34mCleaned Everything."
 
 re: fclean all
