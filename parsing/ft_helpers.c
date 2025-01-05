@@ -6,11 +6,20 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:08:53 by suroh             #+#    #+#             */
-/*   Updated: 2024/12/29 21:00:57 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/04 23:41:19 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
+#include "../include/parsing.h"
+
+void	init_shell(t_shell *shell)
+{
+	shell->cmd = NULL;
+	shell->cmd_cpy = NULL;
+	shell->token = NULL;
+	shell->delim = " \t\n";
+}
 
 void	ft_free_all(t_shell shell, char **argv)
 {

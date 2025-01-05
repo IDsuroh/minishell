@@ -6,26 +6,24 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/04 15:51:59 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/05 00:01:00 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
+#include "../include/parsing.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
+	t_shell	shell;
 	char	*input;
-	char	*token;
-	char	*delim;
-	char	**argv;
-	int		i;
-	int		argc;
 
+	(void)envp;
+	argc = 0;
 	argv = NULL;
-	token = NULL;
-	delim = " \t\n";
 	while (1)
 	{
+		init_shell(&shell);
 		input = readline("minishell> ");
 		if (input == NULL)
 		{
@@ -35,29 +33,13 @@ int	main(void)
 		if (*input)
 		{
 			add_history(input);
-			argv = (char **)malloc(sizeof(char *) * (ft_strlen(input) + 1));
-			if (!argv)
-			{
-				perror("malloc");
-				exit(EXIT_FAILURE);
-			}
-			token = ft_strtok(input, delim);
-			argc = 0;
-			while (token != NULL)
-			{
-				argv[argc] = token;
-				token = ft_strtok(NULL, delim);
-				argc++;
-			}
-			argv[argc] = NULL;
-			i = 0;
-			while (i < argc)
-			{
-				printf("argv[%d]: %s\n", i, argv[i]);
-				i++;
-			}
-			printf("argv[%d]: %s\n", i, argv[i]);
-			free(argv);
+			ft_token_init(&shell, &argc);
+			argv = (char **)malloc(sizeof(char *) * (argc + 1));
+			if (argv == NULL)
+				return (-1);
+			populate_argv(&shell, argv);
+			ft_argv_printf(argv);
+			ft_free_all(shell,argv);
 		}
 		free(input);
 	}

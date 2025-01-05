@@ -1,19 +1,31 @@
-NAME = minishell
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -lreadline
+NAME	=	minishell
+CC	=	cc
+CFLAGS	=	-Wall -Wextra -Werror
+LDFLAGS	=	-lreadline
 
-SRCS = main.c ft_strtok.c signals.c
-OBJDIR = obj_dir
-OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
-LIB = ./libft/
-LIBFT = ./libft/libft.a
+PRSDIR	=	parsing
+SRCDIR	= 	src
+OBJDIR	= 	obj_dir
+
+SRC_SRCS	=	main.c signals.c
+PRS_SRCS	=	ft_helpers.c ft_strtok.c
+
+SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
+		$(addprefix $(PRSDIR)/, $(PRS_SRCS))
+OBJS	= 	$(addprefix $(OBJDIR)/, $(SRC_SRCS:.c=.o)) \
+		$(addprefix $(OBJDIR)/, $(PRS_SRCS:.c=.o))
+LIB	=	./include/libft/
+LIBFT	=	./include/libft/libft.a
 
 all: $(NAME)
 
-$(OBJDIR)/%.o: %.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+
+$(OBJDIR)/%.o: $(PRSDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "\033[1;32mCompiling minishell\033[0m"
@@ -31,7 +43,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@rm -rf $(OBJDIR)
-	@rm -f $(LIBFT) $(LIB)*.o
+	@rm -f $(LIBFT) $(LIB)/*.o
 	@echo "\033[34mCleaned Everything."
 
 re: fclean all
