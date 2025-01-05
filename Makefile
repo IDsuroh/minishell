@@ -8,7 +8,7 @@ SRCDIR	= 	src
 OBJDIR	= 	obj_dir
 
 SRC_SRCS	=	main.c signals.c
-PRS_SRCS	=	ft_helpers.c ft_strtok.c
+PRS_SRCS	=	ft_lexers.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(PRSDIR)/, $(PRS_SRCS))
