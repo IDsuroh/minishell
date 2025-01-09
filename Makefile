@@ -3,17 +3,20 @@ CC	=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 LDFLAGS	=	-lreadline
 
-PRSDIR	=	parsing
+TOKDIR	=	tokenizing
 SRCDIR	= 	src
 OBJDIR	= 	obj_dir
 
 SRC_SRCS	=	main.c signals.c
-PRS_SRCS	=	ft_lexers.c
+TOK_SRCS	=	ft_token_init.c \
+			ft_token_utils_1.c \
+			ft_token_utils_2.c \
+			ft_token_utils_3.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
-		$(addprefix $(PRSDIR)/, $(PRS_SRCS))
+		$(addprefix $(TOKDIR)/, $(TOK_SRCS))
 OBJS	= 	$(addprefix $(OBJDIR)/, $(SRC_SRCS:.c=.o)) \
-		$(addprefix $(OBJDIR)/, $(PRS_SRCS:.c=.o))
+		$(addprefix $(OBJDIR)/, $(TOK_SRCS:.c=.o))
 LIB	=	./include/libft/
 LIBFT	=	./include/libft/libft.a
 
@@ -23,7 +26,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
-$(OBJDIR)/%.o: $(PRSDIR)/%.c
+$(OBJDIR)/%.o: $(TOKDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 

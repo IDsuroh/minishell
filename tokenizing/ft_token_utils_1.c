@@ -1,17 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_helpers.c                                       :+:      :+:    :+:   */
+/*   ft_token_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 19:08:53 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/05 21:58:53 by suroh            ###   ########.fr       */
+/*   Created: 2025/01/07 18:42:39 by suroh             #+#    #+#             */
+/*   Updated: 2025/01/09 22:23:26 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/parsing.h"
+
+static void	set_null_char(char **input, char *token_end)
+{
+	if (*token_end == '\0')
+		*input = NULL;
+	else
+	{
+		*token_end = '\0';
+		*input = token_end + 1;
+	}
+}
+
+static char	*return_before_separator(char *token_start, char *token_end,
+	char **input)
+{
+	char	*tmp;
+
+	tmp = ft_strdup(token_end);
+	*token_end = '\0';
+	*input = tmp;
+	return (token_start);
+}
 
 char	*ft_strtok(char *str, const char *delim)
 {
@@ -28,24 +49,18 @@ char	*ft_strtok(char *str, const char *delim)
 		token_start++;
 	if (*token_start == '\0')
 		return (input = NULL);
+	if (ft_is_quote(*token_start))
+		return (ft_store_quote(token_start, &input));
+	else if (ft_is_separator(*token_start))
+		return (ft_store_separator(token_start, &input));
 	token_end = token_start;
-	while (*token_end && !ft_strchr(delim, *token_end))
+	while (*token_end && !ft_strchr(delim, *token_end)
+		&& !ft_is_separator(*token_end))
 		token_end++;
-	if (*token_end == '\0')
-		input = NULL;
-	else
-	{
-		*token_end = '\0';
-		input = token_end + 1;
-	}
+	if (ft_is_separator(*token_end))
+		return (return_before_separator(token_start, token_end, &input));
+	set_null_char(&input, token_end);
 	return (token_start);
-}
-
-void	init_shell(t_shell *shell, char *input)
-{
-	shell->cmd = ft_strdup(input);
-	shell->delim = " \t\n";
-	shell->token = NULL;
 }
 
 int	ft_strtok_count(char *str, char *delim)
@@ -64,34 +79,4 @@ int	ft_strtok_count(char *str, char *delim)
 	}
 	free(tmp);
 	return (count);
-}
-
-void	ft_token_init(t_shell *shell)
-{
-	int	argc;
-	int	count;
-
-	argc = 0;
-	count = ft_strtok_count(shell->cmd, shell->delim);
-	shell->token = (char **)malloc(sizeof(char *) * (count + 1));
-	if (shell->token == NULL)
-	{
-		printf("Error: malloc failed\n");
-		exit(1);
-	}
-	shell->token[argc] = ft_strtok(shell->cmd, shell->delim);
-	while (argc < count)
-	{
-		printf("token: %s\n", shell->token[argc]);
-		argc++;
-		shell->token[argc] = ft_strtok(NULL, shell->delim);
-	}
-	printf("token: %s\n", shell->token[argc]);
-	printf("argc count: %d\n", argc);
-}
-
-void	ft_init_lex(t_shell *shell, char *input)
-{
-	init_shell(shell, input);
-	ft_token_init(shell);
 }

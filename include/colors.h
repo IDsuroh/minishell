@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/06 19:19:19 by suroh            ###   ########.fr       */
+/*   Created: 2025/01/08 22:56:52 by suroh             #+#    #+#             */
+/*   Updated: 2025/01/08 22:57:23 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef COLORS_H
+# define COLORS_H
 
-/*
- * Command Table / AST(Abstract Syntax Tree) / Parse Tree
- *
- * Parent Structure to store the Command Table
- */
-
-typedef struct s_cmd
-{
-	struct s_cmd	*next;
-	char			*command;
-	char			*infile;
-	char			*outfile;
-	char			**flags;
-	int				is_append;
-	int				is_background;
-}	t_cmd;
-
-typedef struct s_pipeline
-{
-	int		n_cmds;
-	t_cmd	**cmds;
-}	t_pipeline;
+# define RESET   "\033[0m"
+# define RED     "\033[31m"
+# define GREEN   "\033[32m"
+# define YELLOW  "\033[33m"
+# define BLUE    "\033[34m"
+# define MAGENTA "\033[35m"
+# define CYAN    "\033[36m"
+# define WHITE   "\033[37m"
 
 #endif

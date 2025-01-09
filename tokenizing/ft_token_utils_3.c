@@ -1,39 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_token_utils_3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/06 19:19:19 by suroh            ###   ########.fr       */
+/*   Created: 2025/01/09 16:50:30 by suroh             #+#    #+#             */
+/*   Updated: 2025/01/09 20:31:30 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "../include/minishell.h"
 
-/*
- * Command Table / AST(Abstract Syntax Tree) / Parse Tree
- *
- * Parent Structure to store the Command Table
- */
-
-typedef struct s_cmd
+char	*ft_strndup(const char *s, size_t n)
 {
-	struct s_cmd	*next;
-	char			*command;
-	char			*infile;
-	char			*outfile;
-	char			**flags;
-	int				is_append;
-	int				is_background;
-}	t_cmd;
+	char	*mem;
+	size_t	len;
 
-typedef struct s_pipeline
-{
-	int		n_cmds;
-	t_cmd	**cmds;
-}	t_pipeline;
-
-#endif
+	len = ft_strlen(s);
+	if (n < len)
+		len = n;
+	mem = malloc((len * sizeof(char)) + 1);
+	if (!mem)
+		return (NULL);
+	ft_memcpy(mem, s, len);
+	mem[len] = '\0';
+	return (mem);
+}
