@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 15:47:04 by suroh             #+#    #+#             */
-/*   Updated: 2024/11/12 19:15:33 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:43:09 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		ft_isprint(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_memcmp(const void *dest, const void *src, size_t n);
 int		ft_atoi(const char *nptr);
 size_t	ft_strlen(const char *str);
