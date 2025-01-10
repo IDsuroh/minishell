@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/09 22:30:35 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/10 16:53:32 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	main(int argc, char **argv, char **envp)
 				get_token_color(current->type), current->token_value, RESET,
 				get_token_color(current->type), token_type_to_string(current->type), RESET);
 			current = current->next;
+			free(current->prev->token_value);
+			free(current->prev);
 		}
 	}
 	return (0);
