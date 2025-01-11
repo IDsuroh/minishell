@@ -6,16 +6,14 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/09 16:57:11 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/10 15:27:42 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZING_H
 # define TOKENIZING_H
 
-/*
- * Structure to store the command and the tokens / Lexer tools
- */
+# include <stddef.h>
 
 typedef enum e_token_type
 {
@@ -58,5 +56,5 @@ void			ft_free_token_list(t_token_node *token_list);
 char			*ft_store_separator(char *token_start, char **input);
 
 //ft_token_utils_3.c
-
+char			*ft_strndup(const char *s, size_t n);
 #endif

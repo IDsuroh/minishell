@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 18:42:39 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/09 22:23:26 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/10 15:20:38 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	set_null_char(char **input, char *token_end)
 	}
 }
 
-static char	*return_before_separator(char *token_start, char *token_end,
+static char	*return_before_sep_quote(char *token_start, char *token_end,
 	char **input)
 {
 	char	*tmp;
@@ -55,10 +55,10 @@ char	*ft_strtok(char *str, const char *delim)
 		return (ft_store_separator(token_start, &input));
 	token_end = token_start;
 	while (*token_end && !ft_strchr(delim, *token_end)
-		&& !ft_is_separator(*token_end))
+		&& !ft_is_separator(*token_end) && !ft_is_quote(*token_end))
 		token_end++;
-	if (ft_is_separator(*token_end))
-		return (return_before_separator(token_start, token_end, &input));
+	if (ft_is_separator(*token_end) || ft_is_quote(*token_end))
+		return (return_before_sep_quote(token_start, token_end, &input));
 	set_null_char(&input, token_end);
 	return (token_start);
 }

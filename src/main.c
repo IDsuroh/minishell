@@ -6,12 +6,12 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/09 22:30:35 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/11 14:45:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "../include/colors.h"
+//#include "../include/colors.h"
 
 static const char *token_type_to_string(t_token_type type)
 {
@@ -31,7 +31,7 @@ static const char *token_type_to_string(t_token_type type)
 	}
 }
 
-static const char *get_token_color(t_token_type type)
+/*static const char *get_token_color(t_token_type type)
 {
 	switch (type)
 	{
@@ -47,7 +47,7 @@ static const char *get_token_color(t_token_type type)
 		case T_OR: return RED;             // Color for 'or' token
 		default: return RESET;             // Default color (reset to normal)
 	}
-}
+}*/
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -77,12 +77,18 @@ int	main(int argc, char **argv, char **envp)
 		current = token;
 		for (int i = 0; current != NULL ; i++)
 		{
-			printf("Token[%d]: %s%s%s, Type: %s%s%s\n",
+			/*printf("Token[%d]: %s%s%s, Type: %s%s%s\n",
 				i,
 				get_token_color(current->type), current->token_value, RESET,
-				get_token_color(current->type), token_type_to_string(current->type), RESET);
+				get_token_color(current->type), token_type_to_string(current->type), RESET);*/
+			printf("Token[%d]: %s, Type: %s\n",
+				i,
+				current->token_value,
+				token_type_to_string(current->type));
 			current = current->next;
 		}
+		ft_free_token_list(token);
+		ft_free_token_list(current);
 	}
 	return (0);
 }
