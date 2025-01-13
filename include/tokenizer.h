@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizing.h                                       :+:      :+:    :+:   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/10 15:27:42 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/12 23:45:19 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENIZING_H
-# define TOKENIZING_H
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
 
 # include <stddef.h>
 
@@ -23,38 +23,39 @@ typedef enum e_token_type
 	T_DLESS,
 	T_DGREAT,
 	T_PIPE,
-	T_OP_PAR,
-	T_CL_PAR,
 	T_AND,
 	T_OR,
+	T_VAR,
 }	t_token_type;
 
 typedef struct s_token_node
 {
-	struct s_token_node	*next;
-	struct s_token_node	*prev;
 	t_token_type		type;
 	char				*token_value;
 }	t_token_node;
 
-//ft_tokenizer.c
-void			ft_token_start(t_token_node *token_list);
-void			ft_init_node(t_token_node **current, t_token_node *token_list);
-void			ft_link_token(t_token_node *token_node, char **tmp, int *count);
-t_token_node	*ft_token_init(char *line, int *token_count);
-t_token_node	*ft_tokenizer(char *input);
+// tokenizer.c
+t_token_node	**tokenizer(char *input);
 
-//ft_token_utils.c
-char			*ft_strtok(char *str, const char *delim);
-int				ft_strtok_count(char *str, char *delim);
+// tokenizer_counters.c
+int				count_tokens(char *input);
 
-//ft_token_utils_2.c
-bool			ft_is_quote(char c);
-bool			ft_is_separator(char c);
-char			*ft_store_quote(char *token_start, char **input);
-void			ft_free_token_list(t_token_node *token_list);
-char			*ft_store_separator(char *token_start, char **input);
+// tokenizer_utils.c
+char			*ft_strtok_r(char *str, char **saveptr);
+char			**tokenize_input(char *input, int token_count);
 
-//ft_token_utils_3.c
+// tokenizer_helpers.c
 char			*ft_strndup(const char *s, size_t n);
+void			free_tokens(char **token_storage);
+void			free_node_list(t_token_node **node_list);
+
+// tokenizer_flags.c
+bool			is_quote(char c);
+bool			is_separator(char c);
+bool			is_delimiter(char c);
+bool			is_string(char c);
+
+// create_node_list.c
+t_token_node	**create_node_list(char **token_storage, int token_count);
+
 #endif

@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_utils_3.c                                 :+:      :+:    :+:   */
+/*   tokenizer_flags.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 16:50:30 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/09 20:31:30 by suroh            ###   ########.fr       */
+/*   Created: 2025/01/12 18:15:12 by suroh             #+#    #+#             */
+/*   Updated: 2025/01/12 18:15:28 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_strndup(const char *s, size_t n)
+bool	is_quote(char c)
 {
-	char	*mem;
-	size_t	len;
+	return (c == '\'' || c == '\"');
+}
 
-	len = ft_strlen(s);
-	if (n < len)
-		len = n;
-	mem = malloc((len * sizeof(char)) + 1);
-	if (!mem)
-		return (NULL);
-	ft_memcpy(mem, s, len);
-	mem[len] = '\0';
-	return (mem);
+bool	is_separator(char c)
+{
+	return (c == '|' || c == '>' || c == '<' || c == '&');
+}
+
+bool	is_delimiter(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n');
+}
+
+bool	is_string(char c)
+{
+	return (!is_quote(c) && !is_separator(c) && !is_delimiter(c));
 }

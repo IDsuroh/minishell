@@ -6,12 +6,12 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/11 15:01:31 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 00:01:46 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-//#include "../include/colors.h"
+#include "../include/colors.h"
 
 static const char *token_type_to_string(t_token_type type)
 {
@@ -23,15 +23,14 @@ static const char *token_type_to_string(t_token_type type)
 		case T_DLESS: return "T_DLESS";
 		case T_DGREAT: return "T_DGREAT";
 		case T_PIPE: return "T_PIPE";
-		case T_OP_PAR: return "T_OP_PAR";
-		case T_CL_PAR: return "T_CL_PAR";
 		case T_AND: return "T_AND";
 		case T_OR: return "T_OR";
+		case T_VAR: return "T_VAR";
 		default: return "UNKNOWN";
 	}
 }
 
-/*static const char *get_token_color(t_token_type type)
+static const char *get_token_color(t_token_type type)
 {
 	switch (type)
 	{
@@ -41,18 +40,16 @@ static const char *token_type_to_string(t_token_type type)
 		case T_DLESS: return MAGENTA;      // Color for 'double less than' token
 		case T_DGREAT: return MAGENTA;     // Color for 'double greater than' token
 		case T_PIPE: return CYAN;          // Color for pipe
-		case T_OP_PAR: return YELLOW;      // Color for opening parenthesis
-		case T_CL_PAR: return YELLOW;      // Color for closing parenthesis
 		case T_AND: return RED;            // Color for 'and' token
 		case T_OR: return RED;             // Color for 'or' token
+		case T_VAR: return YELLOW;         // Color for variable
 		default: return RESET;             // Default color (reset to normal)
 	}
-}*/
+}
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_token_node	*token;
-	t_token_node	*current;
+	t_token_node	**current;
 	char			*input;
 
 	((void)argc, (void)argv);
@@ -67,28 +64,20 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*input)
 			add_history(input);
-		token = ft_tokenizer(input);
-		if (!token)
-		{ 
-			free(input);
-			continue ;
-		}
+		current = tokenizer(input);
 		free(input);
-		current = token;
-		for (int i = 0; current != NULL ; i++)
+		for (int i = 0; current[i] != NULL ; i++)
 		{
-			/*printf("Token[%d]: %s%s%s, Type: %s%s%s\n",
+			printf("Token[%d]: %s%s%s, Type: %s%s%s\n",
 				i,
-				get_token_color(current->type), current->token_value, RESET,
-				get_token_color(current->type), token_type_to_string(current->type), RESET);*/
-			printf("Token[%d]: %s, Type: %s\n",
+				get_token_color(current[i]->type), current[i]->token_value, RESET,
+				get_token_color(current[i]->type), token_type_to_string(current[i]->type), RESET);
+			/*printf("Token[%d]: %s, Type: %s\n",
 				i,
 				current->token_value,
-				token_type_to_string(current->type));
-			current = current->next;
+				token_type_to_string(current->type));*/
 		}
-		ft_free_token_list(token);
-		ft_free_token_list(current);
+		free_node_list(current);
 	}
 	return (0);
 }

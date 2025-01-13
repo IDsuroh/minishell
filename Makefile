@@ -3,15 +3,17 @@ CC	=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g
 LDFLAGS	=	-lreadline
 
-TOKDIR	=	tokenizing
+TOKDIR	=	tokenizer
 SRCDIR	= 	src
 OBJDIR	= 	obj_dir
 
 SRC_SRCS	=	main.c signals.c
-TOK_SRCS	=	ft_token_init.c \
-			ft_token_utils_1.c \
-			ft_token_utils_2.c \
-			ft_token_utils_3.c
+TOK_SRCS	=	tokenizer.c \
+			tokenize_input.c \
+			tokenizer_counters.c \
+			tokenizer_flags.c \
+			tokenizer_helpers.c \
+			create_node_list.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(TOKDIR)/, $(TOK_SRCS))
