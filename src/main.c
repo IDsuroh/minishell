@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 00:01:46 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 18:41:52 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(input);
 		current = tokenizer(input);
 		free(input);
+		if (current == NULL)
+			continue ;
 		for (int i = 0; current[i] != NULL ; i++)
 		{
 			printf("Token[%d]: %s%s%s, Type: %s%s%s\n",

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:48:04 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 00:24:28 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 18:16:13 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	quote_counter(char **input, int *count)
 static void	separator_counter(char **input, int *count)
 {
 	(*count)++;
-	if (((*input)[1] && is_separator((*input)[1])))
+	if ((*input)[1] && (*input)[0] == (*input)[1])
 		(*input) += 2;
 	else
 		(*input) += 1;

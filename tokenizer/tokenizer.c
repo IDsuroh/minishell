@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:24:09 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/12 23:33:38 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 18:40:58 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token_node	**tokenizer(char *input)
 
 	token_count = 0;
 	token_storage = NULL;
-	if (!input || ft_strcmp(input, " \0") == 0)
+	if (!input && is_whitespace(input))
 		return (NULL);
 	token_count = count_tokens(input);
 	token_storage = tokenize_input(input, token_count);

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:43:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 10:10:34 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 18:28:23 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,5 +134,23 @@ char	**tokenize_input(char *input, int token_count)
 		token = ft_strtok_r(NULL, &saveptr);
 	}
 	token_storage[i] = NULL;
+	while (token != NULL)
+	{
+		free(token);
+		token = ft_strtok_r(NULL, &saveptr);
+	}
 	return (token_storage);
 }
+
+/*ft_strtok_r keeps an internal “state” (via saveptr), you need
+ * to keep calling it in order to retrieve all remaining tokens.
+ * Even though you’ve already decided not to store any more tokens
+ * (because you hit token_count), those extra tokens still exist
+ * in the input string.
+ * Each call to ft_strtok_r(NULL, &saveptr) returns the next token
+ * that was allocated internally (by store_string, store_quote, etc.).
+ * If you didn’t call ft_strtok_r(NULL, &saveptr) again in that
+ * leftover loop, you’d never get those extra pointers back—and
+ * thus would never have a chance to free them, causing a memory leak.
+ * For example, the last remaining '\0'.
+ */

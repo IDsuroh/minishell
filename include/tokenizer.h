@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/12 23:45:19 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 18:32:56 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ bool			is_quote(char c);
 bool			is_separator(char c);
 bool			is_delimiter(char c);
 bool			is_string(char c);
+bool			is_whitespace(const char *input);
 
 // create_node_list.c
 t_token_node	**create_node_list(char **token_storage, int token_count);
