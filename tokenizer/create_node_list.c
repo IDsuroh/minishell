@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:53:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 00:13:32 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 19:05:59 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	append_token_type(char *token_storage)
 		return (T_AND);
 	else if (ft_strcmp(token_storage, "$") == 0)
 		return (T_VAR);
+	else if (ft_strcmp(token_storage, "$?") == 0)
+		return (T_XVAR);
 	else
 		return (T_IDENTIFIER);
 }

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 18:32:56 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/13 19:02:48 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum e_token_type
 	T_AND,
 	T_OR,
 	T_VAR,
+	T_XVAR,
 }	t_token_type;
 
 typedef struct s_token_node
@@ -49,12 +50,15 @@ char			*ft_strndup(const char *s, size_t n);
 void			free_tokens(char **token_storage);
 void			free_node_list(t_token_node **node_list);
 
-// tokenizer_flags.c
+// tokenizer_flags_1.c
 bool			is_quote(char c);
 bool			is_separator(char c);
 bool			is_delimiter(char c);
 bool			is_string(char c);
 bool			is_whitespace(const char *input);
+
+// tokenizer_flags_2.c
+bool			is_same_char(char c1, char c2);
 
 // create_node_list.c
 t_token_node	**create_node_list(char **token_storage, int token_count);

@@ -11,7 +11,8 @@ SRC_SRCS	=	main.c signals.c
 TOK_SRCS	=	tokenizer.c \
 			tokenize_input.c \
 			tokenizer_counters.c \
-			tokenizer_flags.c \
+			tokenizer_flags_1.c \
+			tokenizer_flags_2.c \
 			tokenizer_helpers.c \
 			create_node_list.c
 
