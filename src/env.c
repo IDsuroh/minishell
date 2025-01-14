@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:42:03 by miteixei          #+#    #+#             */
-/*   Updated: 2025/01/10 19:46:06 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:20:36 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,22 @@ bool	var_exists(char *arg, char **var_list)
 {
 	while (*var_list)
 	{
-		if (!ft_strcmp(*var_list, arg) && *var_list[ft_strlen(arg)] == '=')
+		if (!ft_strncmp(*var_list, arg, ft_strlen(arg))
+			&& *var_list[ft_strlen(arg)] == '=')
+			return (true);
+		++var_list;
+	}
+	return (false);
+}
+
+void	var_is_diff(char *arg, char **var_list)
+{
+	while (*var_list)
+	{
+		if (!ft_strncmp(*var_list, arg, ft_strlen(arg))
+			&& *var_list[ft_strlen(arg)] == '='
+			&& ft_strcmp(&(*var_list[ft_strchr(*var_list, '=') + 1]),
+				&(arg[ft_strchr(arg, '=') + 1])))
 			return (true);
 		++var_list;
 	}
@@ -67,7 +82,8 @@ void	rem_var(char *arg, char ***var_struct)
 	i = 0;
 	while (*old_var)
 	{
-		if (ft_strncmp(*old_var, arg, ft_strlen(arg)) && *old_var[ft_strlen(arg)] == '=')
+		if (ft_strncmp(*old_var, arg, ft_strlen(arg))
+			&& *old_var[ft_strlen(arg)] == '=')
 			new_var[i++] = ft_strdup(*old_var);
 		++old_var;
 	}
@@ -84,7 +100,7 @@ void	add_var(char *arg, char ***var_struct)
 	char	**new_var;
 	size_t	i;
 
-	if (!var_exists(arg, var_struct))
+	if (var_exists(arg, var_struct) && !var_is_diff(arg, var_struct))
 		return ;
 	old_var = *var_struct;
 	new_var = old_var;
@@ -96,7 +112,8 @@ void	add_var(char *arg, char ***var_struct)
 	{
 		if (ft_strncmp(*old_var, arg, ft_strlen(arg)))
 			new_var[i++] = ft_strdup(*old_var);
-		else if ();
+		else if ()
+			;
 		++old_var;
 	}
 	new_var[i] = NULL;
