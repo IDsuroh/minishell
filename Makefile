@@ -11,9 +11,12 @@ SRC_SRCS	=	main.c signals.c
 TOK_SRCS	=	tokenizer.c \
 			tokenize_input.c \
 			tokenizer_counters.c \
+			counter_helpers.c \
 			tokenizer_flags_1.c \
 			tokenizer_flags_2.c \
 			tokenizer_helpers.c \
+			storage_logic.c \
+			env_storage_helper.c \
 			create_node_list.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \

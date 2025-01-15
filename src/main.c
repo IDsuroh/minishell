@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 18:41:52 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/15 21:18:07 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static const char *token_type_to_string(t_token_type type)
 		case T_AND: return "T_AND";
 		case T_OR: return "T_OR";
 		case T_VAR: return "T_VAR";
+		case T_XVAR: return "T_XVAR";
+		case T_PID: return "T_PID";
 		default: return "UNKNOWN";
 	}
 }
@@ -34,15 +36,17 @@ static const char *get_token_color(t_token_type type)
 {
 	switch (type)
 	{
-		case T_IDENTIFIER: return GREEN;    // You can choose any color for identifier
-		case T_LESS: return BLUE;          // Color for 'less than' token
-		case T_GREAT: return BLUE;         // Color for 'greater than' token
-		case T_DLESS: return MAGENTA;      // Color for 'double less than' token
-		case T_DGREAT: return MAGENTA;     // Color for 'double greater than' token
-		case T_PIPE: return CYAN;          // Color for pipe
-		case T_AND: return RED;            // Color for 'and' token
-		case T_OR: return RED;             // Color for 'or' token
-		case T_VAR: return YELLOW;         // Color for variable
+		case T_IDENTIFIER: return ID;    // You can choose any color for identifier
+		case T_LESS: return LSS;          // Color for 'less than' token
+		case T_GREAT: return GRT;         // Color for 'greater than' token
+		case T_DLESS: return DLSS;      // Color for 'double less than' token
+		case T_DGREAT: return DGRT;     // Color for 'double greater than' token
+		case T_PIPE: return PP;          // Color for pipe
+		case T_AND: return ND;            // Color for 'and' token
+		case T_OR: return OR;             // Color for 'or' token
+		case T_VAR: return VR;         // Color for variable
+		case T_XVAR: return XVR;        // Color for environment pointer variable
+		case T_PID: return PD;         // Color for process id variable
 		default: return RESET;             // Default color (reset to normal)
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:53:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 19:05:59 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/15 21:21:38 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	append_token_type(char *token_storage)
 {
-	if (!token_storage)
-		return (T_IDENTIFIER);
 	if (ft_strcmp(token_storage, "|") == 0)
 		return (T_PIPE);
 	else if (ft_strcmp(token_storage, "||") == 0)
@@ -30,15 +28,17 @@ static int	append_token_type(char *token_storage)
 		return (T_DLESS);
 	else if (ft_strcmp(token_storage, "&&") == 0)
 		return (T_AND);
-	else if (ft_strcmp(token_storage, "$") == 0)
-		return (T_VAR);
+	else if (ft_strcmp(token_storage, "$$") == 0)
+		return (T_PID);
 	else if (ft_strcmp(token_storage, "$?") == 0)
 		return (T_XVAR);
+	else if (ft_strchr(token_storage, '$'))
+		return (T_VAR);
 	else
 		return (T_IDENTIFIER);
 }
 
-static char	*append_token_value(char *token_storage)
+/*static char	*append_token_value(char *token_storage)
 {
 	char	*token_value;
 	int		i;
@@ -59,7 +59,7 @@ static char	*append_token_value(char *token_storage)
 	}
 	token_value[i] = '\0';
 	return (token_value);
-}
+}*/
 
 t_token_node	**create_node_list(char **token_storage, int token_count)
 {
@@ -79,7 +79,8 @@ t_token_node	**create_node_list(char **token_storage, int token_count)
 				free_node_list(node_list);
 			return (NULL);
 		}
-		node_list[i]->token_value = append_token_value(token_storage[i]);
+		node_list[i]->token_value = token_storage[i];
+//		node_list[i]->token_value = append_token_value(token_storage[i]);
 		node_list[i]->type = append_token_type(token_storage[i]);
 		i++;
 	}
