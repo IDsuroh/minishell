@@ -18,8 +18,8 @@ void	terminal_interrupt(void)
 {
 	if (g_signal == SIGINT)
 	{
-		rl_replace_line("", 0);
 		ft_putchar_fd('\n', 1);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 		g_signal = 0;

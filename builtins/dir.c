@@ -16,15 +16,14 @@ void	_pwd(void)
 {
 	char	*buff;
 
-	buff = malloc(1000 * sizeof(char));
-	getcwd(buff, 1000);
+	buff = NULL;
+	buff = getcwd(buff, 0);
 	if (buff)
 		ft_putstr_fd(buff, 1);
-	free(buff);
 }
-//
-//int	main(void)
-//{
-//	_cd("..");
-//	_pwd();
-//}
+
+int	main(void)
+{
+	_cd("/bin");
+	_pwd();
+}
