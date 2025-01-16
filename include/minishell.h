@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/12 18:34:15 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 16:51:31 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,5 @@
 # include "./tokenizer.h"
 
 extern volatile int	g_signal;
-
-/* Custom Replica Functions */
-char	*ft_strndup(const char *s, size_t n);
 
 #endif

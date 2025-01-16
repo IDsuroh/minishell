@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:43:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/15 00:08:10 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:39:19 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,20 @@ char	**tokenize_input(char *input, int token_count)
  * caused by reading beyond the last valid token.
  * ft_calloc is a good way to do this, because it allocates memory and zeros it.
  */
+
+//The tokenize_input function stores the tokens in an array of strings.
+//the function utilizes the ft_strtok_r function to extract the tokens from
+//the input string.
+//It is allocation memory using ft_calloc() which is a custom function in
+//the "libft" library, which is an allocation method that zeroes out the memory.
+//	read the IMPORTANT note above for more details.
+//The function returns the token_storage array of strings.
+//
+//extract_token:	extract_token(token_start, token_end, saveptr)
+//	- Extracts the token from the input string.
+//	- The function categorizes the token by the flags and stores
+//		the token in a string.
+//	- Works with the logic similar to the counter functions.
+//	- The function returns the token.
+//
+//next file to read: storage_logic.c

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:24:09 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/15 21:24:17 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:39:54 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,23 @@ t_token_node	**tokenizer(char *input)
 	token_count = count_tokens(input);
 	token_storage = tokenize_input(input, token_count);
 	tokens_list = create_node_list(token_storage, token_count);
-//	free_tokens(token_storage);
 	free(token_storage);
 	return (tokens_list);
 }
+
+//The start of the Tokenizer process: Custom Lexer Program.
+//					AKA Lexical Analyzer.
+//token_count:	count_tokens(input)
+//	- Count the number of tokens in the input string.
+//
+//token_storage:	tokenize_input(input, token_count)
+//	- Store the tokens in an array of strings.
+//
+//tokens_list:	create_node_list(token_storage, token_count)
+//	- Store the tokens in a double pointer array of t_token_node structs.
+//	- Each t_token_node struct contains a token string and a token type.
+//
+//The function returns the tokens_list.
+//
+//The flags and the helper functions will not be explained
+//	due to the simplicity.

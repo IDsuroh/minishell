@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:48:04 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/14 21:06:24 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:38:27 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,17 @@ int	count_tokens(char *input)
 	}
 	return (count);
 }
+
+//The count tokens function counts the number of tokens in the input string.
+//The purpose of counting beforehand is to utilize the count of tokens to
+//iterate though the input string and store the tokens in an array of strings,
+//which will help the function ft_strtok_r go through the input.
+//The function returns the number of tokens which are categorized by the flags.
+//
+//quotes: ', "
+//separators: |, >, <, &
+//variables: $
+//fake variables: $(with whitespaces)
+//delimiters: whitespaces, tabs, newlines
+//
+//next file to read: counter_helpers.c
