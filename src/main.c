@@ -58,9 +58,11 @@ int	main(int argc, char **argv, char **envp)
 
 	((void)argc, (void)argv);
 	(void)envp;
+	init_signals();
 	while (1)
 	{
 		input = readline("minishell$ ");
+		terminal_interrupt();
 		if (input == NULL)
 		{
 			printf("exit\n");
