@@ -33,7 +33,23 @@
 
 extern volatile int	g_signal;
 
+typedef struct s_var_list
+{
+	char				*key;
+	char				*value;
+	struct s_var_list	*next;
+}	t_var_list;
+
+typedef struct s_list_header
+{
+	void	*head;
+	void	*tail;
+	int		size;
+}	t_list_header;
+
 /* Custom Replica Functions */
 char	*ft_strndup(const char *s, size_t n);
 
+void	init_signals(void);
+void	terminal_interrupt(void);
 #endif
