@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/12 18:34:15 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 18:18:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_list_header
 	int		size;
 }	t_list_header;
 
-/* Custom Replica Functions */
 char	*ft_strndup(const char *s, size_t n);
 
 void	init_signals(void);

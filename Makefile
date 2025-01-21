@@ -4,6 +4,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g
 LDFLAGS	=	-lreadline
 
 TOKDIR	=	tokenizer
+PARDIR	=	parser
 SRCDIR	= 	src
 OBJDIR	= 	obj_dir
 
@@ -18,11 +19,14 @@ TOK_SRCS	=	tokenizer.c \
 			storage_logic.c \
 			env_storage_helper.c \
 			create_node_list.c
+PAR_SRCS	=	parser.c \
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
-		$(addprefix $(TOKDIR)/, $(TOK_SRCS))
+		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \
+		$(addprefix $(PARDIR)/, $(PAR_SRCS))
 OBJS	= 	$(addprefix $(OBJDIR)/, $(SRC_SRCS:.c=.o)) \
-		$(addprefix $(OBJDIR)/, $(TOK_SRCS:.c=.o))
+		$(addprefix $(OBJDIR)/, $(TOK_SRCS:.c=.o)) \
+		$(addprefix $(OBJDIR)/, $(PAR_SRCS:.c=.o))
 LIB	=	./include/libft/
 LIBFT	=	./include/libft/libft.a
 

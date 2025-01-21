@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:53:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/15 21:21:38 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:35:52 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,37 @@ static int	append_token_type(char *token_storage)
 		return (T_IDENTIFIER);
 }
 
+t_token_node	**create_node_list(char **token_storage, int token_count)
+{
+	t_token_node	**node_list;
+	int				i;
+
+	node_list = malloc(sizeof(t_token_node *) * (token_count + 1));
+	if (!node_list)
+		return (NULL);
+	i = 0;
+	while (i < token_count)
+	{
+		node_list[i] = malloc(sizeof(t_token_node));
+		if (!node_list[i])
+		{
+			if (i > 0)
+				free_node_list(node_list);
+			return (NULL);
+		}
+		node_list[i]->token_value = token_storage[i];
+		node_list[i]->type = append_token_type(token_storage[i]);
+		i++;
+	}
+	node_list[i] = NULL;
+	return (node_list);
+}
+
+//The create_node_list function creates a double pointer array of
+//t_token_node structs. Which will contain the tokens and the types.
+//
+//next to read: go back to: tokenizer.c
+
 /*static char	*append_token_value(char *token_storage)
 {
 	char	*token_value;
@@ -60,30 +91,3 @@ static int	append_token_type(char *token_storage)
 	token_value[i] = '\0';
 	return (token_value);
 }*/
-
-t_token_node	**create_node_list(char **token_storage, int token_count)
-{
-	t_token_node	**node_list;
-	int				i;
-
-	node_list = malloc(sizeof(t_token_node *) * (token_count + 1));
-	if (!node_list)
-		return (NULL);
-	i = 0;
-	while (i < token_count)
-	{
-		node_list[i] = malloc(sizeof(t_token_node));
-		if (!node_list[i])
-		{
-			if (i > 0)
-				free_node_list(node_list);
-			return (NULL);
-		}
-		node_list[i]->token_value = token_storage[i];
-//		node_list[i]->token_value = append_token_value(token_storage[i]);
-		node_list[i]->type = append_token_type(token_storage[i]);
-		i++;
-	}
-	node_list[i] = NULL;
-	return (node_list);
-}

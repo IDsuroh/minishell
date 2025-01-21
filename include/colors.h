@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:56:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/15 21:38:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 16:51:48 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@
 #define VR     "\033[38;5;226m"   // Yellow for variables
 #define XVR    "\033[38;5;229m"   // Light yellow for special variables ($?)
 #define PD     "\033[38;5;45m"    // Blue for $$ (process ID)
-
 
 #endif

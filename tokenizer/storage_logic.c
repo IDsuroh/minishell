@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:07 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/15 20:40:48 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/16 17:37:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,3 +140,32 @@ char	*store_string(char *token_start, char *token_end, char **saveptr)
 	*saveptr = token_end;
 	return (token);
 }
+
+//All of these functions return token and saves the next part of
+//the input string to saveptr. The token is stored in a string and
+//returned to the tokenize_input function.
+//
+//store_quote:		' or "
+//	- Any string the starts with a quote and ends with
+//		a quote or a '\0'.
+//
+//store_separator:	|, >, <, &
+//	- Any string that is a separator or a double separator.
+//
+//store_var:		$
+//	- Any string that starts with a $ and ends with a separator
+//		or a delimiter.
+//	- If the string is $? or $$, the token will be 3 characters
+//		long with a '\0'.
+//
+//store_string:
+//	- Any string that is not a quote, separator, variable,
+//		that ends with a delimiter, a quote, a separator, a variable.
+//
+//store_fake_var:	$ (with whitespaces) content
+//	- Any string that starts with a $ and continued by multiple or
+//		single whitespaces then ends with a separator or a '\0'.
+//	- This function needs a lot of other helper functions due to
+//		the complexity of the category "fake variable".
+//
+//next file to read: env_storage_helpers.c
