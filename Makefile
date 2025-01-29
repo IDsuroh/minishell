@@ -20,6 +20,12 @@ TOK_SRCS	=	tokenizer.c \
 			env_storage_helper.c \
 			create_node_list.c
 PAR_SRCS	=	parser.c \
+			token_access.c \
+			initiators.c \
+			parse_pipeline.c \
+			parse_command.c \
+			parser_helpers.c \
+			sequence_appenders.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \
@@ -37,6 +43,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(OBJDIR)/%.o: $(TOKDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+
+$(OBJDIR)/%.o: $(PARDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 

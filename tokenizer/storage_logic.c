@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:07 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/16 17:37:47 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/18 20:51:55 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*store_quote(char *token_start, char *token_end, char **saveptr)
 	token = (char *)malloc(sizeof(char) * (i + 1));
 	if (!token)
 		return (NULL);
-	ft_strlcpy(token, token_start, i);
+	ft_strlcpy(token, token_start, i + 1);
 	*saveptr = token_end;
 	return (token);
 }

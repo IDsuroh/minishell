@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   token_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/06 19:19:19 by suroh            ###   ########.fr       */
+/*   Created: 2025/01/21 16:09:46 by suroh             #+#    #+#             */
+/*   Updated: 2025/01/29 14:42:54 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "../include/minishell.h"
 
-/*
- * Command Table / AST(Abstract Syntax Tree) / Parse Tree
- *
- * Parent Structure to store the Command Table
- */
-
-typedef struct s_cmd
+t_token_node	*get_current_token(t_parser *parser)
 {
-	struct s_cmd	*next;
-	char			*command;
-	char			*infile;
-	char			*outfile;
-	char			**flags;
-	int				is_append;
-	int				is_background;
-}	t_cmd;
+	if (parser->tokens[parser->cur_idx] == NULL)
+		return (NULL);
+	return (parser->tokens[parser->cur_idx]);
+}
 
-typedef struct s_pipeline
+void	advance_token(t_parser *parser)
 {
-	int		n_cmds;
-	t_cmd	**cmds;
-}	t_pipeline;
-
-#endif
+	if (parser->tokens[parser->cur_idx] != NULL)
+		parser->cur_idx++;
+}

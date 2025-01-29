@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/16 18:18:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/21 15:45:28 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include <sys/wait.h>
 # include <limits.h>
 # include <unistd.h>
-# include "./parsing.h"
 # include "./tokenizer.h"
+# include "./parser.h"
 
 extern volatile int	g_signal;
 
