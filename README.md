@@ -3,13 +3,7 @@
 
 ❯ ./minishell
 
-minishell$ hello || hello
-Command #0:
-	\tPipe #0:
-		\t\tArgument #0: hello
-Command #1:
-	Pipe #0:
-		Argument #0: hello
+<pre> ```sh minishell$ hello || hello Command #0: Pipe #0: Argument #0: hello Command #1: Pipe #0: Argument #0: hello ``` </pre>
 
 minishell$ hello || hello || hello
 Command #0:
