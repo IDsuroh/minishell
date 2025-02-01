@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 22:49:29 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/29 17:42:17 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/30 21:27:45 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ void	free_pipeline(t_pipe_sequence *pipeline)
 		}
 		free(pipeline);
 		pipeline = tmp_seq;
+	}
+}
+
+void	free_op_sequence(t_op_sequence *op_sequence)
+{
+	t_op_sequence	*tmp_seq;
+
+	while (op_sequence)
+	{
+		tmp_seq = op_sequence->next;
+		if (op_sequence->pipe)
+			free_pipeline(op_sequence->pipe);
+		free(op_sequence);
+		op_sequence = tmp_seq;
 	}
 }
 

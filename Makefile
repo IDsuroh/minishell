@@ -20,12 +20,13 @@ TOK_SRCS	=	tokenizer.c \
 			env_storage_helper.c \
 			create_node_list.c
 PAR_SRCS	=	parser.c \
-			token_access.c \
-			initiators.c \
+			parse_operators.c \
 			parse_pipeline.c \
 			parse_command.c \
 			parser_helpers.c \
-			sequence_appenders.c
+			sequence_appenders.c \
+			initiators.c \
+			token_access.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \

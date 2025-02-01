@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/29 19:19:20 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/31 17:58:06 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static const char *token_type_to_string(t_token_type type)
 {
 	switch (type)
 	{
+		case T_NONE: return "T_NONE";
 		case T_IDENTIFIER: return "T_IDENTIFIER";
 		case T_LESS: return "T_LESS";
 		case T_GREAT: return "T_GREAT";
@@ -37,6 +38,7 @@ static const char *get_token_color(t_token_type type)
 {
 	switch (type)
 	{
+		case T_NONE: return RESET;        // Default color (reset to normal)
 		case T_IDENTIFIER: return ID;    // You can choose any color for identifier
 		case T_LESS: return LSS;          // Color for 'less than' token
 		case T_GREAT: return GRT;         // Color for 'greater than' token
@@ -55,13 +57,14 @@ static const char *get_token_color(t_token_type type)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipe_sequence	*tmp_seq;
-	t_pipe_sequence	*head_seq;
+	t_op_sequence	*tmp_seq;
+	t_op_sequence	*head_seq;
 	t_token_node	**current;
 	t_redir		*redir;
-//	t_operator	*operator;
 	char			*input;
 	int				cmd_idx;
+	int				i;
+	int				j;
 
 	((void)argc, (void)argv);
 	(void)envp;
@@ -87,28 +90,33 @@ int	main(int argc, char **argv, char **envp)
 		while (tmp_seq)
 		{
 			printf("Command #%d:\n", cmd_idx);
-			if (tmp_seq->cmd && tmp_seq->cmd->argv)
+			i = 0;
+			while (tmp_seq->pipe)
 			{
-				for (int i = 0; tmp_seq->cmd->argv[i]; i++)
-					printf("  Arg[%d]: %s\n", i, tmp_seq->cmd->argv[i]);
-				redir = tmp_seq->cmd->redir;
-				while (redir)
+				printf("\tPipe #%d:\n", i);
+				if (tmp_seq->pipe->cmd && tmp_seq->pipe->cmd->argv)
 				{
-					printf("  Redirection: type=%d -> %s\n",
-							redir->type, redir->filename);
-					redir = redir->next;
+					j = 0;
+					while (tmp_seq->pipe->cmd->argv[j])
+					{	
+						printf("\t\tArgument #%d: %s\n", j, tmp_seq->pipe->cmd->argv[j]);
+						j++;
+					}
+					redir = tmp_seq->pipe->cmd->redir;
+					while (redir)
+					{
+						printf("\t\tRedir: type = %d to %s\n",
+								redir->type, redir->filename);
+						redir = redir->next;
+					}
 				}
-				/*operator = tmp_seq->cmd->op;
-				while (operator)
-				{
-					printf("  Operator: type=%d\n", operator->type);
-					operator = operator->next;
-				}*/
+				tmp_seq->pipe = tmp_seq->pipe->next;
+				i++;
 			}
 			tmp_seq = tmp_seq->next;
 			cmd_idx++;
 		}
-		free_pipeline(head_seq);
+		free_op_sequence(head_seq);
 		free_node_list(current);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:21:58 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/29 17:47:38 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/01 22:36:23 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static bool	pipe_error_checker(t_parser *parser)
 	{
 		advance_token(parser);
 		token = get_current_token(parser);
-		if (!token)
+		if (!token || token->type == T_PIPE)
 		{
-			parser->error = true;
+			parser->incomp_error = true;
 			return (false);
 		}
 		return (true);
@@ -54,25 +54,42 @@ static t_pipe_sequence	*add_cmd_to_pipeline(t_pipe_sequence *head,
 
 t_pipe_sequence	*parse_pipeline(t_parser *parser)
 {
-	t_pipe_sequence		*head;
+	t_pipe_sequence		*pipe;
 	t_simple_cmd		*cmd;
+	t_token_node		*token;
 
-	head = NULL;
+	pipe = NULL;
 	while (1)
 	{
 		cmd = parse_command(parser);
 		if (!cmd)
 			break ;
-		head = add_cmd_to_pipeline(head, cmd);
-		if (!head)
+		pipe = add_cmd_to_pipeline(pipe, cmd);
+		if (!pipe)
 			break ;
 		if (!pipe_error_checker(parser))
 			break ;
+		token = get_next_token(parser);
+		if (token && (token->type == T_AND || token->type == T_OR))
+			break ;
 	}
-	return (head);
+	return (pipe);
 }
 
 /*
+ * It will parse a pipeline.
+ * A pipe structure which looks like this;
+ * 	
+ * 	typedef struct	s_pipe_sequence
+ *	{
+ *		t_simple_cmd				*cmd;
+ *		struct s_pipe_sequence		*next;
+ *	}	t_pipe_sequence;
+ *
+ * It will return a pointer to the head of the pipeline.
+ * Which will be the last of the linked list.
+ *
+ *
  * t_pipe_sequence *parse_pipeline(t_parser *parser)
  *
  * 	t_pipe_sequence *head = NULL; – The start of the pipeline linked list.

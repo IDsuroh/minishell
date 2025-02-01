@@ -6,11 +6,23 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:21:35 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/29 19:16:49 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/01 21:35:40 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+t_op_sequence	*malloc_t_op_sequence(void)
+{
+	t_op_sequence	*new_node;
+
+	new_node = (t_op_sequence *)malloc(sizeof(t_op_sequence));
+	if (!new_node)
+		return (NULL);
+	new_node->pipe = NULL;
+	new_node->next = NULL;
+	return (new_node);
+}
 
 t_pipe_sequence	*malloc_t_pipe_sequence(void)
 {
