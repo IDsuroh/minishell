@@ -1,5 +1,9 @@
+# Minishell Project
 
+```sh
 ***********Correct errors first
+
+## Command Output Examples
 
 ❯ ./minishell
 
