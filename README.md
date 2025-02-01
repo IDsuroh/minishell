@@ -5,8 +5,8 @@
 
 minishell$ hello || hello
 Command #0:
-	Pipe #0:
-		Argument #0: hello
+	\tPipe #0:
+		\t\tArgument #0: hello
 Command #1:
 	Pipe #0:
 		Argument #0: hello
