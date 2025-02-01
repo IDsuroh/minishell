@@ -33,7 +33,9 @@ Command #0:
 Command #1:
 	Pipe #0:
 		Argument #0: hello
-  
+
+Problematic Parts;
+
 minishell$ hello | hello ||
 Command #0:
 	Pipe #0:
