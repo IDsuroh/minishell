@@ -20,8 +20,8 @@ TOK_SRCS	=	tokenizer.c \
 			env_storage_helper.c \
 			create_node_list.c
 PAR_SRCS	=	parser.c \
-			parse_operators.c \
-			parse_pipeline.c \
+			parse_sequence.c \
+			parse_pipe_sequence.c \
 			parse_command.c \
 			parser_helpers.c \
 			sequence_appenders.c \

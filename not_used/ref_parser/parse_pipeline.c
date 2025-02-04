@@ -6,13 +6,13 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:21:58 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/01 22:36:23 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/04 22:06:48 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static bool	pipe_error_checker(t_parser *parser)
+/*static bool	pipe_error_checker(t_parser *parser)
 {
 	t_token_node	*token;
 
@@ -30,7 +30,7 @@ static bool	pipe_error_checker(t_parser *parser)
 	}
 	else
 		return (false);
-}
+}*/
 
 static t_pipe_sequence	*add_cmd_to_pipeline(t_pipe_sequence *head,
 		t_simple_cmd *cmd)
@@ -67,8 +67,8 @@ t_pipe_sequence	*parse_pipeline(t_parser *parser)
 		pipe = add_cmd_to_pipeline(pipe, cmd);
 		if (!pipe)
 			break ;
-		if (!pipe_error_checker(parser))
-			break ;
+//		if (!pipe_error_checker(parser))
+//			break ;
 		token = get_next_token(parser);
 		if (token && (token->type == T_AND || token->type == T_OR))
 			break ;

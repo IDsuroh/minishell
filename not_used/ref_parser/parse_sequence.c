@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_operators.c                                  :+:      :+:    :+:   */
+/*   parse_sequence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 19:43:06 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/01 23:20:39 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/04 22:06:22 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static bool	consecutive_op_checker(t_parser *parser)
+/*static bool	consecutive_op_checker(t_parser *parser)
 {
 	t_token_node	*cur;
 	t_token_node	*next;
@@ -48,58 +48,65 @@ static bool	incomplete_input_checker(t_parser *parser)
 	{
 		advance_token(parser);
 		token = get_current_token(parser);
-		if (!token || sequence_is_incomplete(token))
-		{	
-			parser->incomp_error = true;
-			return (false);
-		}
 		if (consecutive_op_checker(parser))
 		{
 			parser->consec_error = true;
 			return (false);
 		}
-		return (true);
+		if (!token || sequence_is_incomplete(token))
+		{	
+			parser->incomp_error = true;
+			return (false);
+		}
 	}
 	else
 		return (false);
-}
+}*/
 
-static	t_op_sequence	*add_pipe_to_seq(t_op_sequence *ops,
+static	t_op_sequence	*add_pipe_to_seq(t_op_sequence *move_seq,
 		t_pipe_sequence *pipe)
 {
-	t_op_sequence	*new_node;
+	t_op_sequence	*new_seq;
 	t_op_sequence	*tmp;
 
-	new_node = malloc_t_op_sequence();
-	if (!new_node)
-		return (ops);
-	new_node->pipe = pipe;
-	new_node->next = NULL;
-	if (!ops)
-		return (new_node);
-	tmp = ops;
+	new_seq = malloc_t_op_sequence();
+	if (!new_seq)
+		return (move_seq);
+	new_seq->pipe = pipe;
+	new_seq->next = NULL;
+	if (!move_seq)
+		return (new_seq);
+	tmp = move_seq;
 	while (tmp->next)
 		tmp = tmp->next;
-	tmp->next = new_node;
-	return (ops);
+	tmp->next = new_seq;
+	return (move_seq);
 }
 
-t_op_sequence	*parse_operators(t_parser *parser)
+t_op_sequence	*parse_sequence(t_parser *parser)
 {
-	t_op_sequence		*ops;
+	t_op_sequence		*start_seq;
+	t_op_sequence		*move_seq;
 	t_pipe_sequence		*pipe;
+	t_token_node		*token;
 
-	ops = NULL;
+	start_seq = NULL;
+	move_seq = start_seq;
+	token = get_current_token(parser);
 	while (1)
 	{
 		pipe = parse_pipeline(parser);
 		if (!pipe)
 			break ;
-		ops = add_pipe_to_seq(ops, pipe);
-		if (!ops)
+		move_seq = add_pipe_to_seq(move_seq, pipe);
+		if (!move_seq)
 			break ;
-		if (!incomplete_input_checker(parser))
+//		if (!incomplete_input_checker(parser))
+//			break ;
+		advance_token(parser);
+		token = get_current_token(parser);
+		if (!token)
 			break ;
 	}
-	return (ops);
+	return (move_seq);
 }
