@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/05 14:24:50 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/05 21:10:51 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ typedef struct s_parser
 	bool			pipe_open;
 	bool			cmdand_open;
 	bool			cmdor_open;
-	bool			consec_error;
-	bool			redir_error;
 }	t_parser;
 
 // token_access.c
@@ -67,7 +65,8 @@ t_redir				*malloc_t_redir(t_token_type type, char *filename);
 t_simple_cmd		*parse_command(t_parser *parser, t_token_node **token);
 
 // parse_pipe_sequence.c
-t_pipe_sequence		*parse_pipe_sequence(t_parser *parser, t_token_node **token);
+t_pipe_sequence		*parse_pipe_sequence(t_parser *parser,
+						t_token_node **token);
 
 // parse_sequence.c
 t_op_sequence		*parse_sequence(t_parser *parser, t_token_node **token);
@@ -79,4 +78,5 @@ void				free_op_sequence(t_op_sequence *op_sequence);
 
 // parser.c
 t_op_sequence		*parse_tokens(t_token_node **tokens);
+
 #endif

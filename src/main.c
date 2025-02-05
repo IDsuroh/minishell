@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/31 17:58:06 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/05 21:41:28 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ int	main(int argc, char **argv, char **envp)
 			add_history(input);
 		current = tokenizer(input);
 		free(input);
+//		if (exists_error(current))
+//		{
+//			free_node_list(current);
+//			continue ;
+//		}
 		if (current == NULL)
 			continue ;
 		tmp_seq = parse_tokens(current);

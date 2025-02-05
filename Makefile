@@ -6,9 +6,12 @@ LDFLAGS	=	-lreadline
 TOKDIR	=	tokenizer
 PARDIR	=	parser
 SRCDIR	= 	src
+ERRDIR	=	error_check
+
 OBJDIR	= 	obj_dir
 
 SRC_SRCS	=	main.c signals.c
+
 TOK_SRCS	=	tokenizer.c \
 			tokenize_input.c \
 			tokenizer_counters.c \
@@ -19,20 +22,27 @@ TOK_SRCS	=	tokenizer.c \
 			storage_logic.c \
 			env_storage_helper.c \
 			create_node_list.c
+
 PAR_SRCS	=	parser.c \
 			parse_sequence.c \
 			parse_pipe_sequence.c \
 			parse_command.c \
 			parser_helpers.c \
 			initiators.c \
-			token_access.c
+			token_access.c \
+
+ERR_SRCS	=	error_check.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \
-		$(addprefix $(PARDIR)/, $(PAR_SRCS))
+		$(addprefix $(PARDIR)/, $(PAR_SRCS)) \
+		$(addprefix $(ERRDIR)/, $(ERR_SRCS))
+
 OBJS	= 	$(addprefix $(OBJDIR)/, $(SRC_SRCS:.c=.o)) \
 		$(addprefix $(OBJDIR)/, $(TOK_SRCS:.c=.o)) \
-		$(addprefix $(OBJDIR)/, $(PAR_SRCS:.c=.o))
+		$(addprefix $(OBJDIR)/, $(PAR_SRCS:.c=.o)) \
+		$(addprefix $(OBJDIR)/, $(ERR_SRCS:.c=.o))
+
 LIB	=	./include/libft/
 LIBFT	=	./include/libft/libft.a
 
@@ -47,6 +57,10 @@ $(OBJDIR)/%.o: $(TOKDIR)/%.c
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(OBJDIR)/%.o: $(PARDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+
+$(OBJDIR)/%.o: $(ERRDIR)/%.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:53:55 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/03 18:30:35 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/05 18:55:21 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	init_parser(t_parser *parser, t_token_node **tokens)
 	parser->pipe_open = false;
 	parser->cmdand_open = false;
 	parser->cmdor_open = false;
-	parser->consec_error = false;
-	parser->redir_error = false;
 }
 
 t_op_sequence	*parse_tokens(t_token_node **tokens)
