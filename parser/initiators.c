@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:21:35 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/01 21:35:40 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/05 14:43:59 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,13 @@ t_simple_cmd	*malloc_t_simple_cmd(void)
 	cmd = (t_simple_cmd *)malloc(sizeof(t_simple_cmd));
 	if (!cmd)
 		return (NULL);
-	cmd->argv = NULL;
+	cmd->argv = malloc(sizeof(char *));
+	if (!cmd->argv)
+	{
+		free(cmd);
+		return (NULL);
+	}
+	cmd->argv[0] = NULL;
 	cmd->redir = NULL;
 	return (cmd);
 }

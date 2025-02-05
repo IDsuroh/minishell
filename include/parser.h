@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/04 22:26:22 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/05 14:24:50 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ t_op_sequence		*malloc_t_op_sequence(void);
 t_pipe_sequence		*malloc_t_pipe_sequence(void);
 t_simple_cmd		*malloc_t_simple_cmd(void);
 t_redir				*malloc_t_redir(t_token_type type, char *filename);
-
-// sequence_appenders.c
-void				append_argv(t_simple_cmd *cmd, char *arg);
-void				append_redir(t_simple_cmd *cmd, t_redir *redir);
 
 // parse_command.c
 t_simple_cmd		*parse_command(t_parser *parser, t_token_node **token);

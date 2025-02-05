@@ -6,81 +6,72 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:57:57 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/04 20:02:41 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/05 15:54:58 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static	t_op_sequence	*link_and_advance_sequence(t_op_sequence *op_seq)
+static t_op_sequence	*init_existing_token(t_op_sequence *current)
 {
-	t_op_sequence	*new_op_seq;
+	t_op_sequence	*last_node;
 
-	new_op_seq = malloc_t_op_sequence();
-	if (!new_op_seq)
+	last_node = current;
+	last_node->next = malloc_t_op_sequence();
+	if (!last_node->next)
 		return (NULL);
-	new_op_seq->pipe = NULL;
-	new_op_seq->next = NULL;
-	if (op_seq)
-	{
-		new_op_seq->prev = op_seq;
-		op_seq->next = new_op_seq;
-	}
-	else
-		new_op_seq->prev = NULL;
-	return (new_op_seq);
+	last_node->next->prev = last_node;
+	last_node = last_node->next;
+	return (last_node);
 }
 
-static	t_op_sequence	*append_pipe(t_op_sequence *op_seq,
-					t_pipe_sequence *pipe)
+static t_op_sequence	*handle_logical_operator(t_parser *parser,
+						t_token_node **tokens,
+						t_op_sequence *current)
 {
-	t_op_sequence	*new_op_seq;
-	t_op_sequence	*tmp;
-
-	new_op_seq = malloc_t_op_sequence();
-	if (!new_op_seq)
+	if (!*tokens || (((*tokens)->type != T_AND) && ((*tokens)->type != T_OR)))
+		return (current);
+	advance_token(parser);
+	*tokens = get_current_token(parser);
+	if (!*tokens)
 		return (NULL);
-	new_op_seq->pipe = pipe;
-	new_op_seq->next = NULL;
-	new_op_seq->prev = NULL;
-	if (!op_seq)
-		return (new_op_seq);
-	tmp = op_seq;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new_op_seq;
-	new_op_seq->prev = tmp;
-	return (op_seq);
-}
-
-static	t_op_sequence	*return_to_start(t_op_sequence *op_seq)
-{
-	while (op_seq->prev)
-		op_seq = op_seq->prev;
-	return (op_seq);
+	current = init_existing_token(current);
+	return (current);
 }
 
 t_op_sequence	*parse_sequence(t_parser *parser, t_token_node **tokens)
 {
-	t_op_sequence		*op_seq;
-	t_pipe_sequence		*pipe;
+	t_op_sequence	*head;
+	t_op_sequence	*current;
 
-	op_seq = NULL;
+	head = malloc_t_op_sequence();
+	if (!head)
+		return (NULL);
+	current = head;
 	*tokens = get_current_token(parser);
+	if (!*tokens)
+		return (NULL);
 	while (*tokens)
 	{
-		if (*tokens && ((*tokens)->type == T_AND || (*tokens)->type == T_OR))
-		{
-			op_seq = link_and_advance_sequence(op_seq);
-			advance_token(parser);
-			*tokens = get_current_token(parser);
-			continue ;
-		}
-		pipe = parse_pipe_sequence(parser, tokens);
-		op_seq = append_pipe(op_seq, pipe);
-		advance_token(parser);
+		current->pipe = parse_pipe_sequence(parser, tokens);
 		*tokens = get_current_token(parser);
+		if (!*tokens)
+			break ;
+		current = handle_logical_operator(parser, tokens, current);
+		if (!current)
+			break ;
 	}
-	op_seq = return_to_start(op_seq);
-	return (op_seq);
+	return (head);
 }
+
+/*
+ * Why "if (!*tokens)" instead of "if (!tokens)"?
+ *
+ * When you have a pointer-to-pointer (t_token_node **tokens),
+ * using (!*tokens) checks whether the value pointed to by tokens
+ * (the actual token pointer) is NULL, while (!tokens) would only check
+ * if the pointer-to-pointer itself is NULL. In most cases, the tokens
+ * variable itself is always allocated, so dereferenceing it to verify
+ * if there's an actual token available is important.
+ *
+ */

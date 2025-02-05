@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:30:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/04 19:47:57 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/05 14:34:17 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ t_pipe_sequence	*parse_pipe_sequence(t_parser *parser, t_token_node **tokens)
 	pipe = NULL;
 	while (*tokens)
 	{
+		command = parse_command(parser, tokens);
+		if (!command)
+			return (NULL);
+		pipe = append_command(pipe, command);
+		if (!pipe)
+			return (NULL);
+		*tokens = get_current_token(parser);
 		if (*tokens && ((*tokens)->type == T_AND || (*tokens)->type == T_OR))
 			break ;
 		if (*tokens && (*tokens)->type == T_PIPE)
@@ -48,14 +55,6 @@ t_pipe_sequence	*parse_pipe_sequence(t_parser *parser, t_token_node **tokens)
 			*tokens = get_current_token(parser);
 			continue ;
 		}
-		command = parse_command(parser, tokens);
-		if (!command)
-			return (NULL);
-		pipe = append_command(pipe, command);
-		if (!pipe)
-			return (NULL);
-		advance_token(parser);
-		*tokens = get_current_token(parser);
 	}
 	return (pipe);
 }

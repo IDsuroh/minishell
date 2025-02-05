@@ -24,7 +24,6 @@ PAR_SRCS	=	parser.c \
 			parse_pipe_sequence.c \
 			parse_command.c \
 			parser_helpers.c \
-			sequence_appenders.c \
 			initiators.c \
 			token_access.c
 
