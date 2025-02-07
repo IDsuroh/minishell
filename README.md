@@ -1,6 +1,11 @@
 ### For Parser Memory Issue Correction
 
 ```sh
+❯ cd sdfsdf 2>file
+❯ cd sdfsdf 2 >file
+❯ cd sdfsdf 2                 >file
+
+
 ❯ valgrind --leak-check=full --track-fds=yes --track-origins=yes ./minishell
 ==12339== Memcheck, a memory error detector
 ==12339== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
