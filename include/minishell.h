@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/05 19:07:44 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/08 19:06:36 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,11 @@ char	*ft_strndup(const char *s, size_t n);
 
 void	init_signals(void);
 void	terminal_interrupt(void);
+
+// print_utils_2.c
+void	print_tokens_colors(t_token_node **current);
+void	print_pipe(t_pipe_sequence *pipe);
+void	print_cmd(t_op_sequence *seq);
+void	print_parsing(t_op_sequence *tmp_seq);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/05 21:10:51 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/08 19:27:05 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,4 @@ void				free_op_sequence(t_op_sequence *op_sequence);
 
 // parser.c
 t_op_sequence		*parse_tokens(t_token_node **tokens);
-
 #endif

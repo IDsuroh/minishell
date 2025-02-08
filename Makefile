@@ -10,7 +10,10 @@ ERRDIR	=	error_check
 
 OBJDIR	= 	obj_dir
 
-SRC_SRCS	=	main.c signals.c
+SRC_SRCS	=	main.c \
+			print_utils_1.c \
+			print_utils_2.c \
+			signals.c
 
 TOK_SRCS	=	tokenizer.c \
 			tokenize_input.c \
