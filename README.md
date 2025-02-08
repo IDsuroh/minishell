@@ -1,6 +1,10 @@
 ### For Parser Memory Issue Correction
 
 ```sh
+
+1. fix valgrind issue
+2. make input_error_checker logic
+
 ❯ cd sdfsdf 2>file
 ❯ cd sdfsdf 2 >file
 ❯ cd sdfsdf 2                 >file
