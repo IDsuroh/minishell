@@ -34,7 +34,8 @@ PAR_SRCS	=	parser.c \
 			initiators.c \
 			token_access.c \
 
-ERR_SRCS	=	error_check.c
+ERR_SRCS	=	error_check.c \
+			input_open_check.c \
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \

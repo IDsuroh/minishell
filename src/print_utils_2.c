@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:59:43 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/08 19:08:50 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/11 15:19:49 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_tokens_colors(t_token_node **current)
 {
 	int	i;
 
+	printf("\n");
 	i = 0;
 	while (current[i] != NULL)
 	{
@@ -27,6 +28,7 @@ void	print_tokens_colors(t_token_node **current)
 			token_type_to_string(current[i]->type), RESET);
 		i++;
 	}
+	printf("\n");
 }
 
 void	print_pipe(t_pipe_sequence *pipe)
@@ -68,6 +70,7 @@ void	print_parsing(t_op_sequence *tmp_seq)
 	t_op_sequence	*head_seq;
 	int				cmd_idx;
 
+	printf("\n");
 	head_seq = tmp_seq;
 	cmd_idx = 0;
 	while (tmp_seq)
@@ -78,4 +81,5 @@ void	print_parsing(t_op_sequence *tmp_seq)
 		cmd_idx++;
 	}
 	free_op_sequence(head_seq);
+	printf("\n");
 }

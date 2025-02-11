@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/08 19:10:36 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/11 21:42:36 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,32 @@ static void	handle_input(char *input)
 {
 	t_op_sequence	*tmp_seq;
 	t_token_node	**current;
+	bool			op_open;
 
-	if (*input)
-		add_history(input);
+	op_open = false;
 	current = tokenizer(input);
-	printf("\n");
+	if (error_prompt(current, &op_open))
+	{
+		if (op_open == true)
+		{
+			input = handle_op_open(input);
+			free_node_list(current);
+			current = tokenizer(input);
+		}
+	}
 	print_tokens_colors(current);
-	printf("\n");
 	free(input);
 	if (current == NULL)
 		return ;
 	tmp_seq = parse_tokens(current);
-	printf("\n");
 	print_parsing(tmp_seq);
-	printf("\n");
 	free_node_list(current);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(void)
 {
 	char	*input;
 
-	((void)argc, (void)argv);
-	(void)envp;
 	init_signals();
 	while (1)
 	{
@@ -49,13 +52,14 @@ int	main(int argc, char **argv, char **envp)
 			printf("exit\n");
 			break ;
 		}
+		if (ft_strspn(input, " \t\n\v\f\r") == ft_strlen(input))
+		{
+			free(input);
+			continue ;
+		}
+		if (*input)
+			add_history(input);
 		handle_input(input);
 	}
 	return (0);
 }
-
-//		if (exists_error(current))
-//		{
-//			free_node_list(current);
-//			continue ;
-//		}

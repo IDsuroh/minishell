@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/08 19:27:05 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/11 14:58:24 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ typedef struct s_parser
 {
 	t_token_node	**tokens;
 	int				cur_idx;
-	bool			pipe_open;
-	bool			cmdand_open;
-	bool			cmdor_open;
 }	t_parser;
 
 // token_access.c

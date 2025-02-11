@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:02:38 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/05 21:40:04 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/11 19:45:18 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static bool	no_preceding_command(t_token_node *token)
 {
-	if (((*token).type == T_PIPE || (*token).type == T_AND
-			|| (*token).type == T_OR || (*token).type == T_GREAT
-			|| (*token).type == T_DGREAT || (*token).type == T_LESS
-			|| (*token).type == T_DLESS))
+	if (token
+		&& (token->type == T_PIPE || token->type == T_AND
+			|| token->type == T_OR || token->type == T_GREAT
+			|| token->type == T_DGREAT || token->type == T_LESS
+			|| token->type == T_DLESS))
 	{
 		printf("minishell: syntax error near unexpected token `%s'",
 			(*token).token_value);
@@ -26,38 +27,41 @@ static bool	no_preceding_command(t_token_node *token)
 	return (false);
 }
 
-static bool	consecutive_operators(t_token_node *token)
+static bool	consecutive_operators(t_token_node *token, t_token_node *next)
 {
-	t_token_node	*next;
-
-	next = token + 1;
-	if ((*token).type == (*next).type)
-		return (true);
-	if (((*token).type == T_PIPE || (*token).type == T_AND
-			|| (*token).type == T_OR || (*token).type == T_GREAT
-			|| (*token).type == T_DGREAT || (*token).type == T_LESS
-			|| (*token).type == T_DLESS))
+	if (token
+		&& (token->type == T_PIPE || token->type == T_AND
+			|| token->type == T_OR || token->type == T_GREAT
+			|| token->type == T_DGREAT || token->type == T_LESS
+			|| token->type == T_DLESS))
 	{
-		if (((*token).type == T_PIPE || (*token).type == T_AND
-				|| (*token).type == T_OR || (*token).type == T_GREAT
-				|| (*token).type == T_DGREAT || (*token).type == T_LESS
-				|| (*token).type == T_DLESS))
+		if (next
+			&& (next->type == T_PIPE || next->type == T_AND
+				|| next->type == T_OR || next->type == T_GREAT
+				|| next->type == T_DGREAT || next->type == T_LESS
+				|| next->type == T_DLESS))
+		{
+			printf("minishell: syntax error near unexpected token `%s'",
+				(*next).token_value);
 			return (true);
+		}
 	}
 	return (false);
 }
 
-static bool	incomplete_input(t_token_node *token)
+static bool	incomplete_input(t_token_node *token, bool *op_open)
 {
-	if (((*token).type == T_PIPE || (*token).type == T_AND
-			|| (*token).type == T_OR))
+	if (token
+		&& (token->type == T_PIPE || token->type == T_AND
+			|| token->type == T_OR))
 	{
-//		trigger_prompt();
+		*op_open = true;
 		return (true);
 	}
-	else if (((*token).type == T_GREAT || (*token).type == T_DGREAT
-			|| (*token).type == T_LESS
-			|| (*token).type == T_DLESS))
+	else if (token
+		&& (token->type == T_GREAT || token->type == T_DGREAT
+			|| token->type == T_LESS
+			|| token->type == T_DLESS))
 	{
 		printf("bash: syntax error near unexpected token `newline'");
 		return (true);
@@ -65,56 +69,21 @@ static bool	incomplete_input(t_token_node *token)
 	return (false);
 }
 
-bool	exists_error(t_token_node **tokens)
+bool	error_prompt(t_token_node **tokens, bool *op_open)
 {
-	t_token_node	**tmp;
-	int				i;
+	int	i;
 
-	tmp = tokens;
-	if (no_preceding_command(tmp[0]))
+	if (no_preceding_command(tokens[0]))
 		return (true);
 	i = 0;
-	while (tmp && tmp[i])
+	while (tokens[i])
 	{
-		if (consecutive_operators(tmp[i]))
+		if (tokens[i + 1] && consecutive_operators(tokens[i], tokens[i + 1]))
 			return (true);
 		i++;
 	}
-	if (incomplete_input(tmp[i]))
+	i--;
+	if (incomplete_input(tokens[i], op_open))
 		return (true);
 	return (false);
 }
-
-/*
- * ***********Correct errors first
- *
- * 1. fix main.c
- * 
- * 2.
- *
- * static bool	incomplete_input(t_token_node *token)
- * {
- *	if (((*token).type == T_PIPE || (*token).type == T_AND
- *			|| (*token).type == T_OR))
- *	{
- *		trigger_prompt(); <------------- 	****Make logic****
- *		return (true);
- *	}
- *	else if (((*token).type == T_GREAT || (*token).type == T_DGREAT
- *			|| (*token).type == T_LESS
- *			|| (*token).type == T_DLESS))
- *	{
- *		printf("bash: syntax error near unexpected token `newline'");
- *		return (true);
- *	}
- * }
- *
- * 3. need to simulate:
- *
- *	pipe>
- *	
- *	cmdor>
- *	
- *	cmdand>
- *
- */
