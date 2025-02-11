@@ -3,7 +3,27 @@
 ```sh
 
 1. fix valgrind issue
-2. make input_error_checker logic
+2. Should repetitively prompt "pipe>", etc. if whitespace is inputted.
+
+proper example:
+
+❯ echo hello |
+pipe> 
+pipe> 
+pipe> 
+pipe> 
+pipe> 
+pipe> 
+pipe> 
+pipe> 
+pipe> 
+
+my example:
+
+minishell$ hello |
+pipe>                               
+[1]    11132 segmentation fault (core dumped)  ./minishell
+
 
 ❯ cd sdfsdf 2>file
 ❯ cd sdfsdf 2 >file
