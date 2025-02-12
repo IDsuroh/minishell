@@ -33,12 +33,13 @@
 
 extern volatile int	g_signal;
 
-typedef struct s_var_list
+typedef struct s_var_elm
 {
 	char				*key;
 	char				*value;
+	struct s_var_list	*prev;
 	struct s_var_list	*next;
-}	t_var_list;
+}	t_var_elm;
 
 typedef struct s_list_header
 {

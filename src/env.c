@@ -129,3 +129,67 @@ void	_env(char **envp)
 	while (*envp)
 		ft_putstr_fd(*(envp++), 1);
 }
+
+t_var_elm	create_var(char *key, char *value)
+{
+	t_var_elm	*var;
+
+	if (!key || !value)
+		return (NULL);
+	var = malloc(sizeof(t_var_elm));
+	var->key = key;
+	var->value = value;
+	var->prev = NULL;
+	var->next = NULL;
+	return (var);
+}
+
+void	del_var(t_var_elm **var)
+{
+	free(*var->key);
+	free(*var->value);
+	free(*var);
+}
+
+void	rem_var(t_var_elm *var, t_list_header *header)
+{
+	t_var_elm	*prev;
+	t_var_elm	*next;
+
+	if (var == header->head) // deal with this
+	if (var == header->tail)
+	prev = var->prev;
+	next = var->next;
+	prev->next = next;
+	next->prev = prev;
+	del_var(&var);
+	--(header->size);
+}
+
+t_var_elm	*extract_envp(char *envp)
+{
+	return (create_var(ft_strndup(envp, ft_strchr(envp, '=') - envp),
+			ft_strdup(&envp[ft_strchr(envp, '=') - envp])));
+}
+
+t_list_header	*init_var_list(char **envp)
+{
+	t_list_header	*header;
+	t_var_elm		*var;
+
+	header = malloc(sizeof(t_list_header));
+	header->size = 0;
+	header->head = extract_var(*envp);
+	++(header->size);
+	var = header->head;
+	while (*(++envp))
+	{
+		var->next = extract_var(*envp);
+		var->next->prev = var;
+		++(header->size);
+		if (var->next)
+			var = var->next;
+	}
+	header->tail = var;
+	return (header);
+}
