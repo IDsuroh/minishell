@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   error_checker.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/06 19:19:19 by suroh            ###   ########.fr       */
+/*   Created: 2025/02/05 19:06:28 by suroh             #+#    #+#             */
+/*   Updated: 2025/02/11 21:20:33 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef ERROR_CHECKER_H
+# define ERROR_CHECKER_H
 
-/*
- * Command Table / AST(Abstract Syntax Tree) / Parse Tree
- *
- * Parent Structure to store the Command Table
- */
+# include "tokenizer.h"
 
-typedef struct s_cmd
-{
-	struct s_cmd	*next;
-	char			*command;
-	char			*infile;
-	char			*outfile;
-	char			**flags;
-	int				is_append;
-	int				is_background;
-}	t_cmd;
+// error_checker.c
+bool	error_prompt(t_token_node **tokens, bool *op_open);
 
-typedef struct s_pipeline
-{
-	int		n_cmds;
-	t_cmd	**cmds;
-}	t_pipeline;
+// input_open_check.c
+char	*handle_op_open(char *input);
 
 #endif

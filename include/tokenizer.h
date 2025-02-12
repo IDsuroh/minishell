@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/15 21:20:37 by suroh            ###   ########.fr       */
+/*   Updated: 2025/01/30 21:09:21 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef enum e_token_type
 {
+	T_NONE,
 	T_IDENTIFIER,
 	T_LESS,
 	T_GREAT,
