@@ -6,11 +6,24 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/11 21:42:36 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/18 23:27:54 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static t_token_node	**handle_error(t_token_node **current, char *input)
+{
+	t_token_node	**new_current;
+
+	input = handle_op_open(input);
+	if (input == NULL)
+		return (NULL);
+	free_node_list(current);
+	new_current = tokenizer(input);
+	free(input);
+	return (new_current);
+}
 
 static void	handle_input(char *input)
 {
@@ -23,16 +36,16 @@ static void	handle_input(char *input)
 	if (error_prompt(current, &op_open))
 	{
 		if (op_open == true)
+			current = handle_error(current, input);
+		else
 		{
-			input = handle_op_open(input);
 			free_node_list(current);
-			current = tokenizer(input);
+			return ;
 		}
 	}
-	print_tokens_colors(current);
-	free(input);
 	if (current == NULL)
 		return ;
+	print_tokens_colors(current);
 	tmp_seq = parse_tokens(current);
 	print_parsing(tmp_seq);
 	free_node_list(current);

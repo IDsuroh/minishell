@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 21:03:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/16 17:41:11 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:25:32 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	var_counter(char **input, int *count)
 	else
 	{
 		while (**input && !is_separator(**input)
-			&& !is_delimiter(**input))
+			&& !is_delimiter(**input) && **input != '$')
 			(*input)++;
 	}
 	(*count)++;

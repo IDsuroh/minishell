@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   error_check_flags.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 14:53:55 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/17 17:31:33 by suroh            ###   ########.fr       */
+/*   Created: 2025/02/15 16:20:03 by suroh             #+#    #+#             */
+/*   Updated: 2025/02/15 16:20:45 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	init_parser(t_parser *parser, t_token_node **tokens)
+bool	char_is_whitespace(char c)
 {
-	parser->tokens = tokens;
-	parser->cur_idx = 0;
-}
-
-t_op_sequence	*parse_tokens(t_token_node **tokens)
-{
-	t_parser		*parser;
-	t_op_sequence	*sequence;
-
-	parser = malloc(sizeof(t_parser));
-	if (!parser)
-		return (NULL);
-	init_parser(parser, tokens);
-	sequence = parse_sequence(parser, tokens);
-	if (parser)
-		free(parser);
-	return (sequence);
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_utils.c                                      :+:      :+:    :+:   */
+/*   print_utils_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:39:50 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/08 18:50:44 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/18 22:49:48 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 const char	*token_type_to_string(t_token_type type)
 {
-	if (type == T_NONE)
-		return ("T_NONE");
-	else if (type == T_IDENTIFIER)
+	if (type == T_IDENTIFIER)
 		return ("T_IDENTIFIER");
 	else if (type == T_LESS)
 		return ("T_LESS");
@@ -39,14 +37,12 @@ const char	*token_type_to_string(t_token_type type)
 		return ("T_XVAR");
 	else if (type == T_PID)
 		return ("T_PID");
-	return ("UNKNOWN");
+	return ("T_NONE");
 }
 
 const char	*get_token_color(t_token_type type)
 {
-	if (type == T_NONE)
-		return (RESET);
-	else if (type == T_IDENTIFIER)
+	if (type == T_IDENTIFIER)
 		return (ID);
 	else if (type == T_LESS)
 		return (LSS);

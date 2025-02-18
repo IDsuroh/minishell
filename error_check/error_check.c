@@ -6,13 +6,13 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 18:02:38 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/11 19:45:18 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/18 22:50:28 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static bool	no_preceding_command(t_token_node *token)
+bool	no_preceding_command(t_token_node *token)
 {
 	if (token
 		&& (token->type == T_PIPE || token->type == T_AND
@@ -20,14 +20,14 @@ static bool	no_preceding_command(t_token_node *token)
 			|| token->type == T_DGREAT || token->type == T_LESS
 			|| token->type == T_DLESS))
 	{
-		printf("minishell: syntax error near unexpected token `%s'",
+		printf("minishell: syntax error near unexpected token `%s'\n\n",
 			(*token).token_value);
 		return (true);
 	}
 	return (false);
 }
 
-static bool	consecutive_operators(t_token_node *token, t_token_node *next)
+bool	consecutive_operators(t_token_node *token, t_token_node *next)
 {
 	if (token
 		&& (token->type == T_PIPE || token->type == T_AND
@@ -41,7 +41,7 @@ static bool	consecutive_operators(t_token_node *token, t_token_node *next)
 				|| next->type == T_DGREAT || next->type == T_LESS
 				|| next->type == T_DLESS))
 		{
-			printf("minishell: syntax error near unexpected token `%s'",
+			printf("minishell: syntax error near unexpected token `%s'\n\n",
 				(*next).token_value);
 			return (true);
 		}
@@ -49,7 +49,7 @@ static bool	consecutive_operators(t_token_node *token, t_token_node *next)
 	return (false);
 }
 
-static bool	incomplete_input(t_token_node *token, bool *op_open)
+bool	incomplete_input(t_token_node *token, bool *op_open)
 {
 	if (token
 		&& (token->type == T_PIPE || token->type == T_AND
@@ -63,7 +63,7 @@ static bool	incomplete_input(t_token_node *token, bool *op_open)
 			|| token->type == T_LESS
 			|| token->type == T_DLESS))
 	{
-		printf("bash: syntax error near unexpected token `newline'");
+		printf("minishell: syntax error near unexpected token `newline'\n\n");
 		return (true);
 	}
 	return (false);

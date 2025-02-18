@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/30 21:09:21 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/18 23:16:21 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,20 +75,26 @@ char			*epur_fake_var(char *token, char *tmp);
 char			*ft_strndup(const char *s, size_t n);
 void			free_tokens(char **token_storage);
 void			free_node_list(t_token_node **node_list);
+void			free_incomp_node_list(t_token_node **token_list, int allocated);
 
 // tokenizer_flags_1.c
 bool			is_quote(char c);
 bool			is_separator(char c);
 bool			is_delimiter(char c);
 bool			is_string(char c);
-bool			is_whitespace(const char *input);
+bool			is_whitespace(char *input);
 
 // tokenizer_flags_2.c
 bool			is_same_char(char c1, char c2);
 bool			is_var(char *c);
 bool			is_fake_var(char *c);
+bool			is_dquote(char *c);
+bool			char_is_whitespace(char c);
 
 // create_node_list.c
 t_token_node	**create_node_list(char **token_storage, int token_count);
+
+// dquote_logic.c
+char			*dquote_eraser(char *input);
 
 #endif

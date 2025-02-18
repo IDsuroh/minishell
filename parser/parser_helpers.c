@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 22:49:29 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/30 21:27:45 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/18 23:06:52 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ void	free_redir(t_redir *redir)
 		redir = tmp;
 	}
 }
+static void	free_argv(char **argv)
+{
+	int	i;
+
+	if (!argv)
+		return ;
+	i = 0;
+	while (argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
+}
 
 void	free_pipeline(t_pipe_sequence *pipeline)
 {
@@ -33,7 +47,7 @@ void	free_pipeline(t_pipe_sequence *pipeline)
 		tmp_seq = pipeline->next;
 		if (pipeline->cmd)
 		{
-			free(pipeline->cmd->argv);
+			free_argv(pipeline->cmd->argv);
 			free_redir(pipeline->cmd->redir);
 			free(pipeline->cmd);
 		}

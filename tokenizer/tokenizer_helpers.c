@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:44:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/01/13 19:00:42 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/18 23:15:57 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,30 @@ void	free_node_list(t_token_node **token_list)
 {
 	int	i;
 
+	if (!token_list)
+		return ;
 	i = 0;
 	while (token_list[i] != NULL)
-		i++;
-	while (--i >= 0)
 	{
 		free(token_list[i]->token_value);
 		free(token_list[i]);
+		i++;
+	}
+	free(token_list);
+}
+
+void	free_incomp_node_list(t_token_node **token_list, int allocated)
+{
+	int	i;
+
+	if (!token_list)
+		return ;
+	i = 0;
+	while (i < allocated)
+	{
+		free(token_list[i]->token_value);
+		free(token_list[i]);
+		i++;
 	}
 	free(token_list);
 }

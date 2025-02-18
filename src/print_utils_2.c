@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:59:43 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/11 15:19:49 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/18 23:27:57 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	print_tokens_colors(t_token_node **current)
 			token_type_to_string(current[i]->type), RESET);
 		i++;
 	}
-	printf("\n");
 }
 
 void	print_pipe(t_pipe_sequence *pipe)
@@ -81,5 +80,4 @@ void	print_parsing(t_op_sequence *tmp_seq)
 		cmd_idx++;
 	}
 	free_op_sequence(head_seq);
-	printf("\n");
 }
