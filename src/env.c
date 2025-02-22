@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:42:03 by miteixei          #+#    #+#             */
-/*   Updated: 2025/01/14 18:20:36 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:11:31 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,116 +18,35 @@
 //   a copy of the double char pointer is to be created, unless no change
 //   is going to occur.
 
-// Copy the env pointer to the internal variable list.
-// This is supposed to run only once during initialization.
-void	copy_vars(const char **envp, char ***var_struct)
-{
-	size_t	env_size;
-	size_t	i;
-
-	env_size = 0;
-	while (envp[env_size])
-		++env_size;
-	*var_struct = malloc((env_size + 1) * sizeof(char **));
-	i = 0;
-	while (env_size > i++)
-		*var_struct[i - 1] = ft_strdup(envp[i - 1]);
-	*var_struct[env_size] = NULL;
-}
-
-// Simple bool function that checks if the argument name exists in the
-//   list and has an equal sign following it.
-bool	var_exists(char *arg, char **var_list)
-{
-	while (*var_list)
-	{
-		if (!ft_strncmp(*var_list, arg, ft_strlen(arg))
-			&& *var_list[ft_strlen(arg)] == '=')
-			return (true);
-		++var_list;
-	}
-	return (false);
-}
-
-void	var_is_diff(char *arg, char **var_list)
-{
-	while (*var_list)
-	{
-		if (!ft_strncmp(*var_list, arg, ft_strlen(arg))
-			&& *var_list[ft_strlen(arg)] == '='
-			&& ft_strcmp(&(*var_list[ft_strchr(*var_list, '=') + 1]),
-				&(arg[ft_strchr(arg, '=') + 1])))
-			return (true);
-		++var_list;
-	}
-	return (false);
-}
-
-// Remove an variable from the list by copying everything to a new list
-//   except the value to be removed.
-// If that value isn't on the list do nothing.
-void	rem_var(char *arg, char ***var_struct)
-{
-	char	**old_var;
-	char	**new_var;
-	size_t	i;
-
-	if (!var_exists(arg, var_struct))
-		return ;
-	old_var = *var_struct;
-	new_var = old_var;
-	while (*(new_var++))
-		;
-	new_var = malloc((new_var - old_var) * sizeof(char **));
-	i = 0;
-	while (*old_var)
-	{
-		if (ft_strncmp(*old_var, arg, ft_strlen(arg))
-			&& *old_var[ft_strlen(arg)] == '=')
-			new_var[i++] = ft_strdup(*old_var);
-		++old_var;
-	}
-	new_var[i] = NULL;
-	while (*var_struct)
-		free(*((*var_struct)++));
-	free(*var_struct);
-	*var_struct = new_var;
-}
-
-void	add_var(char *arg, char ***var_struct)
-{
-	char	**old_var;
-	char	**new_var;
-	size_t	i;
-
-	if (var_exists(arg, var_struct) && !var_is_diff(arg, var_struct))
-		return ;
-	old_var = *var_struct;
-	new_var = old_var;
-	while (*(new_var++))
-		;
-	new_var = malloc((new_var - old_var) * sizeof(char **));
-	i = 0;
-	while (*old_var)
-	{
-		if (ft_strncmp(*old_var, arg, ft_strlen(arg)))
-			new_var[i++] = ft_strdup(*old_var);
-		else if ()
-			;
-		++old_var;
-	}
-	new_var[i] = NULL;
-	while (*var_struct)
-		free(*((*var_struct)++));
-	free(*var_struct);
-	*var_struct = new_var;
-}
-
 // Print the list of strings line by line.
 void	_env(char **envp)
 {
 	while (*envp)
 		ft_putstr_fd(*(envp++), 1);
+}
+
+char	**make_envp(t_list_header *header)
+{
+	t_var_elm	*elm;
+	char		**envp;
+	size_t		i;
+
+	elm = header->head;
+	envp = malloc((header->size + 1) * sizeof(char *));
+	i = 0;
+	while (elm)
+	{
+		envp[i] = malloc((ft_strlen(elm->key) + 1 + ft_strlen(elm->value) + 1)
+			* sizeof(char));
+		ft_strlcpy(envp[i], elm->key, ft_strlen(elm->key) + 1);
+		ft_strlcpy(&envp[i][ft_strlen(elm->key)], "=", 2);
+		ft_strlcpy(&envp[i][ft_strlen(elm->key) + 1], elm->value,
+			ft_strlen(elm->value) + 1);
+		elm = elm->next;
+		++i;
+	}
+	envp[i] = NULL;
+	return (envp);
 }
 
 t_var_elm	create_var(char *key, char *value)
@@ -144,11 +63,11 @@ t_var_elm	create_var(char *key, char *value)
 	return (var);
 }
 
-void	del_var(t_var_elm **var)
+void	del_var(t_var_elm *var)
 {
-	free(*var->key);
-	free(*var->value);
-	free(*var);
+	free(var->key);
+	free(var->value);
+	free(var);
 }
 
 void	rem_var(t_var_elm *var, t_list_header *header)
@@ -156,13 +75,17 @@ void	rem_var(t_var_elm *var, t_list_header *header)
 	t_var_elm	*prev;
 	t_var_elm	*next;
 
-	if (var == header->head) // deal with this
-	if (var == header->tail)
 	prev = var->prev;
 	next = var->next;
-	prev->next = next;
-	next->prev = prev;
-	del_var(&var);
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+	if (var == header->head)
+		header->head = var->next;
+	if (var == header->tail)
+		header->tail = var->prev;
+	del_var(var);
 	--(header->size);
 }
 
@@ -172,6 +95,20 @@ t_var_elm	*extract_envp(char *envp)
 			ft_strdup(&envp[ft_strchr(envp, '=') - envp])));
 }
 
+char	*get_value(t_list_header *header, char *key)
+{
+	t_var_elm	*elm;
+
+	elm = header->head;
+	while (elm)
+	{
+		if (!ft_strcmp(key, elm->key))
+			return (elm->value);
+		elm = elm->next;
+	}
+	return (NULL);
+}
+
 t_list_header	*init_var_list(char **envp)
 {
 	t_list_header	*header;
@@ -179,12 +116,12 @@ t_list_header	*init_var_list(char **envp)
 
 	header = malloc(sizeof(t_list_header));
 	header->size = 0;
-	header->head = extract_var(*envp);
+	header->head = extract_envp(*envp);
 	++(header->size);
 	var = header->head;
 	while (*(++envp))
 	{
-		var->next = extract_var(*envp);
+		var->next = extract_envp(*envp);
 		var->next->prev = var;
 		++(header->size);
 		if (var->next)
