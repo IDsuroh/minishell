@@ -1,4 +1,6 @@
-❯ 
+need to fix number 1
+
+
 ❯ valgrind --leak-check=full --track-fds=yes --track-origins=yes ./minishell
 ==9104== Memcheck, a memory error detector
 ==9104== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
@@ -63,9 +65,18 @@ minishell$
 
 why??????????
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+need to fix number 2 
 
 Norminette fix :static char     *open_input_checker(t_token_node **tokens, bool *op_open,
                                                                 char *full_input)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+need to fix number 3
 
 minishell$ adfadfgadfg || sfsdf && sdfjksdf
 
@@ -112,6 +123,9 @@ Command #0:
 		Argument #0: hello
 		Argument #1: &&sdfsdf
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+need to fix number 4
 
 minishell$ > p > c > c >c pwd >c
 minishell: syntax error near unexpected token `>'
