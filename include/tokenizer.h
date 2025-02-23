@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 23:16:21 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/23 17:57:55 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char			*ft_strndup(const char *s, size_t n);
 void			free_tokens(char **token_storage);
 void			free_node_list(t_token_node **node_list);
 void			free_incomp_node_list(t_token_node **token_list, int allocated);
+void			free_node_list_no_values(t_token_node **node_list);
 
 // tokenizer_flags_1.c
 bool			is_quote(char c);

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:53:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 23:16:50 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/23 18:58:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_token_node	**create_node_list(char **token_storage, int token_count)
 	t_token_node	**node_list;
 	int				i;
 
-	node_list = malloc(sizeof(t_token_node *) * (token_count + 1));
+	node_list = ft_calloc(token_count + 1, sizeof(t_token_node *));
 	if (!node_list)
 		return (NULL);
 	i = 0;

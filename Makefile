@@ -24,7 +24,8 @@ TOK_SRCS	=	tokenizer.c \
 			tokenizer_helpers.c \
 			storage_logic.c \
 			env_storage_helper.c \
-			create_node_list.c
+			create_node_list.c \
+			custom_strndup.c
 
 PAR_SRCS	=	parser.c \
 			parse_sequence.c \

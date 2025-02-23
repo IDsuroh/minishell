@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:59:43 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 23:27:57 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/23 17:10:04 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,26 @@ void	print_pipe(t_pipe_sequence *pipe)
 
 void	print_cmd(t_op_sequence *seq)
 {
-	int	i;
+	int				i;
+	t_pipe_sequence	*tmp;
 
 	i = 0;
-	while (seq->pipe)
+	tmp = seq->pipe;
+	while (tmp)
 	{
 		printf("\tPipe #%d:\n", i);
-		if (seq->pipe->cmd && seq->pipe->cmd->argv)
-			print_pipe(seq->pipe);
-		seq->pipe = seq->pipe->next;
+		if (tmp->cmd && tmp->cmd->argv)
+			print_pipe(tmp);
+		tmp = tmp->next;
 		i++;
 	}
 }
 
 void	print_parsing(t_op_sequence *tmp_seq)
 {
-	t_op_sequence	*head_seq;
 	int				cmd_idx;
 
 	printf("\n");
-	head_seq = tmp_seq;
 	cmd_idx = 0;
 	while (tmp_seq)
 	{
@@ -79,5 +79,4 @@ void	print_parsing(t_op_sequence *tmp_seq)
 		tmp_seq = tmp_seq->next;
 		cmd_idx++;
 	}
-	free_op_sequence(head_seq);
 }

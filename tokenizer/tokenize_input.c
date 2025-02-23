@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:43:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 18:33:50 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/23 18:07:19 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,7 @@ char	**tokenize_input(char *input, int token_count)
 		i++;
 	}
 	token_storage[i] = NULL;
-	while (token != NULL)
-	{
-		free(token);
-		token = ft_strtok_r(NULL, &saveptr);
-	}
+	free(token);
 	return (token_storage);
 }
 

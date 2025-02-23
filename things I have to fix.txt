@@ -1,0 +1,118 @@
+❯ 
+❯ valgrind --leak-check=full --track-fds=yes --track-origins=yes ./minishell
+==9104== Memcheck, a memory error detector
+==9104== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==9104== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==9104== Command: ./minishell
+==9104== 
+minishell$ helo | hello
+
+Token[0]: helo, Type: T_IDENTIFIER
+Token[1]: |, Type: T_PIPE
+Token[2]: hello, Type: T_IDENTIFIER
+
+Command #0:
+	Pipe #0:
+		Argument #0: helo
+	Pipe #1:
+		Argument #0: hello
+minishell$ 
+==9104== 
+==9104== FILE DESCRIPTORS: 3 open (3 std) at exit.
+==9104== 
+==9104== HEAP SUMMARY:
+==9104==     in use at exit: 232,874 bytes in 239 blocks
+==9104==   total heap usage: 484 allocs, 245 frees, 253,358 bytes allocated
+==9104== 
+==9104== 2 bytes in 1 blocks are definitely lost in loss record 1 of 79
+==9104==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9104==    by 0x10C644: ft_strdup (in /home/suroh/Documents/42_Common_Core/M3/minishell/minishell)
+==9104==    by 0x10B091: create_node_list (create_node_list.c:58)
+==9104==    by 0x109B4E: tokenizer (tokenizer.c:27)
+==9104==    by 0x1094F9: handle_input (main.c:81)
+==9104==    by 0x109604: main (main.c:119)
+==9104== 
+==9104== 13 bytes in 1 blocks are definitely lost in loss record 13 of 79
+==9104==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9104==    by 0x48A70EC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==9104==    by 0x4883E37: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==9104==    by 0x488E8EA: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.2)
+==9104==    by 0x109592: main (main.c:107)
+==9104== 
+==9104== LEAK SUMMARY:
+==9104==    definitely lost: 15 bytes in 2 blocks
+==9104==    indirectly lost: 0 bytes in 0 blocks
+==9104==      possibly lost: 0 bytes in 0 blocks
+==9104==    still reachable: 232,859 bytes in 237 blocks
+==9104==         suppressed: 0 bytes in 0 blocks
+==9104== Reachable blocks (those to which a pointer was found) are not shown.
+==9104== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==9104== 
+==9104== For lists of detected and suppressed errors, rerun with: -s
+==9104== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+
+
+==9104== 2 bytes in 1 blocks are definitely lost in loss record 1 of 79
+==9104==    at 0x4846828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==9104==    by 0x10C644: ft_strdup (in /home/suroh/Documents/42_Common_Core/M3/minishell/minishell)
+==9104==    by 0x10B091: create_node_list (create_node_list.c:58)
+==9104==    by 0x109B4E: tokenizer (tokenizer.c:27)
+==9104==    by 0x1094F9: handle_input (main.c:81)
+==9104==    by 0x109604: main (main.c:119)
+==9104==
+
+why??????????
+
+
+Norminette fix :static char     *open_input_checker(t_token_node **tokens, bool *op_open,
+                                                                char *full_input)
+
+minishell$ adfadfgadfg || sfsdf && sdfjksdf
+
+Token[0]: adfadfgadfg, Type: T_IDENTIFIER
+Token[1]: ||, Type: T_OR
+Token[2]: sfsdf, Type: T_IDENTIFIER
+Token[3]: &&, Type: T_AND
+Token[4]: sdfjksdf, Type: T_IDENTIFIER
+
+Command #0:
+	Pipe #0:
+		Argument #0: adfadfgadfg
+Command #1:
+	Pipe #0:
+		Argument #0: sfsdf
+Command #2:
+	Pipe #0:
+		Argument #0: sdfjksdf
+minishell$ adfadfgadfg || sfsdf &&sdfjksdf
+
+Token[0]: adfadfgadfg, Type: T_IDENTIFIER
+Token[1]: ||, Type: T_OR
+Token[2]: sfsdf, Type: T_IDENTIFIER
+Token[3]: &&sdfjksdf, Type: T_IDENTIFIER
+
+Command #0:
+	Pipe #0:
+		Argument #0: adfadfgadfg
+Command #1:
+	Pipe #0:
+		Argument #0: sfsdf
+		Argument #1: &&sdfjksdf
+
+
+minishell$ hello &&
+cmdand> 
+cmdand> sdfsdf
+
+Token[0]: hello, Type: T_IDENTIFIER
+Token[1]: &&sdfsdf, Type: T_IDENTIFIER
+
+Command #0:
+	Pipe #0:
+		Argument #0: hello
+		Argument #1: &&sdfsdf
+
+
+minishell$ > p > c > c >c pwd >c
+minishell: syntax error near unexpected token `>'
+

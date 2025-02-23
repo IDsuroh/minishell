@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 22:49:29 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 23:06:52 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/23 17:14:46 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_redir(t_redir *redir)
 		redir = tmp;
 	}
 }
+
 static void	free_argv(char **argv)
 {
 	int	i;
