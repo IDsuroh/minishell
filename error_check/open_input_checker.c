@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:21:43 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/25 00:02:54 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/25 00:24:42 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,49 +62,45 @@ static int	get_valid_input(t_token_node **tokens, char **line)
 	return (3);
 }
 
-static char	*open_input_checker(t_token_node **tokens, bool *op_open,
-								char *full_input)
+static char	*process_input_line(t_token_node ***tokens, bool *op_open,
+		char *full_input)
 {
 	char			*cont_input;
 	char			*new_full_input;
 	t_token_node	**new_tokens;
 	int				status;
 
-	while (error_prompt(tokens, op_open) && *op_open)
+	status = get_valid_input(*tokens, &cont_input);
+	if (status == 0)
+		exit(0);
+	if (status == 1)
 	{
-		status = get_valid_input(tokens, &cont_input);
-		if (status == 0)
-			exit(0);
-		if (status == 1)
-		{
-			free_node_list(tokens);
-			tokens = tokenizer(full_input);
-			continue ;
-		}
-		if (status == 2)
-			return (free(full_input), free_node_list(tokens), NULL);
-		new_full_input = ft_strjoin(full_input, cont_input);
-		free(full_input);
-		full_input = new_full_input;
-		free(cont_input);
-		new_tokens = tokenizer(full_input);
-		free_node_list(tokens);
-		tokens = new_tokens;
-		*op_open = false;
+		free_node_list(*tokens);
+		*tokens = tokenizer(full_input);
+		return (full_input);
 	}
-	free_node_list(tokens);
+	if (status == 2)
+		return (free(full_input), free_node_list(*tokens), NULL);
+	new_full_input = ft_strjoin(full_input, cont_input);
+	free(full_input);
+	full_input = new_full_input;
+	free(cont_input);
+	new_tokens = tokenizer(full_input);
+	free_node_list(*tokens);
+	*tokens = new_tokens;
+	*op_open = false;
 	return (full_input);
 }
 
-char	*handle_op_open(char *input)
+char	*open_input_checker(t_token_node **tokens, bool *op_open,
+		char *full_input)
 {
-	t_token_node	**tokens;
-	bool			op_open;
-
-	op_open = false;
-	tokens = tokenizer(input);
-	input = open_input_checker(tokens, &op_open, input);
-	if (input == NULL)
-		return (NULL);
-	return (input);
+	while (error_prompt(tokens, op_open) && *op_open)
+	{
+		full_input = process_input_line(&tokens, op_open, full_input);
+		if (!full_input)
+			return (NULL);
+	}
+	free_node_list(tokens);
+	return (full_input);
 }

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:06:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/24 23:59:16 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/25 00:16:37 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include "tokenizer.h"
 
 // open_input_checker.c
-char	*handle_op_open(char *input);
+char	*open_input_checker(t_token_node **tokens, bool *op_open,
+			char *full_input);
 
 // error_check_flags_1.c
 bool	no_preceding_command(t_token_node *token);

@@ -6,22 +6,25 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/25 00:06:45 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/25 00:26:17 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static t_token_node	**handle_error(char *input)
+static t_token_node	**handle_error_input(char *input)
 {
-	t_token_node	**new_token;
+	t_token_node	**tokens;
+	bool			op_open;
 
-	input = handle_op_open(input);
+	op_open = false;
+	tokens = tokenizer(input);
+	input = open_input_checker(tokens, &op_open, input);
 	if (input == NULL)
 		return (NULL);
-	new_token = tokenizer(input);
+	tokens = tokenizer(input);
 	free(input);
-	return (new_token);
+	return (tokens);
 }
 
 static t_token_node	**duplicate(t_token_node **tokens)
@@ -81,7 +84,7 @@ static void	handle_input(char *input)
 		if (op_open == true)
 		{
 			free_node_list(tokens);
-			tokens = handle_error(input);
+			tokens = handle_error_input(input);
 			if (!tokens)
 				return ;
 		}
