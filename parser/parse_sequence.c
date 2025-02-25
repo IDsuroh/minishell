@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:57:57 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 17:18:10 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/24 22:45:18 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,40 +26,41 @@ static t_op_sequence	*init_existing_token(t_op_sequence *current)
 }
 
 static t_op_sequence	*handle_logical_operator(t_parser *parser,
-						t_token_node **tokens,
 						t_op_sequence *current)
 {
-	if (!*tokens || (((*tokens)->type != T_AND) && ((*tokens)->type != T_OR)))
+	t_token_node	*curr;
+
+	curr = get_current_token(parser);
+	if (!curr || (curr->type != T_AND && curr->type != T_OR))
 		return (current);
 	advance_token(parser);
-	*tokens = get_current_token(parser);
-	if (!*tokens)
-		return (NULL);
 	current = init_existing_token(current);
 	return (current);
 }
 
-t_op_sequence	*parse_sequence(t_parser *parser, t_token_node **tokens)
+t_op_sequence	*parse_sequence(t_parser *parser)
 {
 	t_op_sequence	*head;
 	t_op_sequence	*current;
+	t_token_node	*curr;
 
 	head = malloc_t_op_sequence();
 	if (!head)
 		return (NULL);
 	current = head;
-	*tokens = get_current_token(parser);
-	if (!*tokens)
+	curr = get_current_token(parser);
+	if (!curr)
 		return (NULL);
-	while (*tokens)
+	while (curr)
 	{
-		current->pipe = parse_pipe_sequence(parser, tokens);
-		*tokens = get_current_token(parser);
-		if (!*tokens)
+		current->pipe = parse_pipe_sequence(parser);
+		curr = get_current_token(parser);
+		if (!curr)
 			break ;
-		current = handle_logical_operator(parser, tokens, current);
+		current = handle_logical_operator(parser, current);
 		if (!current)
 			break ;
+		curr = get_current_token(parser);
 	}
 	return (head);
 }

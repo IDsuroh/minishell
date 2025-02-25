@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 20:17:42 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/25 00:06:45 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static t_token_node	**handle_error(char *input)
 {
-	t_token_node	**new_current;
+	t_token_node	**new_token;
 
 	input = handle_op_open(input);
 	if (input == NULL)
 		return (NULL);
-	new_current = tokenizer(input);
+	new_token = tokenizer(input);
 	free(input);
-	return (new_current);
+	return (new_token);
 }
 
 static t_token_node	**duplicate(t_token_node **tokens)
 {
-	int				i;
+	int				idx;
 	int				count;
 	t_token_node	**copy;
 
@@ -36,13 +36,20 @@ static t_token_node	**duplicate(t_token_node **tokens)
 	copy = (t_token_node **)malloc(sizeof(t_token_node *) * (count + 1));
 	if (!copy)
 		return (NULL);
-	i = 0;
-	while (i < count)
+	idx = 0;
+	while (idx < count)
 	{
-		copy[i] = tokens[i];
-		i++;
+		copy[idx] = malloc(sizeof(t_token_node));
+		copy[idx]->token_value = ft_strdup(tokens[idx]->token_value);
+		if (!copy[idx] || !copy[idx]->token_value)
+		{
+			free_incomp_node_list(copy, idx);
+			return (NULL);
+		}
+		copy[idx]->type = tokens[idx]->type;
+		idx++;
 	}
-	copy[i] = NULL;
+	copy[idx] = NULL;
 	return (copy);
 }
 
@@ -50,26 +57,16 @@ static void	process_tokens(t_token_node **tokens)
 {
 	t_op_sequence	*tmp_seq;
 	t_token_node	**tokens_dup;
-	int				i;
 
 	print_tokens_colors(tokens);
 	tokens_dup = duplicate(tokens);
 	if (!tokens_dup)
-	{
-		free_node_list(tokens);
-		return ;
-	}
+		return (free_node_list(tokens), (void)0);
 	tmp_seq = parse_tokens(tokens_dup);
-	free(tokens_dup);
+	free_node_list(tokens_dup);
 	print_parsing(tmp_seq);
-//	i = -1;
-//	while (tokens[++i])
-//		printf("%s\t", tokens[i]->token_value);
 	free_op_sequence(tmp_seq);
-	i = -1;
-	while (tokens[++i])
-		tokens[i]->token_value = NULL;
-	free_node_list_no_values(tokens);
+	free_node_list(tokens);
 }
 
 static void	handle_input(char *input)

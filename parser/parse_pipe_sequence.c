@@ -6,14 +6,13 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:30:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/22 19:47:45 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/24 23:06:40 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	append_command(t_pipe_sequence **pipe,
-		t_simple_cmd *command)
+static void	append_command(t_pipe_sequence **pipe, t_simple_cmd *command)
 {
 	t_pipe_sequence		*new_pipe;
 	t_pipe_sequence		*tmp;
@@ -31,27 +30,29 @@ static void	append_command(t_pipe_sequence **pipe,
 	tmp->next = new_pipe;
 }
 
-t_pipe_sequence	*parse_pipe_sequence(t_parser *parser, t_token_node **tokens)
+t_pipe_sequence	*parse_pipe_sequence(t_parser *parser)
 {
 	t_pipe_sequence		*pipe;
 	t_simple_cmd		*command;
+	t_token_node		*token;
 
 	pipe = NULL;
-	while (*tokens)
+	token = get_current_token(parser);
+	while (token)
 	{
-		command = parse_command(parser, tokens);
+		command = parse_command(parser);
 		if (!command)
 			return (NULL);
 		append_command(&pipe, command);
-		if (!pipe)
-			return (NULL);
-		*tokens = get_current_token(parser);
-		if (*tokens && ((*tokens)->type == T_AND || (*tokens)->type == T_OR))
+		token = get_current_token(parser);
+		if (!token)
 			break ;
-		if (*tokens && (*tokens)->type == T_PIPE)
+		if (token->type == T_AND || token->type == T_OR)
+			break ;
+		if (token->type == T_PIPE)
 		{
 			advance_token(parser);
-			*tokens = get_current_token(parser);
+			token = get_current_token(parser);
 			continue ;
 		}
 	}

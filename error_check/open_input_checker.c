@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_open_check.c                                 :+:      :+:    :+:   */
+/*   open_input_checker.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:21:43 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 20:20:41 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/25 00:02:54 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static bool	error_in_new_prompt(t_token_node **tmp_tokens)
-{
-	int	i;
-
-	if (no_preceding_command(tmp_tokens[0]))
-		return (true);
-	i = 0;
-	while (tmp_tokens[i])
-	{
-		if (tmp_tokens[i + 1] && consecutive_operators(tmp_tokens[i],
-				tmp_tokens[i + 1]))
-			return (true);
-		i++;
-	}
-	return (false);
-}
 
 static char	*prompt_opener(t_token_node **tokens)
 {
@@ -99,11 +82,7 @@ static char	*open_input_checker(t_token_node **tokens, bool *op_open,
 			continue ;
 		}
 		if (status == 2)
-		{
-			free(full_input);
-			free_node_list(tokens);
-			return (NULL);
-		}
+			return (free(full_input), free_node_list(tokens), NULL);
 		new_full_input = ft_strjoin(full_input, cont_input);
 		free(full_input);
 		full_input = new_full_input;
