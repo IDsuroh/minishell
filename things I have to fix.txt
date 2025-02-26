@@ -144,45 +144,16 @@ fixed!!!!!!!!!!!!!!!!!!fixed!!!!!!!!!!!!!!!!!!!!!!!!!
 
 need to fix number 5
 
-minishell$ hello'$'"$"
+minishell$ $HOME
 
-Token[0]: hello', Type: T_IDENTIFIER
-Token[1]: $'", Type: T_VAR
-Token[2]: $", Type: T_VAR
+Token[0]: $HOME, Type: T_VAR
 
+minishell$ "$HEOM"
 
-Token[0]: "$ asdfasdf", Type: T_IDENTIFIER
+Token[0]: "$HEOM", Type: T_IDENTIFIER
+###shoud be T_VAR
 
-Command #0:
-	Pipe #0:
-		Argument #0: "$ asdfasdf"
-
-
-minishell$ "$asdfasdf"
-
-Token[0]: "$asdfasdf", Type: T_IDENTIFIER
-
-Command #0:
-	Pipe #0:
-		Argument #0: "$asdfasdf"
-
-
-minishell$ hello'$'"$"$aerga"$"
-
-Token[0]: hello, Type: T_IDENTIFIER
-Token[1]: '$', Type: T_IDENTIFIER
-Token[2]: "$", Type: T_IDENTIFIER
-Token[3]: $aerga, Type: T_VAR
-Token[4]: "$", Type: T_IDENTIFIER
-
-Command #0:
-	Pipe #0:
-		Argument #0: hello
-		Argument #1: '$'
-		Argument #2: "$"
-		Argument #3: $aerga
-		Argument #4: "$"
-
+fixed!!!!!!!!!!!!!!!!!!fixed!!!!!!!!!!!!!!!!!!!!!!!!!
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
