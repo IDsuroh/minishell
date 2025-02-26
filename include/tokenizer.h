@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 17:57:55 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/26 22:48:33 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ t_token_node	**tokenizer(char *input);
 // tokenizer_counters.c
 int				count_tokens(char *input);
 
-// counters_helpers.c
-void			quote_counter(char **input, int *count);
-void			separator_counter(char **input, int *count);
-void			var_counter(char **input, int *count);
-void			fake_var_counter(char **input, int *count);
-void			string_counter(char **input, int *count);
-
 // tokenizer_utils.c
 char			*ft_strtok_r(char *str, char **saveptr);
 char			**tokenize_input(char *input, int token_count);
@@ -61,15 +54,12 @@ char			*store_separator(char *token_start, char *token_end,
 					char **saveptr);
 char			*store_var(char *token_start, char *token_end,
 					char **saveptr);
-char			*store_fake_var(char *token_start, char *token_end,
-					char **saveptr);
 char			*store_string(char *token_start, char *token_end,
 					char **saveptr);
 
-// env_storage_helper.c
-char			*tmp_fake_var(char *token_start, char **token_end);
-int				fake_var_len(char *tmp);
-char			*epur_fake_var(char *token, char *tmp);
+// storage_logic_helper.c
+void			handle_short_var(char **token_end, int *i);
+void			handle_normal_var(char **token_end, int *i);
 
 // tokenizer_helpers.c
 char			*ft_strndup(const char *s, size_t n);
@@ -88,14 +78,14 @@ bool			is_whitespace(char *input);
 // tokenizer_flags_2.c
 bool			is_same_char(char c1, char c2);
 bool			is_var(char *c);
-bool			is_fake_var(char *c);
-bool			is_dquote(char *c);
 bool			char_is_whitespace(char c);
+bool			is_quote_closed(char *p);
+
+// tokenizer_flags_3.c
+bool			is_var_squote(char *c);
+bool			is_var_dquote(char *c);
 
 // create_node_list.c
 t_token_node	**create_node_list(char **token_storage, int token_count);
-
-// dquote_logic.c
-char			*dquote_eraser(char *input);
 
 #endif

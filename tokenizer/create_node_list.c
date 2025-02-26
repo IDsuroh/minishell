@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:53:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 18:58:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/26 23:01:32 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ static int	append_token_type(char *token_storage)
 		return (T_XVAR);
 	else if (ft_strcmp(token_storage, "$$") == 0)
 		return (T_PID);
-	else if ((token_storage[0] == '$' && token_storage[1] != ' ')
-		|| is_dquote(token_storage))
+	else if (token_storage[0] == '$'
+		|| (is_var_dquote(token_storage) && ft_strchr(token_storage, '$')
+			&& is_quote_closed(token_storage)))
 		return (T_VAR);
 	return (T_IDENTIFIER);
 }
@@ -47,7 +48,7 @@ t_token_node	**create_node_list(char **token_storage, int token_count)
 	if (!node_list)
 		return (NULL);
 	i = 0;
-	while (i < token_count)
+	while (i < token_count && token_storage[i])
 	{
 		node_list[i] = malloc(sizeof(t_token_node));
 		if (!node_list[i])
@@ -64,31 +65,3 @@ t_token_node	**create_node_list(char **token_storage, int token_count)
 	node_list[i] = NULL;
 	return (node_list);
 }
-
-//The create_node_list function creates a double pointer array of
-//t_token_node structs. Which will contain the tokens and the types.
-//
-//next to read: go back to: tokenizer.c
-
-/*static char	*append_token_value(char *token_storage)
-{
-	char	*token_value;
-	int		i;
-
-	if (!token_storage)
-		return (NULL);
-	i = 0;
-	while (token_storage[i] != '\0')
-		i++;
-	token_value = malloc(sizeof(char) * (i + 1));
-	if (!token_value)
-		return (NULL);
-	i = 0;
-	while (token_storage[i] != '\0')
-	{
-		token_value[i] = token_storage[i];
-		i++;
-	}
-	token_value[i] = '\0';
-	return (token_value);
-}*/

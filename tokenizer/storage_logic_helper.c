@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   custom_strndup.c                                   :+:      :+:    :+:   */
+/*   storage_logic_helper.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 18:58:31 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 18:59:00 by suroh            ###   ########.fr       */
+/*   Created: 2025/02/26 17:20:01 by suroh             #+#    #+#             */
+/*   Updated: 2025/02/26 22:37:53 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_strndup(const char *s, size_t n)
+void	handle_short_var(char **token_end, int *i)
 {
-	char	*mem;
-	size_t	len;
+	if (**token_end == '?' || **token_end == '$')
+	{
+		(*token_end)++;
+		*i = 2;
+	}
+}
 
-	len = ft_strlen(s);
-	if (n < len)
-		len = n;
-	mem = (char *)malloc(sizeof(char) * (len + 1));
-	if (!mem)
-		return (NULL);
-	ft_memcpy(mem, s, len);
-	mem[len] = '\0';
-	return (mem);
+void	handle_normal_var(char **token_end, int *i)
+{
+	while (**token_end && !is_separator(**token_end)
+		&& !is_delimiter(**token_end) && **token_end != '$')
+	{
+		if ((**token_end == '\'' || **token_end == '\"')
+			&& is_quote_closed(*token_end))
+			break ;
+		(*token_end)++;
+		(*i)++;
+	}
 }

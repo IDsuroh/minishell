@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:43:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 18:07:19 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/26 23:02:21 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ static char	*extract_token(char *token_start, char *token_end, char **saveptr)
 {
 	char	*token;
 
-	if (is_quote(*token_start))
+	if ((is_quote(*token_start) && is_quote_closed(token_start))
+		|| (is_var_dquote(token_start) && is_var_squote(token_start)))
 		token = store_quote(token_start, token_end, saveptr);
 	else if (is_separator(*token_start))
 		token = store_separator(token_start, token_end, saveptr);
 	else if (is_var(token_start))
 		token = store_var(token_start, token_end, saveptr);
-	else if (is_fake_var(token_start))
-		token = store_fake_var(token_start, token_end, saveptr);
 	else
 		token = store_string(token_start, token_end, saveptr);
 	return (token);
@@ -75,17 +74,7 @@ char	**tokenize_input(char *input, int token_count)
 	return (token_storage);
 }
 
-/*ft_strtok_r keeps an internal “state” (via saveptr), you need
- * to keep calling it in order to retrieve all remaining tokens.
- * Even though you’ve already decided not to store any more tokens
- * (because you hit token_count), those extra tokens still exist
- * in the input string.
- * Each call to ft_strtok_r(NULL, &saveptr) returns the next token
- * that was allocated internally (by store_string, store_quote, etc.).
- * If you didn’t call ft_strtok_r(NULL, &saveptr) again in that
- * leftover loop, you’d never get those extra pointers back—and
- * thus would never have a chance to free them, causing a memory leak.
- * For example, the last remaining '\0'.
+/*
  *
  *
  * IMPORTANT: Zero out (or otherwise initialize) the newly allocated array,
@@ -94,20 +83,3 @@ char	**tokenize_input(char *input, int token_count)
  * caused by reading beyond the last valid token.
  * ft_calloc is a good way to do this, because it allocates memory and zeros it.
  */
-
-//The tokenize_input function stores the tokens in an array of strings.
-//the function utilizes the ft_strtok_r function to extract the tokens from
-//the input string.
-//It is allocation memory using ft_calloc() which is a custom function in
-//the "libft" library, which is an allocation method that zeroes out the memory.
-//	read the IMPORTANT note above for more details.
-//The function returns the token_storage array of strings.
-//
-//extract_token:	extract_token(token_start, token_end, saveptr)
-//	- Extracts the token from the input string.
-//	- The function categorizes the token by the flags and stores
-//		the token in a string.
-//	- Works with the logic similar to the counter functions.
-//	- The function returns the token.
-//
-//next file to read: storage_logic.c

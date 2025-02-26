@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_flags_2.c                                :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/13 19:01:05 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/26 23:03:14 by suroh            ###   ########.fr       */
+/*   Created: 2025/02/25 17:20:26 by suroh             #+#    #+#             */
+/*   Updated: 2025/02/25 17:20:43 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "libft.h"
 
-bool	is_same_char(char c1, char c2)
+char	*ft_strndup(const char *s, size_t n)
 {
-	return (c1 == c2);
-}
+	char	*mem;
+	size_t	len;
 
-bool	is_var(char *c)
-{
-	return (*(c) == '$');
-}
-
-bool	char_is_whitespace(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\r'
-		|| c == '\v' || c == '\f');
-}
-
-bool	is_quote_closed(char *p)
-{
-	char	quote;
-
-	quote = *p;
-	p++;
-	while (*p && *p != quote)
-		p++;
-	return (*p == quote);
+	len = ft_strlen(s);
+	if (n < len)
+		len = n;
+	mem = (char *)malloc(sizeof(char) * (len + 1));
+	if (!mem)
+		return (NULL);
+	ft_memcpy(mem, s, len);
+	mem[len] = '\0';
+	return (mem);
 }

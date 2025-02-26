@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:15:12 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 22:46:57 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/25 16:51:45 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	is_quote(char c)
 
 bool	is_separator(char c)
 {
-	return (c == '|' || c == '>' || c == '<');
+	return (c == '|' || c == '>' || c == '<' || c == '&');
 }
 
 bool	is_delimiter(char c)
