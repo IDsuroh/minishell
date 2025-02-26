@@ -139,10 +139,29 @@ need to fix number 4
 Token[0]: $ asdfasdf, Type: T_IDENTIFIER
 context: $ asdfasdf	 index: 0
 
+fixed!!!!!!!!!!!!!!!!!!fixed!!!!!!!!!!!!!!!!!!!!!!!!!
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+need to fix number 5
+Token[0]: "$ asdfasdf", Type: T_IDENTIFIER
+
+Command #0:
+	Pipe #0:
+		Argument #0: "$ asdfasdf"
+
+
+minishell$ "$asdfasdf"
+
+Token[0]: "$asdfasdf", Type: T_IDENTIFIER
+
+Command #0:
+	Pipe #0:
+		Argument #0: "$asdfasdf"
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-need to fix number 5
+need to fix number 6
 
 minishell$ > p > c > c >c pwd >c
 minishell: syntax error near unexpected token `>'
