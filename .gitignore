@@ -4,3 +4,4 @@ minishell
 .*.swo
 *.o
 *.a
+*.supp

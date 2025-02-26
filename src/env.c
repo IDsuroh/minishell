@@ -19,7 +19,7 @@
 //   is going to occur.
 
 // Print the list of strings line by line.
-void	_env(char **envp)
+void	print_vars(char **envp)
 {
 	while (*envp)
 		ft_putstr_fd(*(envp++), 1);
@@ -70,11 +70,13 @@ void	del_var(t_var_elm *var)
 	free(var);
 }
 
-void	rem_var(t_var_elm *var, t_list_header *header)
+void	rem_var(t_list_header *header, t_var_elm *var)
 {
 	t_var_elm	*prev;
 	t_var_elm	*next;
 
+	if (!var)
+		return ;
 	prev = var->prev;
 	next = var->next;
 	if (prev)
@@ -89,13 +91,13 @@ void	rem_var(t_var_elm *var, t_list_header *header)
 	--(header->size);
 }
 
-t_var_elm	*extract_envp(char *envp)
+t_var_elm	*extract_var(char *var)
 {
-	return (create_var(ft_strndup(envp, ft_strchr(envp, '=') - envp),
-			ft_strdup(&envp[ft_strchr(envp, '=') - envp])));
+	return (create_var(ft_strndup(var, ft_strchr(var, '=') - var),
+			ft_strdup(&var[ft_strchr(var, '=') - var])));
 }
 
-char	*get_value(t_list_header *header, char *key)
+t_var_elm	*get_value(t_list_header *header, char *key)
 {
 	t_var_elm	*elm;
 
@@ -103,12 +105,15 @@ char	*get_value(t_list_header *header, char *key)
 	while (elm)
 	{
 		if (!ft_strcmp(key, elm->key))
-			return (elm->value);
+			return (elm);
 		elm = elm->next;
 	}
 	return (NULL);
 }
 
+// init the var list with each envp string
+//   by splitting them into key value pairs
+// this is run once during the shell's initialization
 t_list_header	*init_var_list(char **envp)
 {
 	t_list_header	*header;
