@@ -166,6 +166,23 @@ Command #0:
 	Pipe #0:
 		Argument #0: "$asdfasdf"
 
+
+minishell$ hello'$'"$"$aerga"$"
+
+Token[0]: hello, Type: T_IDENTIFIER
+Token[1]: '$', Type: T_IDENTIFIER
+Token[2]: "$", Type: T_IDENTIFIER
+Token[3]: $aerga, Type: T_VAR
+Token[4]: "$", Type: T_IDENTIFIER
+
+Command #0:
+	Pipe #0:
+		Argument #0: hello
+		Argument #1: '$'
+		Argument #2: "$"
+		Argument #3: $aerga
+		Argument #4: "$"
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
