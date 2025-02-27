@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_check_flags.c                                :+:      :+:    :+:   */
+/*   error_check_flags_1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:20:03 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/24 23:56:10 by suroh            ###   ########.fr       */
+/*   Updated: 2025/02/27 18:47:28 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ bool	no_preceding_command(t_token_node *token)
 {
 	if (token
 		&& (token->type == T_PIPE || token->type == T_AND
-			|| token->type == T_OR || token->type == T_GREAT
-			|| token->type == T_DGREAT || token->type == T_LESS
-			|| token->type == T_DLESS))
+			|| token->type == T_OR))
 	{
 		printf("minishell: syntax error near unexpected token `%s'\n\n",
 			(*token).token_value);
@@ -56,14 +54,6 @@ bool	incomplete_input(t_token_node *token, bool *op_open)
 			|| token->type == T_OR))
 	{
 		*op_open = true;
-		return (true);
-	}
-	else if (token
-		&& (token->type == T_GREAT || token->type == T_DGREAT
-			|| token->type == T_LESS
-			|| token->type == T_DLESS))
-	{
-		printf("minishell: syntax error near unexpected token `newline'\n\n");
 		return (true);
 	}
 	return (false);
