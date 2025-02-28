@@ -11,3 +11,7 @@ Things I (Roh) need to do (for the weekend):
 3. Findout what redirections are. (Understand the concept in a deeper scale)
 
 4. Findout what to do after these process.
+
+
+*Check if string expansion (e.g. $HOME, $USER) happens before tokenization or after.
+*What is string expansions and how is it different with environmental variable?
