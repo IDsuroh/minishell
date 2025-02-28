@@ -53,7 +53,7 @@ t_var_elm	create_var(char *key, char *value)
 {
 	t_var_elm	*var;
 
-	if (!key || !value)
+	if (!key)
 		return (NULL);
 	var = malloc(sizeof(t_var_elm));
 	var->key = key;
@@ -61,6 +61,23 @@ t_var_elm	create_var(char *key, char *value)
 	var->prev = NULL;
 	var->next = NULL;
 	return (var);
+}
+
+void	add_var(t_list_header *header, t_var_elm *var)
+{
+	t_var_elm	*elm;
+
+	elm = get_value(header, var->key);
+	if (!elm)
+	{
+		var = header->tail->next;
+		header->tail = var;
+	}
+	else
+	{
+		elm->value = ft_strdup(var->value);
+		del_var(var);
+	}
 }
 
 void	del_var(t_var_elm *var)
