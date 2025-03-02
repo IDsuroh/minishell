@@ -6,11 +6,12 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/28 16:48:45 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/02 22:14:06 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/colors.h"
 
 static t_token_node	**handle_error_input(char *input)
 {
@@ -97,10 +98,11 @@ static void	handle_input(char *input)
 	process_tokens(tokens);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 
+	(void)argc, (void)argv, (void)envp;
 	init_signals();
 	while (1)
 	{

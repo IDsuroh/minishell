@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:56:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 22:49:28 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/02 21:43:41 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,11 @@
 // print_utils_1.c
 const char	*token_type_to_string(t_token_type type);
 const char	*get_token_color(t_token_type type);
+
+// print_utils_2.c
+void		print_tokens_colors(t_token_node **current);
+void		print_pipe(t_pipe_sequence *pipe);
+void		print_cmd(t_op_sequence *seq);
+void		print_parsing(t_op_sequence *tmp_seq);
 
 #endif

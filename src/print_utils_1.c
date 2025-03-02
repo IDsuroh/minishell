@@ -6,11 +6,10 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:39:50 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/18 22:49:48 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/02 21:42:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 #include "../include/colors.h"
 
 const char	*token_type_to_string(t_token_type type)
