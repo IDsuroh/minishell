@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:42:03 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/02 22:13:20 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/03 18:09:13 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**make_envp(t_list_header *header)
 	return (envp);
 }
 
-t_var_elm	create_var(char *key, char *value)
+t_var_elm	*create_var(char *key, char *value)
 {
 	t_var_elm	*var;
 
@@ -138,12 +138,12 @@ t_list_header	*init_var_list(char **envp)
 
 	header = malloc(sizeof(t_list_header));
 	header->size = 0;
-	header->head = extract_envp(*envp);
+	header->head = extract_var(*envp);
 	++(header->size);
 	var = header->head;
 	while (*(++envp))
 	{
-		var->next = extract_envp(*envp);
+		var->next = extract_var(*envp);
 		var->next->prev = var;
 		++(header->size);
 		if (var->next)
