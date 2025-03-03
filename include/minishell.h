@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/03 18:16:40 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/03 18:22:35 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_var_elm
 {
 	char				*key;
 	char				*value;
-	struct s_var_list	*prev;
-	struct s_var_list	*next;
+	struct s_var_elm	*prev;
+	struct s_var_elm	*next;
 }	t_var_elm;
 
 typedef struct s_list_header
