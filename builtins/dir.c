@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:10:17 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/04 19:36:28 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:15:12 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	_cd(t_almighty *boy, char *dir)
 {
 	char	*buff;
 
+	(void)boy;
 	buff = NULL;
 	buff = getcwd(buff, 0);
 	if (chdir(dir))
@@ -47,10 +48,10 @@ void	_cd(t_almighty *boy, char *dir)
 		ft_putstr_fd(": No such file or directory\n", 2);
 		return ;
 	}
-	if (buff)
-	{
-		// ahhhhh i'll do this later
-		_export(boy, 
+//	if (buff)
+//	{
+//		// ahhhhh i'll do this later
+//		_export(boy, 
 }
 
 void	_pwd(void)
@@ -86,20 +87,14 @@ void	_env(t_almighty *boy)
 	print_vars(make_envp(boy->var_list));
 }
 
-void	_exit_(t_almighty *boy, int *exit)
+void	_exit_(t_almighty *boy, int *var_exit)
 {
 	int	exit_val;
 
-	if (exit)
-		exit_val = *exit;
+	if (var_exit)
+		exit_val = *var_exit;
 	else
 		exit_val = boy->exit_stat;
 	// FREE EVERYTHING
 	exit(exit_val);
-}
-
-int	main(void)
-{
-	_cd("/bin");
-	_pwd();
 }

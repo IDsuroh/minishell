@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/03 18:22:35 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:05:39 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_almighty
 void			print_vars(char **envp);
 char			**make_envp(t_list_header *header);
 t_var_elm		*create_var(char *key, char *value);
+void			add_var(t_list_header *header, t_var_elm *var);
 void			del_var(t_var_elm *var);
 void			rem_var(t_list_header *header, t_var_elm *var);
 t_var_elm		*extract_var(char *var);

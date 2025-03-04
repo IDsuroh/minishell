@@ -7,13 +7,15 @@ TOKDIR	=	tokenizer
 PARDIR	=	parser
 SRCDIR	= 	src
 ERRDIR	=	error_check
+BUILTIN	=	builtins
 
 OBJDIR	= 	obj_dir
 
 SRC_SRCS	=	main.c \
 			print_utils_1.c \
 			print_utils_2.c \
-			signals.c
+			signals.c \
+			env.c
 
 TOK_SRCS	=	tokenizer.c \
 			tokenize_input.c \
@@ -38,15 +40,19 @@ ERR_SRCS	=	error_check_flags_1.c \
 				error_check_flags_2.c \
 				open_input_checker.c \
 
+BUIL_SRCS	=	dir.c
+
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \
 		$(addprefix $(PARDIR)/, $(PAR_SRCS)) \
-		$(addprefix $(ERRDIR)/, $(ERR_SRCS))
+		$(addprefix $(ERRDIR)/, $(ERR_SRCS)) \
+		$(addprefix $(BUILTIN)/, $(BUIL_SRCS))
 
 OBJS	= 	$(addprefix $(OBJDIR)/, $(SRC_SRCS:.c=.o)) \
 		$(addprefix $(OBJDIR)/, $(TOK_SRCS:.c=.o)) \
 		$(addprefix $(OBJDIR)/, $(PAR_SRCS:.c=.o)) \
-		$(addprefix $(OBJDIR)/, $(ERR_SRCS:.c=.o))
+		$(addprefix $(OBJDIR)/, $(ERR_SRCS:.c=.o)) \
+		$(addprefix $(BUILTIN)/, $(BUIL_SRCS:.c=.o))
 
 LIB	=	./include/libft/
 LIBFT	=	./include/libft/libft.a
@@ -66,6 +72,10 @@ $(OBJDIR)/%.o: $(PARDIR)/%.c
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
 $(OBJDIR)/%.o: $(ERRDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
+
+$(OBJDIR)/%.o: $(BUILTIN)/%.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
