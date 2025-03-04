@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/04 19:04:12 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/04 19:40:54 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,12 @@ static void	handle_input(char *input)
 int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
-	t_almighty	mighty;
+//	t_almighty	mighty;
 
 	(void)argc, (void)argv;
+	(void)envp;
 	init_signals();
-	mighty.var_list = init_var_list(envp);
+//	mighty.var_list = init_var_list(envp);
 	while (1)
 	{
 		input = readline("minishell$ ");
