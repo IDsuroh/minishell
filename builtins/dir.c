@@ -1,13 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dir.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 19:10:17 by miteixei          #+#    #+#             */
+/*   Updated: 2025/03/04 19:36:28 by miteixei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 #include "../include/libft/libft.h"
 
 void	_echo(char **args)
 {
+	bool	dash_n;
+
+	dash_n = false;
+	while (*args)
+	if (**args == '-' && *(*args + 1) == 'n' && *(*args + 2) == '\0')
+	{
+		dash_n = true;
+		++args;
+	}
 	while (*args)
 	{
 		ft_putstr_fd(*(args++), 1);
-		ft_putchar_fd(' ', 1);
+		if (*args)
+			ft_putchar_fd(' ', 1);
 	}
+	if (!dash_n)
+		ft_putchar_fd('\n', 1);
 }
 
 void	_cd(t_almighty *boy, char *dir)
