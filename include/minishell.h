@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 18:46:23 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:17:37 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_almighty
 	t_list_header	*var_list;
 	int				exit_stat;
 	t_redir_list	redirections;
+	char			*here_doc_str;
 }	t_almighty;
 
 // env.c
@@ -74,7 +75,7 @@ void			del_var(t_var_elm *var);
 void			rem_var(t_list_header *header, t_var_elm *var);
 
 // env_utils_2.c
-void	free_var_list(t_list_header *header);
+void			free_var_list(t_list_header *header);
 
 //
 void			init_signals(void);
