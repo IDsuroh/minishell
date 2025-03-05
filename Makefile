@@ -7,15 +7,20 @@ TOKDIR	=	tokenizer
 PARDIR	=	parser
 SRCDIR	= 	src
 ERRDIR	=	error_check
+EXCDIR	=	execution
 BUILTIN	=	builtins
 
 OBJDIR	= 	obj_dir
+
+VPATH = $(SRCDIR):$(TOKDIR):$(PARDIR):$(ERRDIR):$(BUILTIN):$(EXCDIR)
 
 SRC_SRCS	=	main.c \
 			print_utils_1.c \
 			print_utils_2.c \
 			signals.c \
 			env.c \
+			env_expansion.c \
+			env_expansion_utils.c \
 			env_utils_1.c \
 			env_utils_2.c
 
@@ -42,42 +47,26 @@ ERR_SRCS	=	error_check_flags_1.c \
 				error_check_flags_2.c \
 				open_input_checker.c \
 
+EXC_SRCS	=	execution.c \
+				globals.c
+
 BUIL_SRCS	=	dir.c
 
 SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \
 		$(addprefix $(PARDIR)/, $(PAR_SRCS)) \
 		$(addprefix $(ERRDIR)/, $(ERR_SRCS)) \
-		$(addprefix $(BUILTIN)/, $(BUIL_SRCS))
+		$(addprefix $(BUILTIN)/, $(BUIL_SRCS)) \
+		$(addprefix $(EXCDIR)/, $(EXC_SRCS))
 
-OBJS	= 	$(addprefix $(OBJDIR)/, $(SRC_SRCS:.c=.o)) \
-		$(addprefix $(OBJDIR)/, $(TOK_SRCS:.c=.o)) \
-		$(addprefix $(OBJDIR)/, $(PAR_SRCS:.c=.o)) \
-		$(addprefix $(OBJDIR)/, $(ERR_SRCS:.c=.o)) \
-		$(addprefix $(BUILTIN)/, $(BUIL_SRCS:.c=.o))
+OBJS	= 	$(patsubst %.c, $(OBJDIR)/%.o, $(notdir $(SRCS)))
 
 LIB	=	./include/libft/
 LIBFT	=	./include/libft/libft.a
 
 all: $(NAME)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
-
-$(OBJDIR)/%.o: $(TOKDIR)/%.c
-	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
-
-$(OBJDIR)/%.o: $(PARDIR)/%.c
-	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
-
-$(OBJDIR)/%.o: $(ERRDIR)/%.c
-	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
-
-$(OBJDIR)/%.o: $(BUILTIN)/%.c
+$(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
@@ -103,3 +92,18 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+# The patsubst (pattern substitution) function takes three arguments:
+# 
+# The pattern to look for (%.c), meaning “any file ending in .c.”
+# The replacement pattern ($(OBJDIR)/%.o), which means “replace .c with
+# .o and prepend the object directory path.”
+# The list of filenames to process (the output from $(notdir $(SRCS))).
+# So, if you have main.c from the previous step and $(OBJDIR) is obj_dir,
+# this function transforms main.c into obj_dir/main.o.
+#
+# $(notdir $(SRCS)):
+#
+# This function removes the directory part of each file in SRCS,
+# leaving only the base filename. For example, if SRCS contains src/main.c,
+# $(notdir $(SRCS)) will yield main.c.

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 19:17:37 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:02:21 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@
 # include "./tokenizer.h"
 # include "./error_checker.h"
 # include "./parser.h"
+# include "./executor.h"
 
-extern volatile int	g_signal;
+//extern volatile int	g_signal;
+
+extern int				g_last_exit_status;
 
 typedef struct s_var_elm
 {
@@ -63,9 +66,16 @@ typedef struct s_almighty
 char			**make_envp(t_list_header *header);
 t_var_elm		*extract_var(char *var);
 t_var_elm		*get_value(t_list_header *header, char *key);
+t_list_header	*init_var_list(char **envp);
+
+// env_expansion.c
 void			expand_env_variables(t_list_header *var_list,
 					t_token_node **tokens);
-t_list_header	*init_var_list(char **envp);
+// env_expansion_utils.c
+char			*get_prefix(const char *str);
+char			*get_var_name(const char *dollar_ptr);
+char			*get_suffix(const char *dollar_ptr);
+int				get_pid_from_proc(void);
 
 // env_utils_1.c
 void			print_vars(char **envp);
