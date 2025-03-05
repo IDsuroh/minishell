@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:48:04 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/26 23:02:39 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/05 13:44:12 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	count_tokens(char *input)
 	while (*input)
 	{
 		if ((is_quote(*input) && is_quote_closed(input))
-			|| (is_var_dquote(input) && is_var_squote(input)))
+			|| (is_var_squote(input) || is_var_dquote(input)))
 			quote_counter(&input);
 		else if (is_separator(*input))
 			separator_counter(&input);

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:43:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/26 23:02:21 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/05 13:45:37 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*extract_token(char *token_start, char *token_end, char **saveptr)
 	char	*token;
 
 	if ((is_quote(*token_start) && is_quote_closed(token_start))
-		|| (is_var_dquote(token_start) && is_var_squote(token_start)))
+		|| (is_var_squote(token_start) || is_var_dquote(token_start)))
 		token = store_quote(token_start, token_end, saveptr);
 	else if (is_separator(*token_start))
 		token = store_separator(token_start, token_end, saveptr);
