@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 22:43:56 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/05 22:45:52 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ t_token_node	**tokenizer(char *input);
 // tokenizer_counters.c
 int				count_tokens(char *input);
 
-<<<<<<< HEAD
-=======
-// tokenizer_complex_var.c
-
->>>>>>> 46edab62e58d218bd892f0de625c2e7bfa64b521
 // tokenizer_utils.c
 char			*ft_strtok_r(char *str, char **saveptr);
 char			**tokenize_input(char *input, int token_count);

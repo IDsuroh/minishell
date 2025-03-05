@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 22:43:43 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/05 22:46:21 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,8 @@ typedef struct s_almighty
 {
 	t_list_header	*var_list;
 	int				exit_stat;
-<<<<<<< HEAD
 	t_redir			redirections;
-=======
-	t_redir_list	redirections;
 	char			*here_doc_str;
->>>>>>> 46edab62e58d218bd892f0de625c2e7bfa64b521
 }	t_almighty;
 
 // env.c
