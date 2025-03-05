@@ -6,7 +6,11 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/03/04 20:26:24 by miteixei         ###   ########.fr       */
+=======
+/*   Updated: 2025/03/05 08:01:14 by suroh            ###   ########.fr       */
+>>>>>>> f39c25b3df92bf4d94ab02f756c181ddb0de54fc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +63,22 @@ typedef struct s_almighty
 }	t_almighty;
 
 // env.c
-void			print_vars(char **envp);
 char			**make_envp(t_list_header *header);
+t_var_elm		*extract_var(char *var);
+t_var_elm		*get_value(t_list_header *header, char *key);
+void			expand_env_variables(t_list_header *var_list,
+					t_token_node **tokens);
+t_list_header	*init_var_list(char **envp);
+
+// env_utils_1.c
+void			print_vars(char **envp);
 t_var_elm		*create_var(char *key, char *value);
 void			add_var(t_list_header *header, t_var_elm *var);
 void			del_var(t_var_elm *var);
 void			rem_var(t_list_header *header, t_var_elm *var);
-t_var_elm		*extract_var(char *var);
-t_var_elm		*get_value(t_list_header *header, char *key);
-t_list_header	*init_var_list(char **envp);
+
+// env_utils_2.c
+void	free_var_list(t_list_header *header);
 
 //
 void			init_signals(void);
