@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:10:17 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/04 20:15:12 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/04 21:15:53 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	_pwd(void)
 
 void	_export(t_almighty *boy, char *var)
 {
+	if (!var)
+	{
+		// need to make a whole function that copies the var_list and sorts it
+		//   then print "declare -x " before each var name
+	}
 	if (!ft_strchr(var, '='))
 		add_var(boy->var_list, create_var(ft_strdup(var), NULL));
 	else
