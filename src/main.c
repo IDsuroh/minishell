@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/04 19:40:54 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/05 07:58:22 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	process_tokens(t_token_node **tokens)
 	t_op_sequence	*tmp_seq;
 	t_token_node	**tokens_dup;
 
-	print_tokens_colors(tokens);
 	tokens_dup = duplicate(tokens);
 	if (!tokens_dup)
 		return (free_node_list(tokens), (void)0);
@@ -73,7 +72,7 @@ static void	process_tokens(t_token_node **tokens)
 	free_node_list(tokens);
 }
 
-static void	handle_input(char *input)
+static void	handle_input(t_list_header *var_list, char *input)
 {
 	t_token_node	**tokens;
 	bool			op_open;
@@ -95,18 +94,19 @@ static void	handle_input(char *input)
 			return ;
 		}
 	}
+	expand_env_variables(var_list, tokens);
+	print_tokens_colors(tokens);
 	process_tokens(tokens);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
-//	t_almighty	mighty;
+	t_almighty	main_struct;
 
 	(void)argc, (void)argv;
-	(void)envp;
 	init_signals();
-//	mighty.var_list = init_var_list(envp);
+	main_struct.var_list = init_var_list(envp);
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -121,9 +121,10 @@ int	main(int argc, char **argv, char **envp)
 		if (*input)
 		{
 			add_history(input);
-			handle_input(input);
+			handle_input(main_struct.var_list, input);
 		}
 	}
+	free_var_list(main_struct.var_list);
 	return (0);
 }
 

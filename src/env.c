@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:42:03 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/04 20:15:57 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/05 07:57:00 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,30 @@ t_var_elm	*get_value(t_list_header *header, char *key)
 		elm = elm->next;
 	}
 	return (NULL);
+}
+
+void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
+{
+	int			i;
+	char		*var_name;
+	char		*old_value;
+	t_var_elm	*env_var;
+
+	i = -1;
+	while (tokens[++i] != NULL)
+	{
+		if (tokens[i]->type == T_VAR)
+		{
+			var_name = tokens[i]->token_value + 1;
+			env_var = get_value(var_list, var_name);
+			old_value = tokens[i]->token_value;
+			if (env_var)
+				tokens[i]->token_value = ft_strjoin(var_name, env_var->value);
+			else
+				tokens[i]->token_value = ft_strdup("");
+			free(old_value);
+		}
+	}
 }
 
 // init the var list with each envp string

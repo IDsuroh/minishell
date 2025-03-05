@@ -16,7 +16,8 @@ SRC_SRCS	=	main.c \
 			print_utils_2.c \
 			signals.c \
 			env.c \
-			env_utils.c
+			env_utils_1.c \
+			env_utils_2.c
 
 TOK_SRCS	=	tokenizer.c \
 			tokenize_input.c \
