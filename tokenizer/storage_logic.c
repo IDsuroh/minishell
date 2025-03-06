@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:07 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 08:42:43 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/06 21:07:05 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,3 +107,38 @@ char	*store_string(char *token_start, char *token_end, char **saveptr)
 	*saveptr = token_end;
 	return (token);
 }
+
+/*
+ * char	*store_quote(char *token_start, char *token_end, char **saveptr)
+ * Purpose:
+ *		This function extracts a token that starts with a quote character
+ *		(either single ' or double ").
+ *
+ * char	*store_separator(char *token_start, char *token_end, char **saveptr)
+ * Purpose:
+ * 		This function extracts a separator token, which may be a
+ * 		single-character or a double-character separator
+ * 		(e.g., redirection operators like '>', '>>', '|', '||', '&&').
+ *
+ * char	*store_var(char *token_start, char *token_end, char **saveptr)
+ * Purpose:
+ * 		This function extracts a variable token. Variable tokens start
+ * 		with the $ symbol and may be followed by a special character (? or $)
+ * 		or a normal variable name.
+ *
+ * 			*file to check for this function:
+ * 				./storage_logic_helper.c
+ *
+ * char	*store_string(char *token_start, char *token_end, char **saveptr)
+ * Purpose:
+ * 		This function extracts a "string" token, which is a sequence of
+ * 		characters that is not interrupted by delimiters, a variable symbol ($),
+ * 		or a separator.
+ *
+ * 		There’s a special check: if it encounters a quote character (' or ")
+ * 		that is properly closed (as determined by is_quote_closed), it stops
+ * 		scanning—this ensures that a quote within a string is handled separately.
+ *
+ *			*next file to check:
+ *				./create_node_list.c
+ */

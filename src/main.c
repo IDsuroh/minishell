@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 18:42:35 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/06 20:36:55 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,16 +128,69 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-/* When each token’s token_value is set to NULL,
- * it is basically telling that there's nothing to free for that field.
- * In this case, the parser’s free functions
- * (like free_argv, free_pipeline, free_op_sequence) have
- * already freed the memory that token_value pointed to.
- * However, the free_node_list function still iterates over each token and
- * calls free on token_value.
- * Since calling free(NULL) is safe (it does nothing),
- * setting token_value to NULL prevents a double-free.
- * The free_node_list(tokens) at the end is necessary because of the
- * functionality itself and also because of memory that is not directly
- * accessible in the handle_input or main or etc. functions.
- * */
+/* 
+ * static t_token_node	**handle_error_input(char *input)
+ * Purpose:
+ * 		This function is used when the initial tokenization of
+ * 		the user input has detected an error—often related to
+ * 		open operators such as '|', '||', '&&'.
+ *
+ * 		 - starts by converting raw input strings into tokens
+ * 		 - this function is only called when the op_open flag in the
+ * 		 	handle_input function is true.
+ * 		 - it returns the new tokens array.
+ * 		 This function leads to the error checking process which
+ * 		 is done after the tokenizing or after it goes through the
+ * 		 lexer.
+ *
+ * 		 * next file to check for this function:
+ * 		 	./../error_check/open_input_checker.c
+ *
+ *
+ * static t_token_node	**duplicate(t_token_node **tokens)
+ * Purpose:
+ * 		This function creates a duplicate (deep copy) of an array of token nodes.
+ * 		Solely to properly and safely free the tokenized assets after parsing.
+ *
+ * 		* next function to check for this function:
+ *			static void	process_tokens(t_token_node **tokens)
+ *
+ * 
+ * static void	process_tokens(t_token_node **tokens)
+ * Purpose:
+ * 		This function handles the further processing of the tokens after
+ * 		initial validation and error-checking.
+ *
+ * 		 - where the printing of the tokens and the parsed tokens happen.
+ * 		
+ * 		* next function to check for this function:
+ * 			static void	handle_input(t_list_header *var_list, char *input)
+ *
+ *
+ * static void	handle_input(t_list_header *var_list, char *input)
+ * Purpose:
+ * 		This is the primary function that handles a user’s input string
+ * 		in the shell. It coordinates tokenization, error checking,
+ * 		environment variable expansion, and processing of tokens.
+ *
+ *		 - the bool op_open is to check if there are open inputs.
+ *
+ *		* next functions and files to check for this function:
+ *			./../include/minishell.h
+ *			./../include/tokenizer.h
+ *			./../include/parser.h
+ *			./../tokenizer/tokenizer.c
+ *			./../error_check/error_check_flags_1.c
+ *			./env_expansion.c
+ *			**for printing:
+ *			./print_utils_1.c
+ *			./print_utils_2.c
+ *
+ *
+ * int	main:
+ * 	classic int main that run the program.
+ * 	init_var_list(envp);
+ * 	a structure that contains the information of the system's envp.
+ *
+ * the parsing and the error checking in the handle_input function.
+ */
