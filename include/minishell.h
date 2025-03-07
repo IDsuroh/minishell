@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 22:46:21 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/07 21:34:27 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_almighty
 	int				exit_stat;
 	t_redir			redirections;
 	char			*here_doc_str;
+	pid_t			*children_pid;
 }	t_almighty;
 
 // env.c
@@ -87,8 +88,10 @@ void			rem_var(t_list_header *header, t_var_elm *var);
 // env_utils_2.c
 void			free_var_list(t_list_header *header);
 
-//
-void			init_signals(void);
-void			terminal_interrupt(void);
+// signals.c
+void			terminal_interrupt(pid_t *children_pid);
+void			signalhandler_interactive(int signum);
+void			init_signals_interactive(void);
+void			init_signals_subshell(void);
 
 #endif
