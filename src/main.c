@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/08 20:34:05 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/08 21:02:25 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,12 @@ int	main(int argc, char **argv, char **envp)
 	t_almighty	main_struct;
 
 	(void)argc, (void)argv;
-	init_signals();
+//	init_signals();
 	main_struct.var_list = init_var_list(envp);
 	while (1)
 	{
 		input = readline("minishell$ ");
-		terminal_interrupt();
+//		terminal_interrupt();
 		if (!input)
 			break ;
 		if (input && ft_strspn(input, " ") == ft_strlen(input))
