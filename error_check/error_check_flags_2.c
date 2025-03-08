@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 23:57:37 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/24 23:58:06 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/08 18:44:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,3 +28,16 @@ bool	error_in_new_prompt(t_token_node **tmp_tokens)
 	}
 	return (false);
 }
+
+/*
+ * Purpose:
+ *
+ * To validate a tokenized command (from a new prompt)
+ * by checking for two specific syntax issues:
+ *
+ * No Preceding Command:
+ * The command should not begin with an operator (e.g., pipe, &&, ||).
+ *
+ * Consecutive Operators:
+ * Two operators should not occur in a row.
+ */

@@ -1,5 +1,5 @@
 NAME	=	minishell
-CC	=	cc
+CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g
 LDFLAGS	=	-lreadline
 
@@ -7,62 +7,65 @@ TOKDIR	=	tokenizer
 PARDIR	=	parser
 SRCDIR	= 	src
 ERRDIR	=	error_check
+ENVDIR	=	env
 EXCDIR	=	execution
 BUILTIN	=	builtins
 
 OBJDIR	= 	obj_dir
 
-VPATH = $(SRCDIR):$(TOKDIR):$(PARDIR):$(ERRDIR):$(BUILTIN):$(EXCDIR)
+VPATH	=	$(SRCDIR):$(TOKDIR):$(PARDIR):$(ERRDIR):$(ENVDIR):$(BUILTIN):$(EXCDIR)
 
 SRC_SRCS	=	main.c \
-			print_utils_1.c \
-			print_utils_2.c \
-			signals.c \
-			env.c \
-			env_expansion.c \
-			env_expansion_utils.c \
-			env_utils_1.c \
-			env_utils_2.c
-
+				print_utils_1.c \
+				print_utils_2.c \
+				signals.c \
+			
 TOK_SRCS	=	tokenizer.c \
-			tokenize_input.c \
-			tokenizer_counters.c \
-			tokenizer_flags_1.c \
-			tokenizer_flags_2.c \
-			tokenizer_flags_3.c \
-			tokenizer_helpers.c \
-			storage_logic.c \
-			storage_logic_helper.c \
-			create_node_list.c
+				tokenize_input.c \
+				tokenizer_counters.c \
+				tokenizer_flags_1.c \
+				tokenizer_flags_2.c \
+				tokenizer_flags_3.c \
+				tokenizer_helpers.c \
+				storage_logic.c \
+				storage_logic_helper.c \
+				create_node_list.c
 
 PAR_SRCS	=	parser.c \
-			parse_sequence.c \
-			parse_pipe_sequence.c \
-			parse_command.c \
-			parser_helpers.c \
-			initiators.c \
-			token_access.c \
+				parse_sequence.c \
+				parse_pipe_sequence.c \
+				parse_command.c \
+				parser_helpers.c \
+				initiators.c \
+				token_access.c \
 
 ERR_SRCS	=	error_check_flags_1.c \
 				error_check_flags_2.c \
 				open_input_checker.c \
+
+ENV_SRCS	=	env.c \
+				env_expansion.c \
+				env_expansion_utils.c \
+				env_utils_1.c \
+				env_utils_2.c
 
 EXC_SRCS	=	execution.c \
 				globals.c
 
 BUIL_SRCS	=	dir.c
 
-SRCS	= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
-		$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \
-		$(addprefix $(PARDIR)/, $(PAR_SRCS)) \
-		$(addprefix $(ERRDIR)/, $(ERR_SRCS)) \
-		$(addprefix $(BUILTIN)/, $(BUIL_SRCS)) \
-		$(addprefix $(EXCDIR)/, $(EXC_SRCS))
+SRCS		= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
+				$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \
+				$(addprefix $(PARDIR)/, $(PAR_SRCS)) \
+				$(addprefix $(ERRDIR)/, $(ERR_SRCS)) \
+				$(addprefix $(ENVDIR)/, $(ENV_SRCS)) \
+				$(addprefix $(BUILTIN)/, $(BUIL_SRCS)) \
+				$(addprefix $(EXCDIR)/, $(EXC_SRCS))
 
-OBJS	= 	$(patsubst %.c, $(OBJDIR)/%.o, $(notdir $(SRCS)))
+OBJS		= 	$(patsubst %.c, $(OBJDIR)/%.o, $(notdir $(SRCS)))
 
-LIB	=	./include/libft/
-LIBFT	=	./include/libft/libft.a
+LIB			=	./include/libft/
+LIBFT		=	./include/libft/libft.a
 
 all: $(NAME)
 

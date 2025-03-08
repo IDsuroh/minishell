@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:58:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/24 23:46:31 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/08 18:36:46 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,3 +97,40 @@ t_simple_cmd	*parse_command(t_parser *parser)
 	}
 	return (command);
 }
+
+/*
+ * t_simple_cmd	*parse_command(t_parser *parser)
+ * Purpose:
+ * 		Creates a simple command structure.
+ * 
+ * Argument Parsing:
+ *		It loops while the current token is an identifier or
+ *		variable type (covering normal command arguments)
+ *		and appends each to the command’s argument list using append_argv.
+ *
+ * Redirection Parsing:
+ * 		It then processes any redirection tokens (like <, >, etc.)
+ * 		by calling handle_redir, which creates and
+ * 		attaches redirection nodes to the command.
+ *
+ *
+ * static void	append_argv(t_simple_cmd *cmd, char *arg)
+ * Purpose:
+ * 		Dynamically appends a new argument to the command’s argv array.
+ * 		It allocates a new array that is one element larger,
+ * 		copies over the existing arguments, appends the new argument,
+ * 		and frees the old array.
+ *
+ * static void	handle_redir(t_simple_cmd *command, t_parser *parser)
+ * Purpose:
+ * 		Processes a redirection token.
+ * 		Reads the redirection operator (setting its type),
+ * 		advances to the next token (expected to be the file or target),
+ * 		and creates a redirection node.
+ * 		Calls append_redir to attach the redirection to the command.
+ *
+ * static void	append_redir(t_simple_cmd *cmd, t_redir *redir)
+ * Purpose:
+ * 		Appends a new redirection to the end of
+ * 		a command’s redirection list.
+ */

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/06 20:36:55 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/08 20:34:05 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,9 @@ int	main(int argc, char **argv, char **envp)
  * 		
  * 		* next function to check for this function:
  * 			static void	handle_input(t_list_header *var_list, char *input)
+ *
+ * 		* next file to check after tokenization:
+ * 			./../parser/parser.c
  *
  *
  * static void	handle_input(t_list_header *var_list, char *input)
