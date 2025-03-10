@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:23:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/08 19:30:34 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/10 17:04:08 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,18 @@ t_list_header	*init_var_list(char **envp);
 // env_expansion.c
 void			expand_env_variables(t_list_header *var_list,
 					t_token_node **tokens);
-// env_expansion_utils.c
+
+// env_expansion_utils_1.c
 char			*get_prefix(const char *str);
 char			*get_var_name(const char *dollar_ptr);
 char			*get_suffix(const char *dollar_ptr);
-int				get_pid_from_proc(void);
+char			*extract_pid_from_stat(const char *stat_str);
+char			*get_pid_from_proc(void);
+
+// env_expansion_utils_2.c
+int				get_var_len(const char *var_start);
+char			*get_special_var_name(const char *var_start);
+char			*get_normal_var_name(const char *var_start);
 
 // env_utils_1.c
 void			print_vars(char **envp);

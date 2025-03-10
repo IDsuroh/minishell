@@ -45,7 +45,8 @@ ERR_SRCS	=	error_check_flags_1.c \
 
 ENV_SRCS	=	env.c \
 				env_expansion.c \
-				env_expansion_utils.c \
+				env_expansion_utils_1.c \
+				env_expansion_utils_2.c \
 				env_utils_1.c \
 				env_utils_2.c
 
