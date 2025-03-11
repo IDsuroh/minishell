@@ -2,19 +2,25 @@ Things I (Roh) need to do (for the week):
 
 Remaining Tasks:
 
+
 Pipeline Support:
 
 Current Status: Your code executes commands sequentially from your parsed structure.
+
 Work Left: You need to implement the logic that connects the output of one command to the input of the next using pipes. This involves creating pipes for adjacent commands, duplicating file descriptors (with dup2), and ensuring you close all unneeded descriptors.
+
 
 PATH Expansion for Command Execution:
 
 Current Status: You have a placeholder comment indicating that PATH expansion should be performed before calling execve().
+
 Work Left: Implement logic to search through the directories listed in the $PATH environment variable for the executable corresponding to the command name (if it doesn’t include a slash). This step is necessary to locate the proper binary to run.
+
 
 Built-in Commands:
 
 Work Left: If your shell needs to support built-in commands (like cd, exit, etc.), you'll have to implement these and decide whether they should run in the parent process (to affect the shell state) or via forking.
+
 
 Additional Error Handling and Testing:
 
