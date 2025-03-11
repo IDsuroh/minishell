@@ -2,13 +2,9 @@ Things I (Roh) need to do (for the week):
 
 Remaining Tasks:
 
-
-Pipeline Support:
-
-Current Status: Your code executes commands sequentially from your parsed structure.
-
-Work Left: You need to implement the logic that connects the output of one command to the input of the next using pipes. This involves creating pipes for adjacent commands, duplicating file descriptors (with dup2), and ensuring you close all unneeded descriptors.
-
+***********************************************************
+NOTE-DOWN EXECUTION EXPLANATION FOR BETTER UNDERSTANDING!!!
+***********************************************************
 
 PATH Expansion for Command Execution:
 
