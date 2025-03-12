@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:57:57 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/08 18:21:12 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/11 21:53:56 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ static t_op_sequence	*handle_logical_operator(t_parser *parser,
 	token = get_current_token(parser);
 	if (!token || (token->type != T_AND && token->type != T_OR))
 		return (current);
+	if (token->type == T_AND)
+		current->op = OP_AND;
+	else if (token->type == T_OR)
+		current->op = OP_OR;
 	advance_token(parser);
 	current = init_existing_token(current);
 	return (current);

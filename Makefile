@@ -50,8 +50,12 @@ ENV_SRCS	=	env.c \
 				env_utils_1.c \
 				env_utils_2.c
 
-EXC_SRCS	=	execution.c \
-				globals.c
+EXC_SRCS	=	execute.c \
+				execute_command.c \
+				execute_redirections.c \
+				handle_heredoc_redirection.c \
+				here_doc.c \
+				manage_pid_list.c \
 
 BUIL_SRCS	=	dir.c
 

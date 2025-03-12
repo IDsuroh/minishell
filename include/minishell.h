@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/08 21:00:33 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/11 18:58:52 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@
 
 //extern volatile int	g_signal;
 
-extern int				g_last_exit_status;
-
 // all purpose struct, containing all important values
 //   or references to other structs or lists
 typedef struct s_almighty
@@ -46,7 +44,7 @@ typedef struct s_almighty
 	int				exit_stat;
 	t_redir			redirections;
 	char			*here_doc_str;
-	pid_t			*children_pid;
+	t_pid_node		*active_child_pid_list;
 }	t_almighty;
 
 //

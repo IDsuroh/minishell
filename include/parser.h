@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/24 23:11:10 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/11 21:51:35 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,17 @@ typedef struct s_pipe_sequence
 	struct s_pipe_sequence		*next;
 }	t_pipe_sequence;
 
+typedef enum e_operator
+{
+	OP_NONE,
+	OP_AND,
+	OP_OR
+}	t_operator;
+
 typedef struct s_op_sequence
 {
 	t_pipe_sequence				*pipe;
+	t_operator					op;
 	struct s_op_sequence		*next;
 	struct s_op_sequence		*prev;
 }	t_op_sequence;
