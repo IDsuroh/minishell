@@ -51,7 +51,8 @@ ENV_SRCS	=	env.c \
 				env_utils_2.c
 
 EXC_SRCS	=	execute.c \
-				execute_command.c \
+				execute_pipeline.c \
+				execute_pipeline_helper.c \
 				execute_redirections.c \
 				handle_heredoc_redirection.c \
 				here_doc.c \
