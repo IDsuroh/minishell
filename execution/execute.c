@@ -6,16 +6,43 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/12 15:51:43 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/12 19:16:20 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+static void	child_exec(t_simple_cmd *cmd, t_almighty *mighty)
+{
+	char	*exec_path;
+
+	if (execute_redirections(cmd->redir, mighty) < 0)
+		exit(EXIT_FAILURE);
+	exec_path = find_executable(cmd->argv[0]);
+	if (!exec_path)
+	{
+		perror("find_executable");
+		exit(EXIT_FAILURE);
+	}
+	execve(exec_path, cmd->argv, mighty->envp);
+	perror("execve");
+	free(exec_path);
+	exit(EXIT_FAILURE);
+}
+
+static int	parent_exec(t_almighty *mighty, pid_t pid)
+{
+	int	status;
+
+	add_child_pid(mighty, pid);
+	waitpid(pid, &status, 0);
+	remove_child_pid(mighty, pid);
+	return (status);
+}
+
 int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (pid < 0)
@@ -25,19 +52,10 @@ int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 	}
 	if (pid == 0)
 	{
-		if (execute_redirections(cmd->redir, mighty) < 0)
-			exit(EXIT_FAILURE);
-		//PATH expansion should be performed here.
-		//execve()
+		init_signals_subshell();
+		child_exec(cmd, mighty);
 	}
-	else
-	{
-		add_child_pid(mighty, pid);
-		waitpid(pid, &status, 0);
-		remove_child_pid(mighty, pid);
-		return (status);
-	}
-	return (0);
+	return (parent_exec(mighty, pid));
 }
 
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)

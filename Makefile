@@ -7,7 +7,7 @@ TOKDIR	=	tokenizer
 PARDIR	=	parser
 SRCDIR	= 	src
 ERRDIR	=	error_check
-ENVDIR	=	env
+ENVDIR	=	envp_expand
 EXCDIR	=	execution
 BUILTIN	=	builtins
 
@@ -43,12 +43,12 @@ ERR_SRCS	=	error_check_flags_1.c \
 				error_check_flags_2.c \
 				open_input_checker.c \
 
-ENV_SRCS	=	env.c \
-				env_expansion.c \
-				env_expansion_utils_1.c \
-				env_expansion_utils_2.c \
-				env_utils_1.c \
-				env_utils_2.c
+ENV_SRCS	=	envp.c \
+				envp_expansion.c \
+				envp_expansion_utils_1.c \
+				envp_expansion_utils_2.c \
+				envp_utils_1.c \
+				envp_utils_2.c
 
 EXC_SRCS	=	execute.c \
 				execute_pipeline.c \

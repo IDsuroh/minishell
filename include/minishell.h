@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/11 18:58:52 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/12 17:14:30 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_almighty
 	t_redir			redirections;
 	char			*here_doc_str;
 	t_pid_node		*active_child_pid_list;
+	char			**envp;
 }	t_almighty;
 
 //

@@ -83,7 +83,7 @@ int	execute_redirections(t_redir *redir, t_almighty *mighty)
 			|| (redir->type == T_DGREAT
 				&& handle_append_redirection(redir->filename) < 0)
 			|| (redir->type == T_DLESS
-				&&handle_heredoc_redirection(redir->filename, mighty) < 0))
+				&& handle_heredoc_redirection(redir->filename, mighty) < 0))
 			return (-1);
 		redir = redir->next;
 	}
