@@ -2,9 +2,11 @@ Things I (Roh) need to do (for the week):
 
 Remaining Tasks:
 
-***********************************************************
-NOTE-DOWN EXECUTION EXPLANATION FOR BETTER UNDERSTANDING!!!
-***********************************************************
+Check if heredoc implementation is correct.
+(question: how to store the memory that has been used by heredoc
+  and if there are several heredocs, how are we going to save
+  the executed whatever till the end?)
+(Tweak tokenization and parsing logic).
 
 PATH Expansion for Command Execution:
 
@@ -13,9 +15,9 @@ Current Status: You have a placeholder comment indicating that PATH expansion sh
 Work Left: Implement logic to search through the directories listed in the $PATH environment variable for the executable corresponding to the command name (if it doesn’t include a slash). This step is necessary to locate the proper binary to run.
 
 
-Built-in Commands:
-
-Work Left: If your shell needs to support built-in commands (like cd, exit, etc.), you'll have to implement these and decide whether they should run in the parent process (to affect the shell state) or via forking.
+Implement Built-in Commands to Execution:
+(built-ins cant fork unless it is in a pipeline.)
+Work Left: You'll have to implement these and decide whether they should run in the parent process (to affect the shell state) or via forking.
 
 
 Additional Error Handling and Testing:
