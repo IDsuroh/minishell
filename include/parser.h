@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/11 21:51:35 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 17:30:58 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_redir
 {
 	t_token_type		type;
 	char				*filename;
+	char				*heredoc_content;
 	struct s_redir		*next;
 }	t_redir;
 
@@ -71,6 +72,10 @@ t_simple_cmd		*parse_command(t_parser *parser);
 
 // parse_pipe_sequence.c
 t_pipe_sequence		*parse_pipe_sequence(t_parser *parser);
+
+// parse_redir.c
+void				append_redir(t_simple_cmd *cmd, t_redir *redir);
+t_redir				*parse_redir(t_parser *parse);
 
 // parse_sequence.c
 t_op_sequence		*parse_sequence(t_parser *parser);

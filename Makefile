@@ -34,6 +34,7 @@ TOK_SRCS	=	tokenizer.c \
 PAR_SRCS	=	parser.c \
 				parse_sequence.c \
 				parse_pipe_sequence.c \
+				parse_redir.c \
 				parse_command.c \
 				parser_helpers.c \
 				initiators.c \
@@ -55,7 +56,6 @@ EXC_SRCS	=	execute.c \
 				execute_pipeline_helper.c \
 				execute_redirections.c \
 				handle_heredoc_redirection.c \
-				here_doc.c \
 				manage_pid_list.c \
 
 BUIL_SRCS	=	dir.c

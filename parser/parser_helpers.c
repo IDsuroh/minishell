@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 22:49:29 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/24 23:48:34 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 17:22:09 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	free_redir(t_redir *redir)
 		tmp = redir->next;
 		if (redir->filename)
 			free(redir->filename);
+		if (redir->heredoc_content)
+			free(redir->heredoc_content);
 		free(redir);
 		redir = tmp;
 	}

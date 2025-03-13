@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/12 19:17:18 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:01:17 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
 		else if (tokens[i]->type == T_XVAR)
 		{
 			old_value = tokens[i]->token_value;
-			tokens[i]->token_value =
-				(ft_strdup("\t***for now not implemented***\t"));
+			tokens[i]->token_value = ft_strdup("\tfor now not implemented\t");
 			free(old_value);
 		}
 	}

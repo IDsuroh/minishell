@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:42:33 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/10 19:47:02 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 17:57:40 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ static int	setup_heredoc_pipe(int pipefd[2])
 		return (-1);
 	}
 	return (0);
-}
-
-static char	*collect_heredoc(const char *eof, t_almighty *mighty)
-{
-	if (mighty->here_doc_str)
-		free(mighty->here_doc_str);
-	mighty->here_doc_str = ft_strdup("");
-	if (!mighty->here_doc_str)
-		return (NULL);
-	heredoc((char *)eof, mighty);
-	return (mighty->here_doc_str);
 }
 
 static int	write_heredoc_to_pipe(const char *heredoc, int pipe_out)
@@ -52,17 +41,13 @@ static int	redirect_pipe_to_stdin(int read_fd)
 	return (0);
 }
 
-int	handle_heredoc_redirection(const char *eof, t_almighty *mighty)
+int	handle_heredoc_redirection(t_redir *redir)
 {
 	int		pipefd[2];
-	char	*heredoc;
 
 	if (setup_heredoc_pipe(pipefd) > 0)
 		return (-1);
-	heredoc = collect_heredoc(eof, mighty);
-	if (!heredoc)
-		return (-1);
-	if (write_heredoc_to_pipe(heredoc, pipefd[1]) < 0)
+	if (write_heredoc_to_pipe(redir->heredoc_content, pipefd[1]) < 0)
 	{
 		perror("write");
 		close(pipefd[0]);

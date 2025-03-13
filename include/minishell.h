@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/12 17:14:30 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:25:17 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,17 @@ typedef struct s_almighty
 	t_list_header	*var_list;
 	int				exit_stat;
 	t_redir			redirections;
-	char			*here_doc_str;
-	t_pid_node		*active_child_pid_list;
+	t_pid_node		*acpl; //active_child_pid_list
 	char			**envp;
 }	t_almighty;
 
 //
-void			init_signals(void);
+void	init_signals(void);
 
 // signals.c
-void			terminal_interrupt(pid_t *children_pid);
-void			signalhandler_interactive(int signum);
-void			init_signals_interactive(void);
-void			init_signals_subshell(void);
+void	terminal_interrupt(t_pid_node *acpl);
+void	signalhandler_interactive(int signum);
+void	init_signals_interactive(void);
+void	init_signals_subshell(void);
 
 #endif

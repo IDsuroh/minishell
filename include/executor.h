@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/11 22:00:13 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 17:03:58 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ void	parent_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty,
 			pid_t pid);
 
 // execute_redirections.c
-int		execute_redirections(t_redir *redir, t_almighty *mighty);
-
-// here_doc.c
-char	*heredoc_arr(char *hdstr, char *buff);
-void	heredoc(const char *eof, t_almighty *mighty);
+int		execute_redirections(t_redir *redir);
 
 // handle_heredoc_redirection.c
-int		handle_heredoc_redirection(const char *eof, t_almighty *mighty);
+int		handle_heredoc_redirection(t_redir *redir);
 
 // manage_pid_list.c
 void	add_child_pid(t_almighty *mighty, pid_t pid);

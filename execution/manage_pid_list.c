@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 12:46:18 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/11 19:03:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:19:34 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	add_child_pid(t_almighty *mighty, pid_t pid)
 		exit(EXIT_FAILURE);
 	}
 	new_node->pid = pid;
-	new_node->next = mighty->active_child_pid_list;
-	mighty->active_child_pid_list = new_node;
+	new_node->next = mighty->acpl;
+	mighty->acpl = new_node;
 }
 
 void	remove_child_pid(t_almighty *mighty, pid_t pid)
@@ -32,7 +32,7 @@ void	remove_child_pid(t_almighty *mighty, pid_t pid)
 	t_pid_node	**curr;
 	t_pid_node	*tmp;
 
-	curr = &mighty->active_child_pid_list;
+	curr = &mighty->acpl;
 	while (*curr)
 	{
 		if ((*curr)->pid == pid)
@@ -50,7 +50,7 @@ void	send_signal_to_all_children(t_almighty *mighty, int sig)
 {
 	t_pid_node	*curr;
 
-	curr = mighty->active_child_pid_list;
+	curr = mighty->acpl;
 	while (curr)
 	{
 		kill(curr->pid, sig);

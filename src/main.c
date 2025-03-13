@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/12 19:09:24 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:25:33 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc, (void)argv;
 	main_struct.var_list = init_var_list(envp);
-	main_struct.child_list = NULL;
+	main_struct.acpl = NULL;
 	main_struct.envp = envp;
 	init_signals_interactive();
 	while (1)
@@ -124,8 +124,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(input);
 			handle_input(main_struct.var_list, input);
 		}
-		terminal_interrupt(&main_struct);
-		free(input)
+		terminal_interrupt(main_struct.acpl);
+		free(input);
 	}
 	free_var_list(main_struct.var_list);
 	return (0);

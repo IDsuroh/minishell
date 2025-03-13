@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 19:57:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/12 19:15:40 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:18:52 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	child_close_fds(t_pipeline_variables *pvs)
 	}
 }
 
-static void	execute_child(t_pipeline_variables *pvs, t_almighty *mighty)
+static void	execute_child(t_pipeline_variables *pvs)
 {
-	if (execute_redirections(pvs->current->cmd->redir, mighty) < 0)
+	if (execute_redirections(pvs->current->cmd->redir) < 0)
 		exit(EXIT_FAILURE);
 	// $PATH expansion
 	// execve
@@ -53,10 +53,11 @@ static void	execute_child(t_pipeline_variables *pvs, t_almighty *mighty)
 
 void	child_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty)
 {
+	(void)mighty;
 	init_signals_subshell();
 	child_redirect_stdio(pvs);
 	child_close_fds(pvs);
-	execute_child(pvs, mighty);
+	execute_child(pvs);
 }
 
 void	parent_pipeline_setup(t_pipeline_variables *pvs,
@@ -71,22 +72,3 @@ void	parent_pipeline_setup(t_pipeline_variables *pvs,
 		pvs->prev_pipe_read = pvs->pipefd[0];
 	}
 }
-
-/*
- * static void	child_redirect_stdio:
- * 	uses dup2 to redirect the appropriate file descriptors.
- *
- * static void	child_close_fds:
- * 	Closes file descriptors that are no longer needed after dup2.
- *
- * static void	execute_child:
- *  The execution corner. Will be implemented soon.
- *
- * void	child_pipeline_setup:
- *  Calls all those functions then executes the child process.
- *
- * void	parent_pipeline_setup:
- * 	Adds the child's PID to the list for signal handling.
- * 	closes the previous pipe read end and updates it with 
- * 	the new pipe's read end for the next command.
- */

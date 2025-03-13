@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:58:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/08 18:36:46 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 17:25:24 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,53 +35,17 @@ static void	append_argv(t_simple_cmd *cmd, char *arg)
 	cmd->argv = new_argv;
 }
 
-static void	append_redir(t_simple_cmd *cmd, t_redir *redir)
-{
-	t_redir	*cur;
-
-	if (!cmd->redir)
-		cmd->redir = redir;
-	else
-	{
-		cur = cmd->redir;
-		while (cur->next)
-			cur = cur->next;
-		cur->next = redir;
-	}
-}
-
-static void	handle_redir(t_simple_cmd *command, t_parser *parser)
-{
-	t_token_node	*token;
-	t_token_type	redir_type;
-	t_redir			*redir;
-
-	token = get_current_token(parser);
-	if (token)
-	{
-		redir_type = token->type;
-		advance_token(parser);
-		token = get_current_token(parser);
-		if (token)
-		{
-			redir = malloc_t_redir(redir_type, ft_strdup(token->token_value));
-			append_redir(command, redir);
-		}
-		advance_token(parser);
-	}
-}
-
 t_simple_cmd	*parse_command(t_parser *parser)
 {
 	t_simple_cmd	*command;
 	t_token_node	*token;
+	t_redir			*redir;
 
 	command = malloc_t_simple_cmd();
 	if (!command)
 		return (NULL);
 	token = get_current_token(parser);
-	while (token
-		&& (token->type == T_IDENTIFIER || token->type == T_VAR
+	while (token && (token->type == T_IDENTIFIER || token->type == T_VAR
 			|| token->type == T_XVAR || token->type == T_PID))
 	{
 		append_argv(command, ft_strdup(token->token_value));
@@ -92,7 +56,9 @@ t_simple_cmd	*parse_command(t_parser *parser)
 	while (token && (token->type == T_LESS || token->type == T_GREAT
 			|| token->type == T_DLESS || token->type == T_DGREAT))
 	{
-		handle_redir(command, parser);
+		redir = parse_redir(parser);
+		if (redir)
+			append_redir(command, redir);
 		token = get_current_token(parser);
 	}
 	return (command);
@@ -121,16 +87,4 @@ t_simple_cmd	*parse_command(t_parser *parser)
  * 		copies over the existing arguments, appends the new argument,
  * 		and frees the old array.
  *
- * static void	handle_redir(t_simple_cmd *command, t_parser *parser)
- * Purpose:
- * 		Processes a redirection token.
- * 		Reads the redirection operator (setting its type),
- * 		advances to the next token (expected to be the file or target),
- * 		and creates a redirection node.
- * 		Calls append_redir to attach the redirection to the command.
- *
- * static void	append_redir(t_simple_cmd *cmd, t_redir *redir)
- * Purpose:
- * 		Appends a new redirection to the end of
- * 		a command’s redirection list.
  */

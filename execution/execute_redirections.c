@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:04:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/11 18:52:13 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 17:57:04 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	handle_append_redirection(const char *filename)
 	return (0);
 }
 
-int	execute_redirections(t_redir *redir, t_almighty *mighty)
+int	execute_redirections(t_redir *redir)
 {
 	while (redir)
 	{
@@ -83,7 +83,7 @@ int	execute_redirections(t_redir *redir, t_almighty *mighty)
 			|| (redir->type == T_DGREAT
 				&& handle_append_redirection(redir->filename) < 0)
 			|| (redir->type == T_DLESS
-				&& handle_heredoc_redirection(redir->filename, mighty) < 0))
+				&& handle_heredoc_redirection(redir) < 0))
 			return (-1);
 		redir = redir->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/12 19:16:20 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/13 18:26:35 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ static void	child_exec(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	char	*exec_path;
 
-	if (execute_redirections(cmd->redir, mighty) < 0)
+	if (execute_redirections(cmd->redir) < 0)
 		exit(EXIT_FAILURE);
-	exec_path = find_executable(cmd->argv[0]);
+	exec_path = ft_strdup("\tNOTIMPLEMENTED\t\n");
+//	exec_path = find_executable(cmd->argv[0]);
 	if (!exec_path)
 	{
 		perror("find_executable");
@@ -78,24 +79,3 @@ void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
 		tmp_op = tmp_op->next;
 	}
 }
-
-/*
- * int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
- *
- * Forking the Process:
- * 	pid = fork();
- * 		creates a new child process which the fork of the child return 0,
- * 		and the parent returns the child's PID.
- * Applies file redirections
- * then PATH expansions.
- *
- * In the Parent Process, it adds the PID of so that if a signal is received,
- * it can be forwarded.
- * Parent wairs for the child to finish then retrieves the exit status of it.
- * Then remove the finish child from the tracking list.
- *
- * execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
- * execute commands that may be simple or complex.
- *
- *
- */
