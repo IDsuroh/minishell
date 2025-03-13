@@ -9,7 +9,7 @@ WRITE NOTES FOR: \
       EXECUTION/PIPELINE_HELPER.C \
       EXECUTION/EXECUTE_REDIRECTIONS.C \
       EXECUTION/HANDLE_HEREDOC_REDIRECTION.C \
-      EXECUTION/MANAGE_PID_LIST.C \ 
+      EXECUTION/MANAGE_PID_LIST.C
 ************************************************ 
 
 Multiple Heredocs:
