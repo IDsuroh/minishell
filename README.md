@@ -2,11 +2,13 @@ Things I (Roh) need to do (for the week):
 
 Remaining Tasks:
 
-Check if heredoc implementation is correct.
-(question: how to store the memory that has been used by heredoc
-  and if there are several heredocs, how are we going to save
-  the executed whatever till the end?)
-(Tweak tokenization and parsing logic).
+************************************************
+WRITE NOTES FOR:
+      PARSER/PARSE_REDIR.C
+      EXECUTION/EXECUTE_REDIRECTIONS.C
+      EXECUTION/HANDLE_HEREDOC_REDIRECTION.C
+      EXECUTION/MANAGE_PID_LIST.C
+************************************************ 
 
 Multiple Heredocs:
 If your command contains several heredocs, your current approach (using one mighty->here_doc_str) isn’t sufficient because it doesn’t differentiate between different heredoc redirections.
