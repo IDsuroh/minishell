@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:10:17 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/04 21:15:53 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/14 21:20:23 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,8 @@ void	_exit_(t_almighty *boy, int *var_exit)
 	else
 		exit_val = boy->exit_stat;
 	// FREE EVERYTHING
+	free_var_list(boy->var_list);
+	free(boy->acpl);
+	free(boy);
 	exit(exit_val);
 }

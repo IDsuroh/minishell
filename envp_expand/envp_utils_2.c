@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils_2.c                                      :+:      :+:    :+:   */
+/*   envp_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:58:58 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/05 08:00:42 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/14 20:56:04 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	free_var_list(t_list_header *header)
 	while (current)
 	{
 		next = current->next;
-		free(current->key);
-		free(current->value);
-		free(current);
+		del_var(current);
 		current = next;
 	}
 	free(header);
