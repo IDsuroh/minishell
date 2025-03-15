@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 19:43:54 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/12 16:04:33 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 17:08:23 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	fork_pipeline(t_pipe_sequence *current,
 		exit(EXIT_FAILURE);
 	}
 	if (pid == 0)
-		child_pipeline_setup(&pvs, mighty);
+		child_pipeline_setup(&pvs);
 	else
 	{
 		parent_pipeline_setup(&pvs, mighty, pid);

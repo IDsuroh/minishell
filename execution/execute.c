@@ -6,20 +6,19 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 15:54:38 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 17:26:02 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	child_exec(t_simple_cmd *cmd, t_almighty *mighty)
+void	execute_child(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	char	*exec_path;
 
 	if (execute_redirections(cmd->redir) < 0)
 		exit(EXIT_FAILURE);
-	exec_path = ft_strdup("\tNOTIMPLEMENTED\t\n");
-//	exec_path = find_executable(cmd->argv[0]);
+	exec_path = find_executable(cmd->argv[0]);
 	if (!exec_path)
 	{
 		perror("find_executable");
@@ -44,6 +43,7 @@ static int	parent_exec(t_almighty *mighty, pid_t pid)
 int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid < 0)
@@ -54,9 +54,10 @@ int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 	if (pid == 0)
 	{
 		init_signals_subshell();
-		child_exec(cmd, mighty);
+		execute_child_command(cmd, mighty);
 	}
-	return (parent_exec(mighty, pid));
+	status = parent_exec(mighty, pid);
+	return (status);
 }
 
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)

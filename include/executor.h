@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/13 17:03:58 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 17:26:39 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,27 @@ typedef struct s_pipeline_variables
 }					t_pipeline_variables;
 
 // execute.c
-void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
+void	execute_child(t_simple_cmd *cmd, t_almighty *mighty);
 int		execute_command(t_simple_cmd *cmd, t_almighty *mighty);
+void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
 
 // execute_pipeline.c
 int		execute_pipeline(t_pipe_sequence *pipe_seq, t_almighty *mighty);
 
 // execute_pipeline_helper.c
-void	child_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty);
+void	child_pipeline_setup(t_pipeline_variables *pvs);
 void	parent_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty,
 			pid_t pid);
 
 // execute_redirections.c
 int		execute_redirections(t_redir *redir);
+
+// find_executable.c
+char	*find_executable(char *cmd);
+
+// find_executable_helper.c
+bool	is_cmd_a_path(char *cmd);
+void	free_paths(char **paths);
 
 // handle_heredoc_redirection.c
 int		handle_heredoc_redirection(t_redir *redir);
