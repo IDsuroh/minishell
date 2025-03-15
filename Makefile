@@ -55,8 +55,10 @@ EXC_SRCS	=	execute.c \
 				execute_pipeline.c \
 				execute_pipeline_helper.c \
 				execute_redirections.c \
+				find_executable.c \
+				find_executable_helper.c \
 				handle_heredoc_redirection.c \
-				manage_pid_list.c \
+				manage_pid_list.c
 
 BUIL_SRCS	=	dir.c
 

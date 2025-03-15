@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 19:57:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 17:24:42 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 20:12:19 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ static void	execute_child(t_pipeline_variables *pvs, t_almighty *mighty)
 	execute_child_command(pvs->current->cmd, mighty);
 }
 
-void	child_pipeline_setup(t_pipeline_variables *pvs)
+void	child_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty)
 {
 	init_signals_subshell();
 	child_redirect_stdio(pvs);
 	child_close_fds(pvs);
-	execute_child(pvs);
+	execute_child(pvs, mighty);
 }
 
 void	parent_pipeline_setup(t_pipeline_variables *pvs,

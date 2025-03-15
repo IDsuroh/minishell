@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 17:26:39 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 20:12:32 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_pipeline_variables
 }					t_pipeline_variables;
 
 // execute.c
-void	execute_child(t_simple_cmd *cmd, t_almighty *mighty);
+void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty);
 int		execute_command(t_simple_cmd *cmd, t_almighty *mighty);
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
 
@@ -40,7 +40,7 @@ void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
 int		execute_pipeline(t_pipe_sequence *pipe_seq, t_almighty *mighty);
 
 // execute_pipeline_helper.c
-void	child_pipeline_setup(t_pipeline_variables *pvs);
+void	child_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty);
 void	parent_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty,
 			pid_t pid);
 

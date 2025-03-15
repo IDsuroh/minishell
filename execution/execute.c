@@ -6,13 +6,13 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 17:26:02 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 20:11:01 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	execute_child(t_simple_cmd *cmd, t_almighty *mighty)
+void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	char	*exec_path;
 
