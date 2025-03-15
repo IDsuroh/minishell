@@ -52,6 +52,7 @@ ENV_SRCS	=	envp.c \
 				envp_utils_2.c
 
 EXC_SRCS	=	execute.c \
+				execute_builtin.c \
 				execute_pipeline.c \
 				execute_pipeline_helper.c \
 				execute_redirections.c \
@@ -67,8 +68,8 @@ SRCS		= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 				$(addprefix $(PARDIR)/, $(PAR_SRCS)) \
 				$(addprefix $(ERRDIR)/, $(ERR_SRCS)) \
 				$(addprefix $(ENVDIR)/, $(ENV_SRCS)) \
-				$(addprefix $(BUILTIN)/, $(BUIL_SRCS)) \
-				$(addprefix $(EXCDIR)/, $(EXC_SRCS))
+				$(addprefix $(EXCDIR)/, $(EXC_SRCS)) \
+				$(addprefix $(BUILTIN)/, $(BUIL_SRCS))
 
 OBJS		= 	$(patsubst %.c, $(OBJDIR)/%.o, $(notdir $(SRCS)))
 

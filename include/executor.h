@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 20:12:32 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 20:42:18 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,23 @@ typedef struct s_pipeline_variables
 	int				pipefd[2];
 }					t_pipeline_variables;
 
+// dir.c
+void	_echo(char **args);
+void	_cd(t_almighty *boy, char *dir);
+void	_pwd(void);
+void	_export(t_almighty *boy, char *var);
+void	_unset(t_almighty *boy, char *key);
+void	_env(t_almighty *boy);
+void	_exit_(t_almighty *boy, int *var_exit);
+
 // execute.c
 void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty);
 int		execute_command(t_simple_cmd *cmd, t_almighty *mighty);
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
+
+// execute_builtin.c
+bool	is_builtin_command(const char *cmd);
+int		execute_builtin(t_simple_cmd *cmd, t_almighty *mighty);
 
 // execute_pipeline.c
 int		execute_pipeline(t_pipe_sequence *pipe_seq, t_almighty *mighty);
