@@ -6,6 +6,7 @@ Implement Built-in Commands to Execution:
 (built-ins cant fork unless it is in a pipeline.)
 Work Left: You'll have to implement these and decide whether they should run in the parent process (to affect the shell state) or via forking.
 
+!!!!!!!!!!!!!!!!!!!ADD NOTES!!!!!!!!!!!!!!!!!!!!!
 
 Additional Error Handling and Testing:
 
