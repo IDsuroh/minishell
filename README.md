@@ -2,13 +2,6 @@ Things I (Roh) need to do (for the week):
 
 Remaining Tasks:
 
-PATH Expansion for Command Execution:
-
-Current Status: You have a placeholder comment indicating that PATH expansion should be performed before calling execve().
-
-Work Left: Implement logic to search through the directories listed in the $PATH environment variable for the executable corresponding to the command name (if it doesn’t include a slash). This step is necessary to locate the proper binary to run.
-
-
 Implement Built-in Commands to Execution:
 (built-ins cant fork unless it is in a pipeline.)
 Work Left: You'll have to implement these and decide whether they should run in the parent process (to affect the shell state) or via forking.
