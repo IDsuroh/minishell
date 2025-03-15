@@ -2,16 +2,6 @@ Things I (Roh) need to do (for the week):
 
 Remaining Tasks:
 
-************************************************
-WRITE NOTES FOR: \
-      PARSER/PARSE_REDIR.C \
-      EXECUTION/EXECUTE.C \
-      EXECUTION/PIPELINE_HELPER.C \
-      EXECUTION/EXECUTE_REDIRECTIONS.C \
-      EXECUTION/HANDLE_HEREDOC_REDIRECTION.C \
-      EXECUTION/MANAGE_PID_LIST.C
-************************************************ 
-
 PATH Expansion for Command Execution:
 
 Current Status: You have a placeholder comment indicating that PATH expansion should be performed before calling execve().
