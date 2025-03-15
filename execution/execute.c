@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/13 18:26:35 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/15 15:54:38 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,38 @@ void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
 		tmp_op = tmp_op->next;
 	}
 }
+
+/*
+ * static void	child_exec(t_simple_cmd *cmd, t_almighty *mighty)
+ * 	Calls execute_redirections to set up any file redirections.
+ * 	Uses a placeholder for PATH expansion
+ * 		(to be replaced with find_executable later).
+ * 	Calls execve with the command’s arguments and the environment
+ * 		stored in mighty.
+ * 	If any error occurs, it prints an error (via perror) and
+ * 		exits with EXIT_FAILURE.
+ *
+ * 
+ * static int	parent_exec(t_almighty *mighty, pid_t pid)
+ *  Tracks the child process for later signal forwarding.
+ *  Uses waitpid to block until the child completes.
+ *  Removes the child’s PID from the active list.
+ *  Returns the child's exit status.
+ *
+ *
+ * int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
+ *  Forks a child process.
+ *  In the child branch, resets signal handlers to default
+ *  	(via init_signals_subshell) and calls child_exec.
+ *  In the parent branch, waits for the child and
+ *  	returns its exit status.
+ *
+ *
+ * void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
+ *  Iterates through each command group (op_sequence).
+ *  If there is more than one command in the pipeline, calls
+ *  	execute_pipeline; otherwise, calls execute_command.
+ *  Checks the logical operator (OP_AND or OP_OR) to decide whether to
+ *  	continue executing subsequent command groups.
+ *
+ */
