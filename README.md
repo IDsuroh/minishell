@@ -2,11 +2,35 @@ Things I (Roh) need to do (for the week):
 
 Remaining Tasks:
 
-Implement Built-in Commands to Execution:
-(built-ins cant fork unless it is in a pipeline.)
-Work Left: You'll have to implement these and decide whether they should run in the parent process (to affect the shell state) or via forking.
+Implement this;
+void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
+{
+	int			i;
+	char		*old_value;
 
-!!!!!!!!!!!!!!!!!!!ADD NOTES!!!!!!!!!!!!!!!!!!!!!
+	i = -1;
+	while (tokens[++i] != NULL)
+	{
+		if (tokens[i]->type == T_VAR)
+		{
+			old_value = tokens[i]->token_value;
+			tokens[i]->token_value = expand_token_value(old_value, var_list);
+			free(old_value);
+		}
+		else if (tokens[i]->type == T_PID)
+		{
+			old_value = tokens[i]->token_value;
+			tokens[i]->token_value = get_pid_from_proc();
+			free(old_value);
+		}
+		else if (tokens[i]->type == T_XVAR)
+		{
+			old_value = tokens[i]->token_value;
+			tokens[i]->token_value = ft_strdup("\tfor now not implemented\t");
+			free(old_value);
+		}
+	}
+}
 
 Additional Error Handling and Testing:
 
