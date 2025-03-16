@@ -4,34 +4,34 @@ Remaining Tasks:
 
 Implement this:
 
-void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
-{
-	int			i;
-	char		*old_value;
-
-	i = -1;
-	while (tokens[++i] != NULL)
+ 	void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
 	{
-		if (tokens[i]->type == T_VAR)
+		int			i;
+		char		*old_value;
+	
+		i = -1;
+		while (tokens[++i] != NULL)
 		{
-			old_value = tokens[i]->token_value;
-			tokens[i]->token_value = expand_token_value(old_value, var_list);
-			free(old_value);
-		}
-		else if (tokens[i]->type == T_PID)
-		{
-			old_value = tokens[i]->token_value;
-			tokens[i]->token_value = get_pid_from_proc();
-			free(old_value);
-		}
-		else if (tokens[i]->type == T_XVAR)
-		{
-			old_value = tokens[i]->token_value;
-			tokens[i]->token_value = ft_strdup("\tfor now not implemented\t");
-			free(old_value);
+			if (tokens[i]->type == T_VAR)
+			{
+				old_value = tokens[i]->token_value;
+				tokens[i]->token_value = expand_token_value(old_value, var_list);
+				free(old_value);
+			}
+			else if (tokens[i]->type == T_PID)
+			{
+				old_value = tokens[i]->token_value;
+				tokens[i]->token_value = get_pid_from_proc();
+				free(old_value);
+			}
+			else if (tokens[i]->type == T_XVAR)
+			{
+				old_value = tokens[i]->token_value;
+				tokens[i]->token_value = ft_strdup("\tfor now not implemented\t");
+				free(old_value);
+			}
 		}
 	}
-}
 
 Additional Error Handling and Testing:
 
