@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:42:03 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/08 20:53:58 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/16 17:38:27 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ char	**make_envp(t_list_header *header)
 	{
 		envp[i] = malloc((ft_strlen(elm->key) + 1 + ft_strlen(elm->value) + 1)
 				* sizeof(char));
+		if (!envp[i])
+		{
+			free_envp_array(envp, i);
+			return (NULL);
+		}
 		ft_strlcpy(envp[i], elm->key, ft_strlen(elm->key) + 1);
 		ft_strlcpy(&envp[i][ft_strlen(elm->key)], "=", 2);
 		ft_strlcpy(&envp[i][ft_strlen(elm->key) + 1], elm->value,

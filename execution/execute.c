@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 20:11:01 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/16 15:37:07 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	char	*exec_path;
+	char	**new_envp;
 
 	if (execute_redirections(cmd->redir) < 0)
 		exit(EXIT_FAILURE);
@@ -24,9 +25,11 @@ void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 		perror("find_executable");
 		exit(EXIT_FAILURE);
 	}
-	execve(exec_path, cmd->argv, mighty->envp);
+	new_envp = make_envp(mighty->var_list);
+	execve(exec_path, cmd->argv, new_envp);
 	perror("execve");
 	free(exec_path);
+	free_paths(new_envp);
 	exit(EXIT_FAILURE);
 }
 
@@ -82,14 +85,34 @@ void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
 }
 
 /*
- * static void	child_exec(t_simple_cmd *cmd, t_almighty *mighty)
- * 	Calls execute_redirections to set up any file redirections.
- * 	Uses a placeholder for PATH expansion
- * 		(to be replaced with find_executable later).
- * 	Calls execve with the command’s arguments and the environment
- * 		stored in mighty.
- * 	If any error occurs, it prints an error (via perror) and
- * 		exits with EXIT_FAILURE.
+ * void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
+ * Execute Redirections:
+ * 	starts by execute_redirections(cmd->redir)
+ * 		to set up any file redirections
+ * 		(like input/output redirection or heredoc)
+ * 		for the command.
+ *	redirections fail, it exits immediately
+ *
+ * PATH Expansion:
+ * 	Next, find_executable(cmd->argv[0]) is called
+ * 		to resolve the full path of the command.
+ * 	This function searches through the directories listed
+ * 		in the PATH environment variable.
+ * 	If the executable cannot be found, perror("find_executable")
+ * 		is called to print an error message, and the function exits
+ *
+ * Generate Updated Environment:
+ * 	The function calls make_envp(mighty->var_list)
+ * 		to convert the internal environment representation
+ * 		(var_list) into a standard char ** array.
+ *	ensures that any changes made to the environment via
+ *		built-in commands are passed to the external command.
+ *
+ * Execute the Command with execve:
+ * 	The command is executed with execve(exec_path, cmd->argv, new_envp).
+ *	This replaces the current process image with the new executable.
+ *		If execve is successful, it never returns; if it fails,
+ *		it returns, and an error message is printed with perror("execve").
  *
  * 
  * static int	parent_exec(t_almighty *mighty, pid_t pid)

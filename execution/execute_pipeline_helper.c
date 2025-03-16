@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 19:57:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 20:12:19 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/16 15:38:56 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,8 @@ void	parent_pipeline_setup(t_pipeline_variables *pvs,
  *
  *
  * static void	execute_child(t_pipeline_variables *pvs)
- *	Redirection Execution:
- *		Before executing the command, any file redirections
- *			(for input/output or heredoc) specific to the command
- *			are applied by calling execute_redirections.
- *		If redirections fail, the child exits with EXIT_FAILURE.
- *	Command Execution:
- *		The comments indicate where you would perform PATH expansion
- *			and call execve to replace the current process image with
- *			the desired executable.
- *		Since this function is meant for executing the command,
- *			if execve were to fail (or if the code continued after
- *			setting up redirections), it should then exit.
- *			In the final implementation, I'll complete these steps.
- *
+ *	 a simple wrapper that calls the common child command
+ *	 execution routine for the current command in the pipeline.
  *
  * void	child_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty)
  *	Signal Handling in Child:

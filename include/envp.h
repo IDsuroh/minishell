@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   envp.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:23:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/10 17:04:08 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/16 17:40:23 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#ifndef ENVP_H
+# define ENVP_H
 
 # include "./tokenizer.h"
+# include "./executor.h"
 
 typedef struct s_var_elm
 {
@@ -61,5 +62,8 @@ void			rem_var(t_list_header *header, t_var_elm *var);
 
 // env_utils_2.c
 void			free_var_list(t_list_header *header);
+void			free_pid_list(t_pid_node *acpl);
+void			free_all(t_almighty *mighty);
+void			free_envp_array(char **envp, size_t count);
 
 #endif

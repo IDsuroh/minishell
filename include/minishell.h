@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 20:07:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/16 17:09:45 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,19 @@
 # include "./error_checker.h"
 # include "./parser.h"
 # include "./executor.h"
-# include "./env.h"
+# include "./envp.h"
 
 //extern volatile int	g_signal;
 
 typedef struct s_almighty
 {
-	t_list_header	*var_list; //to dynamically update for built-ins
+	t_list_header	*var_list;
 	int				exit_stat;
-	t_redir			redirections;
 	t_pid_node		*acpl; //active_child_pid_list
-	char			**envp; //to handle external commands (execve)
 }	t_almighty;
+
+// handle_input.c
+void	handle_input(t_almighty *mighty, char *input);
 
 //
 void	init_signals(void);
@@ -55,14 +56,3 @@ void	init_signals_interactive(void);
 void	init_signals_subshell(void);
 
 #endif
-
-/*
- * 	var_list is an internal linked list that holds environment variables,
- * 	allowing dynamic updates by built-in commands like export, unset, or cd.
- *
- * 	In contrast, envp is a standard char ** array that external commands
- * 	require via execve. Storing envp separately provides immediate,
- * 	efficient access to the environment without having to rebuild it
- * 	from var_list each time.
- *
- */

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:35:16 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 20:37:37 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/16 15:36:06 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,17 @@ int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 		_exit_(mighty, NULL);
 	return (0);
 }
+
+/*
+ * bool	is_builtin_command(const char *cmd)
+ *  This function checks if a given command name (passed as cmd)
+ *  	is one of the built-in commands that the shell must handle
+ *  	internally.
+ *
+ *
+ * int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
+ *  This function dispatches the execution of a built-in command
+ *  	based on the command name found in cmd->argv[0].
+
+ *
+ */

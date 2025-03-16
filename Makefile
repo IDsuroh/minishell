@@ -15,10 +15,11 @@ OBJDIR	= 	obj_dir
 
 VPATH	=	$(SRCDIR):$(TOKDIR):$(PARDIR):$(ERRDIR):$(ENVDIR):$(BUILTIN):$(EXCDIR)
 
-SRC_SRCS	=	main.c \
+SRC_SRCS	=	handle_input \
+				main.c \
 				print_utils_1.c \
 				print_utils_2.c \
-				signals.c \
+				signals.c
 			
 TOK_SRCS	=	tokenizer.c \
 				tokenize_input.c \
@@ -38,11 +39,11 @@ PAR_SRCS	=	parser.c \
 				parse_command.c \
 				parser_helpers.c \
 				initiators.c \
-				token_access.c \
+				token_access.c
 
 ERR_SRCS	=	error_check_flags_1.c \
 				error_check_flags_2.c \
-				open_input_checker.c \
+				open_input_checker.c
 
 ENV_SRCS	=	envp.c \
 				envp_expansion.c \
