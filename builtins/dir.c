@@ -106,3 +106,7 @@ void	_exit_(t_almighty *boy, int *var_exit)
 	free(boy);
 	exit(exit_val);
 }
+
+// no need to add anything but
+// any allocated memory that has been made and is still accessible in the execution process
+// needs to be referenced in almighty. (when executing exit)
