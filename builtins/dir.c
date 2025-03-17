@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:10:17 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/17 19:14:35 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/17 20:58:12 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	_echo(char **args)
 
 void	_cd(t_almighty *boy, char *dir)
 {
-	char	*buff;
+	char		*buff;
 
 	(void)boy;
 	buff = NULL;
@@ -48,10 +48,9 @@ void	_cd(t_almighty *boy, char *dir)
 		ft_putstr_fd(": No such file or directory\n", 2);
 		return ;
 	}
-//	if (buff)
-//	{
-//		// ahhhhh i'll do this later
-//		_export(boy, 
+	update_pwd(boy, buff, "OLDPWD");
+	buff = getcwd(buff, 0);
+	update_pwd(boy, buff, "PWD");
 }
 
 void	_pwd(void)

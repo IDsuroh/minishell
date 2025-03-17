@@ -6,11 +6,27 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:58:58 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/16 17:40:08 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/17 20:58:09 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	update_pwd(t_almighty *boy, char *buff, char *var)
+{
+	t_var_elm	*elm;
+
+	elm = get_value(boy->var_list, var);
+	if (elm)
+	{
+		free(elm->value);
+		elm->value = ft_strdup(buff);
+	}
+	else
+		add_var(boy->var_list, create_var(ft_strdup(var),
+			ft_strdup(buff)));
+	free(buff);
+}
 
 void	free_var_list(t_list_header *header)
 {
