@@ -15,7 +15,7 @@ OBJDIR	= 	obj_dir
 
 VPATH	=	$(SRCDIR):$(TOKDIR):$(PARDIR):$(ERRDIR):$(ENVDIR):$(BUILTIN):$(EXCDIR)
 
-SRC_SRCS	=	handle_input \
+SRC_SRCS	=	handle_input.c \
 				main.c \
 				print_utils_1.c \
 				print_utils_2.c \

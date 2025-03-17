@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/13 18:01:17 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/17 17:24:21 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ static char	*expand_token_value(char *str, t_list_header *var_list)
 
 void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
 {
-	int			i;
-	char		*old_value;
+	int		i;
+	char	*old_value;
 
 	i = -1;
 	while (tokens[++i] != NULL)
