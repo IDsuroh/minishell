@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/13 17:30:58 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 17:11:19 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_simple_cmd
 {
 	char		**argv;
 	t_redir		*redir;
+	bool		in_pipeline;
 }	t_simple_cmd;
 
 typedef struct s_pipe_sequence

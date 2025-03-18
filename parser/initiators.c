@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:21:35 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 17:14:20 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 17:12:01 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_op_sequence	*malloc_t_op_sequence(void)
 		return (NULL);
 	new_node->pipe = NULL;
 	new_node->next = NULL;
+	new_node->prev = NULL;
+	new_node->op = OP_NONE;
 	return (new_node);
 }
 
@@ -51,6 +53,7 @@ t_simple_cmd	*malloc_t_simple_cmd(void)
 	}
 	cmd->argv[0] = NULL;
 	cmd->redir = NULL;
+	cmd->in_pipeline = false;
 	return (cmd);
 }
 

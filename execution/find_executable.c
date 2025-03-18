@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:14:40 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/16 15:41:34 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 19:58:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ char	*find_executable(char *cmd)
 	if (!paths)
 		return (ft_strdup(cmd));
 	result = search_executable(cmd, paths);
-	free_paths(paths);
 	if (!result)
 		result = ft_strdup(cmd);
+	free_paths(paths);
 	return (result);
 }
 

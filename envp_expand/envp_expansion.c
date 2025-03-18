@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/17 17:24:21 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:42:36 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ static char	*assemble_expanded(char *prefix, char *env_value, char *suffix)
 	return (result);
 }
 
-static char	*fetch_env_value(char *var_name, t_list_header *var_list)
+static char	*fetch_env_value(char *var_name, t_almighty *mighty)
 {
 	t_var_elm	*env_var;
 
 	if (ft_strcmp(var_name, "$") == 0)
 		return (get_pid_from_proc());
 	if (ft_strcmp(var_name, "?") == 0)
-		return (ft_strdup("\t***for now not implemented***\t"));
-	env_var = get_value(var_list, var_name);
+		return (ft_itoa(mighty->exit_stat));
+	env_var = get_value(mighty->var_list, var_name);
 	if (env_var)
 		return (ft_strdup(env_var->value));
 	return (ft_strdup(""));
 }
 
-static char	*replace_variable(const char *str, t_list_header *var_list)
+static char	*replace_variable(const char *str, t_almighty *mighty)
 {
 	char	*result;
 	char	*prefix;
@@ -49,7 +49,7 @@ static char	*replace_variable(const char *str, t_list_header *var_list)
 		return (ft_strdup(str));
 	prefix = get_prefix(str);
 	var_name = get_var_name(ft_strchr(str, '$'));
-	env_value = fetch_env_value(var_name, var_list);
+	env_value = fetch_env_value(var_name, mighty);
 	free(var_name);
 	suffix = get_suffix(ft_strchr(str, '$'));
 	result = assemble_expanded(prefix, env_value, suffix);
@@ -59,7 +59,7 @@ static char	*replace_variable(const char *str, t_list_header *var_list)
 	return (result);
 }
 
-static char	*expand_token_value(char *str, t_list_header *var_list)
+static char	*expand_token_value(char *str, t_almighty *mighty)
 {
 	char	*result;
 	char	*temp;
@@ -68,14 +68,14 @@ static char	*expand_token_value(char *str, t_list_header *var_list)
 	temp = NULL;
 	while (ft_strchr(result, '$'))
 	{
-		temp = replace_variable(result, var_list);
+		temp = replace_variable(result, mighty);
 		free(result);
 		result = temp;
 	}
 	return (result);
 }
 
-void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
+void	expand_env_variables(t_almighty *mighty, t_token_node **tokens)
 {
 	int		i;
 	char	*old_value;
@@ -86,20 +86,18 @@ void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
 		if (tokens[i]->type == T_VAR)
 		{
 			old_value = tokens[i]->token_value;
-			tokens[i]->token_value = expand_token_value(old_value, var_list);
-			free(old_value);
+			tokens[i]->token_value
+				= expand_token_value(old_value, mighty);
 		}
 		else if (tokens[i]->type == T_PID)
 		{
 			old_value = tokens[i]->token_value;
 			tokens[i]->token_value = get_pid_from_proc();
-			free(old_value);
 		}
 		else if (tokens[i]->type == T_XVAR)
 		{
 			old_value = tokens[i]->token_value;
-			tokens[i]->token_value = ft_strdup("\tfor now not implemented\t");
-			free(old_value);
+			tokens[i]->token_value = ft_itoa(mighty->exit_stat);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 19:43:54 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/16 15:27:51 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 15:11:31 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	execute_pipeline(t_pipe_sequence *pipe_seq, t_almighty *mighty)
 	}
 	while (wait(&status) > 0)
 		;
+	mighty->exit_stat = status;
 	return (status);
 }
 

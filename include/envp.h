@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:23:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/17 20:58:44 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:15:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ t_var_elm		*get_value(t_list_header *header, char *key);
 t_list_header	*init_var_list(char **envp);
 
 // env_expansion.c
-void			expand_env_variables(t_list_header *var_list,
-					t_token_node **tokens);
+void			expand_env_variables(t_almighty *mighty, t_token_node **tokens);
 
 // env_expansion_utils_1.c
 char			*get_prefix(const char *str);
@@ -61,7 +60,7 @@ void			del_var(t_var_elm *var);
 void			rem_var(t_list_header *header, t_var_elm *var);
 
 // env_utils_2.c
-void			update_pwd(t_almighty *boy, char *buff, char *var)
+void			update_pwd(t_almighty *boy, char *buff, char *var);
 void			free_var_list(t_list_header *header);
 void			free_pid_list(t_pid_node *acpl);
 void			free_all(t_almighty *mighty);

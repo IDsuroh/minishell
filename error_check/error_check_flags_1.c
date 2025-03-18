@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:20:03 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/08 18:43:05 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 19:31:46 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,17 @@ bool	error_prompt(t_token_node **tokens, bool *op_open)
 	if (incomplete_input(tokens[i], op_open))
 		return (true);
 	return (false);
+}
+
+bool	validate_command_tokens(t_token_node **tokens)
+{
+	if (tokens[0]->type == T_PID || tokens[0]->type == T_XVAR
+		|| tokens[0]->type == T_VAR)
+	{
+		printf("%s: command not found\n", tokens[0]->token_value);
+		return (false);
+	}
+	return (true);
 }
 
 /*

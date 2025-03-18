@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:30:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/08 18:25:29 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 17:22:15 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,11 @@ t_pipe_sequence	*parse_pipe_sequence(t_parser *parser)
 			return (NULL);
 		append_command(&pipe, command);
 		token = get_current_token(parser);
-		if (!token)
-			break ;
-		if (token->type == T_AND || token->type == T_OR)
+		if (!token || (token->type == T_AND || token->type == T_OR))
 			break ;
 		if (token->type == T_PIPE)
 		{
+			pipe->cmd->in_pipeline = true;
 			advance_token(parser);
 			token = get_current_token(parser);
 			continue ;

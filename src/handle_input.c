@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:14:37 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/16 17:20:08 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 19:19:50 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	handle_input(t_almighty *mighty, char *input)
 
 	op_open = false;
 	tokens = tokenizer(input);
-	if (error_prompt(tokens, &op_open))
+	expand_env_variables(mighty, tokens);
+	if (!validate_command_tokens(tokens) || error_prompt(tokens, &op_open))
 	{
 		if (op_open == true)
 		{
@@ -96,7 +97,6 @@ void	handle_input(t_almighty *mighty, char *input)
 			return ;
 		}
 	}
-	expand_env_variables(mighty->var_list, tokens);
 	process_tokens(mighty, tokens);
 }
 

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/16 15:37:07 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/18 20:00:27 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,18 @@ void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 	if (execute_redirections(cmd->redir) < 0)
 		exit(EXIT_FAILURE);
 	exec_path = find_executable(cmd->argv[0]);
-	if (!exec_path)
+	if (!exec_path || ft_strcmp(exec_path, cmd->argv[0]) == 0)
 	{
-		perror("find_executable");
-		exit(EXIT_FAILURE);
+		write(STDERR_FILENO, cmd->argv[0], ft_strlen(cmd->argv[0]));
+		write(STDERR_FILENO, ": command not found\n", 20);
+		mighty->exit_stat = 127;
+		free(exec_path);
+		exit(127);
 	}
 	new_envp = make_envp(mighty->var_list);
 	execve(exec_path, cmd->argv, new_envp);
 	perror("execve");
 	free(exec_path);
-	free_paths(new_envp);
 	exit(EXIT_FAILURE);
 }
 
@@ -60,6 +62,7 @@ int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 		execute_child_command(cmd, mighty);
 	}
 	status = parent_exec(mighty, pid);
+	mighty->exit_stat = WEXITSTATUS(status);
 	return (status);
 }
 
@@ -72,13 +75,21 @@ void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
 	tmp_op = op_seq;
 	while (tmp_op)
 	{
-		if (tmp_op->pipe && tmp_op->pipe->next)
-			status = execute_pipeline(tmp_op->pipe, mighty);
-		else if (tmp_op->pipe)
-			status = execute_command(tmp_op->pipe->cmd, mighty);
-		if (tmp_op->op == OP_AND && status != 0)
-			break ;
-		if (tmp_op->op == OP_OR && status == 0)
+		if (tmp_op->pipe)
+		{
+			if (tmp_op->pipe->next)
+				status = execute_pipeline(tmp_op->pipe, mighty);
+			else
+			{
+				if (is_builtin_command(tmp_op->pipe->cmd->argv[0])
+					&& !tmp_op->pipe->cmd->in_pipeline)
+					status = execute_builtin(tmp_op->pipe->cmd, mighty);
+				else
+					status = execute_command(tmp_op->pipe->cmd, mighty);
+			}
+		}
+		if ((tmp_op->op == OP_AND && status != 0)
+			|| (tmp_op->op == OP_OR && status == 0))
 			break ;
 		tmp_op = tmp_op->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:58:58 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/17 20:58:09 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:21:22 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	update_pwd(t_almighty *boy, char *buff, char *var)
 	}
 	else
 		add_var(boy->var_list, create_var(ft_strdup(var),
-			ft_strdup(buff)));
+				ft_strdup(buff)));
 	free(buff);
 }
 
@@ -72,7 +72,7 @@ void	free_all(t_almighty *mighty)
 void	free_envp_array(char **envp, size_t count)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (i < count)
 	{
