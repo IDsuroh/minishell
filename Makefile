@@ -53,6 +53,7 @@ ENV_SRCS	=	envp.c \
 				envp_utils_2.c
 
 EXC_SRCS	=	execute.c \
+				execute_helper.c \
 				execute_builtin.c \
 				execute_pipeline.c \
 				execute_pipeline_helper.c \

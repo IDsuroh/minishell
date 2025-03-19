@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 20:42:18 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:01:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	_exit_(t_almighty *boy, int *var_exit);
 void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty);
 int		execute_command(t_simple_cmd *cmd, t_almighty *mighty);
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
+
+// execute_helper.c
+bool	validate_command_tokens(t_simple_cmd *cmd);
 
 // execute_builtin.c
 bool	is_builtin_command(const char *cmd);

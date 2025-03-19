@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 19:06:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 19:19:16 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:01:11 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ bool	no_preceding_command(t_token_node *token);
 bool	consecutive_operators(t_token_node *token, t_token_node *next);
 bool	incomplete_input(t_token_node *token, bool *op_open);
 bool	error_prompt(t_token_node **tokens, bool *op_open);
-bool	validate_command_tokens(t_token_node **tokens);
 
 // error_check_flags_2.
 bool	error_in_new_prompt(t_token_node **tmp_tokens);

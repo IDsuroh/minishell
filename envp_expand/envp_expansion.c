@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 17:42:36 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 13:21:59 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,21 +83,18 @@ void	expand_env_variables(t_almighty *mighty, t_token_node **tokens)
 	i = -1;
 	while (tokens[++i] != NULL)
 	{
-		if (tokens[i]->type == T_VAR)
+		if (tokens[i]->type == T_VAR || tokens[i]->type == T_PID
+			|| tokens[i]->type == T_XVAR)
 		{
 			old_value = tokens[i]->token_value;
-			tokens[i]->token_value
-				= expand_token_value(old_value, mighty);
-		}
-		else if (tokens[i]->type == T_PID)
-		{
-			old_value = tokens[i]->token_value;
-			tokens[i]->token_value = get_pid_from_proc();
-		}
-		else if (tokens[i]->type == T_XVAR)
-		{
-			old_value = tokens[i]->token_value;
-			tokens[i]->token_value = ft_itoa(mighty->exit_stat);
+			if (tokens[i]->type == T_VAR)
+				tokens[i]->token_value
+					= expand_token_value(old_value, mighty);
+			else if (tokens[i]->type == T_PID)
+				tokens[i]->token_value = get_pid_from_proc();
+			else if (tokens[i]->type == T_XVAR)
+				tokens[i]->token_value = ft_itoa(mighty->exit_stat);
+			free(old_value);
 		}
 	}
 }
