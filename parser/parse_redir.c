@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:24:53 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/15 15:50:52 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 19:44:08 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ static t_redir	*parse_heredoc_redir(t_parser *parser)
 		return (NULL);
 	redir->type = T_DLESS;
 	redir->filename = ft_strdup(token->token_value);
+	if (!redir->filename)
+	{
+		free(redir);
+		return (NULL);
+	}
 	advance_token(parser);
 	redir->heredoc_content = parse_heredoc_content(redir->filename);
 	redir->next = NULL;
@@ -87,9 +92,16 @@ static t_redir	*parse_normal_redir(t_parser *parser)
 	if (!redir)
 		return (NULL);
 	redir->type = token->type;
+	redir->next = NULL;
+	advance_token(parser);
+	token = get_current_token(parser);
+	if (!token)
+	{
+		free(redir);
+		return (NULL);
+	}
 	redir->filename = ft_strdup(token->token_value);
 	redir->heredoc_content = NULL;
-	redir->next = NULL;
 	advance_token(parser);
 	return (redir);
 }

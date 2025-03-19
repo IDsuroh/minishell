@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 17:25:08 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 19:00:23 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	_env(t_almighty *mighty);
 void	_exit_(t_almighty *mighty, int *var_exit);
 
 // export.c
-void	_export(t_almighty *boy, char *var);
+void	_export(t_almighty *mighty, char *var);
 
 // unset.c
 void	_unset(t_almighty *mighty, char *key);
