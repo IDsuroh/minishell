@@ -63,7 +63,12 @@ EXC_SRCS	=	execute.c \
 				handle_heredoc_redirection.c \
 				manage_pid_list.c
 
-BUIL_SRCS	=	dir.c
+BUIL_SRCS	=	cd_n_pwd.c \
+				echo.c \
+				env.c \
+				exit.c \
+				export.c \
+				unset.c
 
 SRCS		= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 				$(addprefix $(TOKDIR)/, $(TOK_SRCS)) \

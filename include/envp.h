@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:23:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 15:15:47 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 17:11:57 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void			del_var(t_var_elm *var);
 void			rem_var(t_list_header *header, t_var_elm *var);
 
 // env_utils_2.c
-void			update_pwd(t_almighty *boy, char *buff, char *var);
 void			free_var_list(t_list_header *header);
 void			free_pid_list(t_pid_node *acpl);
 void			free_all(t_almighty *mighty);

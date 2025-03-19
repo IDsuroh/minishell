@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 13:01:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 17:25:08 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,24 @@ typedef struct s_pipeline_variables
 	int				pipefd[2];
 }					t_pipeline_variables;
 
-// dir.c
-void	_echo(char **args);
-void	_cd(t_almighty *boy, char *dir);
+// cd_n_pwd.c
+void	_cd(t_almighty *mighty, char *dir);
 void	_pwd(void);
+
+// echo.c
+void	_echo(char **args);
+
+// env.c
+void	_env(t_almighty *mighty);
+
+// exit.c
+void	_exit_(t_almighty *mighty, int *var_exit);
+
+// export.c
 void	_export(t_almighty *boy, char *var);
-void	_unset(t_almighty *boy, char *key);
-void	_env(t_almighty *boy);
-void	_exit_(t_almighty *boy, int *var_exit);
+
+// unset.c
+void	_unset(t_almighty *mighty, char *key);
 
 // execute.c
 void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty);

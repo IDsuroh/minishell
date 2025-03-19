@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils_1.c                                      :+:      :+:    :+:   */
+/*   envp_utils_1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:10:39 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/04 20:15:32 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 18:40:31 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 // Print the list of strings line by line.
 void	print_vars(char **envp)
 {
-	while (*envp)
-		ft_putstr_fd(*(envp++), 1);
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		ft_putstr_fd(envp[i], 1);
+		ft_putchar_fd('\n', 1);
+		i++;
+	}
 }
 
 t_var_elm	*create_var(char *key, char *value)
