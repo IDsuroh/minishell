@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:12:33 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 17:53:29 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 20:59:12 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	_cd(t_almighty *mighty, char *dir)
 		ft_putstr_fd("cd:", 2);
 		ft_putstr_fd(dir, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		mighty->exit_stat = 127;
 		return ;
 	}
 	update_pwd(mighty, buff, "OLDPWD");

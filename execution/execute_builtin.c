@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:35:16 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/16 15:36:06 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/19 20:58:10 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,29 @@ bool	is_builtin_command(const char *cmd)
 		|| ft_strcmp(cmd, "exit") == 0);
 }
 
+static int	apply_builtin_redir(t_simple_cmd *cmd)
+{
+	int	saved_stdout;
+
+	saved_stdout = dup(STDOUT_FILENO);
+	if (saved_stdout < 0)
+	{
+		perror("dup");
+		return (-1);
+	}
+	if (execute_redirections(cmd->redir) < 0)
+		return (-1);
+	return (saved_stdout);
+}
+
 int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 {
+	int	saved_stdout;
+	int	status;
+
+	saved_stdout = apply_builtin_redir(cmd);
+	if (saved_stdout < 0)
+		return (-1);
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		_echo(cmd->argv + 1);
 	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
@@ -39,7 +60,10 @@ int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 		_env(mighty);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		_exit_(mighty, NULL);
-	return (0);
+	status = mighty->exit_stat;
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdout);
+	return (status);
 }
 
 /*
