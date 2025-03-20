@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 13:21:59 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/20 22:37:25 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,19 @@ static char	*expand_token_value(char *str, t_almighty *mighty)
 	char	*result;
 	char	*temp;
 
-	result = ft_strdup(str);
-	temp = NULL;
+	result = strip_var_quotes(str);
+	if (!result)
+		return (NULL);
 	while (ft_strchr(result, '$'))
 	{
 		temp = replace_variable(result, mighty);
 		free(result);
 		result = temp;
+	}
+	if (ft_strlen(result) == 0 || ft_strcmp(result, "\"\"") == 0)
+	{
+		free(result);
+		return (ft_strdup("$"));
 	}
 	return (result);
 }
@@ -88,8 +94,7 @@ void	expand_env_variables(t_almighty *mighty, t_token_node **tokens)
 		{
 			old_value = tokens[i]->token_value;
 			if (tokens[i]->type == T_VAR)
-				tokens[i]->token_value
-					= expand_token_value(old_value, mighty);
+				tokens[i]->token_value = expand_token_value(old_value, mighty);
 			else if (tokens[i]->type == T_PID)
 				tokens[i]->token_value = get_pid_from_proc();
 			else if (tokens[i]->type == T_XVAR)

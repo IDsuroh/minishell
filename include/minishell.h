@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/16 17:09:45 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/20 22:47:52 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <signal.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <limits.h>
 # include <unistd.h>

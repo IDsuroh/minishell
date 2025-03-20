@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 13:08:02 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/20 23:07:21 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 {
-	char	*exec_path;
-	char	**new_envp;
+	char		*exec_path;
+	char		**new_envp;
+	struct stat	st;
 
 	if (execute_redirections(cmd->redir) < 0)
 		exit(EXIT_FAILURE);
 	exec_path = find_executable(cmd->argv[0]);
-	if (!exec_path || ft_strcmp(exec_path, cmd->argv[0]) == 0
-		|| !validate_command_tokens(cmd))
+	if (!exec_path || !validate_command_tokens(cmd))
+		handle_cmd_not_found(cmd, mighty, exec_path);
+	if (stat(exec_path, &st) == 0)
 	{
-		write(STDERR_FILENO, cmd->argv[0], ft_strlen(cmd->argv[0]));
-		write(STDERR_FILENO, ": command not found\n", 20);
-		mighty->exit_stat = 127;
-		if (exec_path)
-			free(exec_path);
-		exit(127);
+		if (S_ISDIR(st.st_mode))
+			handle_dir_error(mighty, exec_path);
 	}
+	else
+		handle_no_file_error(mighty, exec_path);
 	new_envp = make_envp(mighty->var_list);
 	execve(exec_path, cmd->argv, new_envp);
 	perror("execve");

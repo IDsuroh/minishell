@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:23:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 17:11:57 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/20 22:33:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char			*get_pid_from_proc(void);
 int				get_var_len(const char *var_start);
 char			*get_special_var_name(const char *var_start);
 char			*get_normal_var_name(const char *var_start);
+char			*strip_var_quotes(char *str);
 
 // env_utils_1.c
 void			print_vars(char **envp);

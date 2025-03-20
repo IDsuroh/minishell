@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 19:00:23 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/20 22:56:46 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ void	_unset(t_almighty *mighty, char *key);
 void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty);
 int		execute_command(t_simple_cmd *cmd, t_almighty *mighty);
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
+
+// execute_child_command_helper.c
+void	handle_cmd_not_found(t_simple_cmd *cmd, t_almighty *mighty,
+			char *exec_path);
+void	handle_dir_error(t_almighty *mighty, char *exec_path);
+void	handle_no_file_error(t_almighty *mighty, char *exec_path);
 
 // execute_helper.c
 bool	validate_command_tokens(t_simple_cmd *cmd);

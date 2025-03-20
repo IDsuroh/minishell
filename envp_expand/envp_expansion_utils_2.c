@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_expansion_utils_2.c                            :+:      :+:    :+:   */
+/*   envp_expansion_utils_2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:23:59 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/10 16:28:53 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/20 22:33:24 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,14 @@ char	*get_normal_var_name(const char *var_start)
 	}
 	var_name[i] = '\0';
 	return (var_name);
+}
+
+char	*strip_var_quotes(char *str)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	if (len >= 2 && str[0] == '\"' && str[len - 1] == '\"')
+		return (ft_substr(str, 1, len - 2));
+	return (ft_strdup(str));
 }
