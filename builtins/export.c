@@ -15,10 +15,7 @@
 void	_export(t_almighty *mighty, char *var)
 {
 	if (!var)
-	{
-		// need to make a whole function that copies the var_list and sorts it
-		//   then print "declare -x " before each var name
-	}
+		return ;
 	if (!ft_strchr(var, '='))
 		add_var(mighty->var_list, create_var(ft_strdup(var), NULL));
 	else
