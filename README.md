@@ -6,9 +6,6 @@ Things I (Roh) need to do (for the week):
 Remaining Tasks:
 
 ```bash
-❯ bash $ f
-f: command not found
-
 ❯ bash $ "phrase in quote" || "phrase 'in' quote" || "phrase "in" quote" || 'phrase 'in' quote' || 'phrase "in" quote'
 phrase in quote: command not found
 phrase 'in' quote: command not found
@@ -18,15 +15,6 @@ phrase "in" quote: command not found
 ```
 
 ```minishell
-minishell$ f
-
-Token[0]: f, Type: T_IDENTIFIER
-
-Command #0:
-	Pipe #0:
-		Argument #0: f
-f: No such file or director
-
 minishell$ "phrase in quote" || "phrase 'in' quote" || "phrase "in" quote" || 'phrase 'in' quote' || 'phrase "in" quote'
 
 Token[0]: "phrase in quote", Type: T_IDENTIFIER
