@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/20 23:32:00 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/21 12:26:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,17 @@ void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 	exec_path = find_executable(cmd->argv[0]);
 	if (!exec_path || !validate_command_tokens(cmd))
 		handle_cmd_not_found(cmd, mighty, exec_path);
-	else if (stat(exec_path, &st) == 0 && S_ISDIR(st.st_mode))
+	else if (ft_strchr(cmd->argv[0], '/') != NULL)
+	{
+		if (stat(exec_path, &st) != 0)
+			handle_no_file_error(mighty, exec_path);
+		else if (S_ISDIR(st.st_mode))
+			handle_dir_error(mighty, exec_path);
+	}
+	else if (stat(exec_path, &st) != 0)
+		handle_cmd_not_found(cmd, mighty, exec_path);
+	else if (S_ISDIR(st.st_mode))
 		handle_dir_error(mighty, exec_path);
-	else
-		handle_no_file_error(mighty, exec_path);
 	new_envp = make_envp(mighty->var_list);
 	execve(exec_path, cmd->argv, new_envp);
 	perror("execve");
