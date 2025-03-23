@@ -51,7 +51,8 @@ ENV_SRCS	=	envp.c \
 				envp_expansion_utils_1.c \
 				envp_expansion_utils_2.c \
 				envp_utils_1.c \
-				envp_utils_2.c
+				envp_utils_2.c \
+				envp_utils_3.c
 
 EXC_SRCS	=	execute.c \
 				execute_child_command_helper.c \

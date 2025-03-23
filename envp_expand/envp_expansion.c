@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/20 22:37:25 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 21:37:23 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static char	*expand_token_value(char *str, t_almighty *mighty)
 	char	*result;
 	char	*temp;
 
+	if (ft_strcmp(str, "$") == 0)
+		return (ft_strdup("$"));
 	result = strip_var_quotes(str);
 	if (!result)
 		return (NULL);
@@ -72,11 +74,6 @@ static char	*expand_token_value(char *str, t_almighty *mighty)
 		temp = replace_variable(result, mighty);
 		free(result);
 		result = temp;
-	}
-	if (ft_strlen(result) == 0 || ft_strcmp(result, "\"\"") == 0)
-	{
-		free(result);
-		return (ft_strdup("$"));
 	}
 	return (result);
 }

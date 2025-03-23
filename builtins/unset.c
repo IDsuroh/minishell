@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:18:36 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 17:19:37 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 20:09:31 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,11 @@
 
 void	_unset(t_almighty *mighty, char *key)
 {
-	rem_var(mighty->var_list, get_value(mighty->var_list, key));
+	t_var_elm	*node;
+
+	if (!key)
+		return ;
+	node = get_value(mighty->var_list, key);
+	if (node)
+		rem_var(mighty->var_list, node);
 }

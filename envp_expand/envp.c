@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:42:03 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/16 17:38:27 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 21:21:20 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ char	**make_envp(t_list_header *header)
 t_var_elm	*extract_var(char *var)
 {
 	size_t	key_len;
+	char	*value;
 
 	key_len = ft_strchr(var, '=') - var;
-	return (create_var(ft_strndup(var, key_len),
-			ft_strdup(&var[key_len + 1])));
+	if (ft_strchr(var, '='))
+		value = ft_strdup(&var[key_len + 1]);
+	else
+		value = ft_strdup("");
+	return (create_var(ft_strndup(var, key_len), value));
 }
 
 t_var_elm	*get_value(t_list_header *header, char *key)

@@ -6,13 +6,12 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:10:39 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 18:40:31 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 20:37:20 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-// Print the list of strings line by line.
 void	print_vars(char **envp)
 {
 	int	i;
@@ -46,15 +45,9 @@ void	add_var(t_list_header *header, t_var_elm *var)
 
 	elm = get_value(header, var->key);
 	if (!elm)
-	{
-		var = header->tail->next;
-		header->tail = var;
-	}
+		insert_new_var(header, var);
 	else
-	{
-		elm->value = ft_strdup(var->value);
-		del_var(var);
-	}
+		update_existing_var(elm, var);
 }
 
 void	del_var(t_var_elm *var)
