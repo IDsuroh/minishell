@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:10:17 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/19 17:54:02 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 22:09:57 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	_exit_(t_almighty *mighty, int *var_exit)
 		exit_val = *var_exit;
 	else
 		exit_val = mighty->exit_stat;
-	// FREE EVERYTHING
 	free_all(mighty);
-	free(mighty);
 	exit(exit_val);
 }
 
