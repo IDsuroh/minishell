@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/20 20:23:35 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 18:17:55 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,32 @@ typedef enum e_token_type
 	T_PID,
 }	t_token_type;
 
+typedef struct s_indices
+{
+	int	src;
+	int	dest;
+}	t_indices;
+
 typedef struct s_token_node
 {
-	t_token_type		type;
-	char				*token_value;
+	t_token_type	type;
+	char			*token_value;
+	int				start_idx;
+	bool			adjacent;
 }	t_token_node;
 
 // tokenizer.c
 t_token_node	**tokenizer(char *input);
 
+// process_tokens.c
+void			process_quote_rem_and_concat(t_token_node **tokens);
+
 // tokenizer_counters.c
 int				count_tokens(char *input);
 
 // tokenizer_utils.c
-char			*ft_strtok_r(char *str, char **saveptr);
-char			**tokenize_input(char *input, int token_count);
+char			*ft_strtok_r(char *str, char **saveptr, char **token_start_ptr);
+char			**tokenize_input(char *input, int token_count, int *pos);
 
 // storing_logic.c
 char			*store_quote(char *token_start, char *token_end,
@@ -86,6 +97,7 @@ bool			is_var_squote(char *c);
 bool			is_var_dquote(char *c);
 
 // create_node_list.c
-t_token_node	**create_node_list(char **token_storage, int token_count);
+t_token_node	**create_node_list(char **token_storage, int token_count,
+					int *pos);
 
 #endif

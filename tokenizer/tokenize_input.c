@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 18:43:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/06 21:01:47 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 17:54:06 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*extract_token(char *token_start, char *token_end, char **saveptr)
 	return (token);
 }
 
-char	*ft_strtok_r(char *str, char **saveptr)
+char	*ft_strtok_r(char *str, char **saveptr, char **token_start_ptr)
 {
 	char	*token_start;
 	char	*token_end;
@@ -41,6 +41,8 @@ char	*ft_strtok_r(char *str, char **saveptr)
 	if (*saveptr == NULL || **saveptr == '\0')
 		return (NULL);
 	token_start = *saveptr;
+	if (token_start_ptr)
+		*token_start_ptr = token_start;
 	token_end = token_start;
 	token = extract_token(token_start, token_end, saveptr);
 	if (token == NULL)
@@ -50,27 +52,28 @@ char	*ft_strtok_r(char *str, char **saveptr)
 	return (token);
 }
 
-char	**tokenize_input(char *input, int token_count)
+char	**tokenize_input(char *input, int token_count, int *pos)
 {
 	char	**token_storage;
 	char	*token;
 	char	*saveptr;
+	char	*token_start;
 	int		i;
 
-	saveptr = NULL;
+	saveptr = input;
 	token_storage = ft_calloc(token_count + 1, sizeof(char *));
 	if (!token_storage)
 		return (NULL);
 	i = 0;
-	token = ft_strtok_r(input, &saveptr);
+	token = ft_strtok_r(input, &saveptr, &token_start);
 	while (token != NULL && i < token_count)
 	{
+		pos[i] = (int)(token_start - input);
 		token_storage[i] = token;
-		token = ft_strtok_r(NULL, &saveptr);
+		token = ft_strtok_r(NULL, &saveptr, &token_start);
 		i++;
 	}
 	token_storage[i] = NULL;
-	free(token);
 	return (token_storage);
 }
 

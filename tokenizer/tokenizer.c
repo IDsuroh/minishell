@@ -6,66 +6,32 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:24:09 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/22 00:31:05 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 18:18:28 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static char	*remove_quotes(char *s)
-{
-	char	*result;
-	int		len;
-
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	if (len < 2)
-		return (ft_strdup(s));
-	if ((is_quote_closed(s) && is_quote(s[0])))
-	{
-		result = malloc(len - 1);
-		if (!result)
-			return (NULL);
-		ft_memcpy(result, s + 1, len - 2);
-		result[len - 2] = '\0';
-		return (result);
-	}
-	return (ft_strdup(s));
-}
-
-static void	process_quote_rem(t_token_node **tokens)
-{
-	int		i;
-	char	*clean;
-
-	if (!tokens)
-		return ;
-	i = 0;
-	while (tokens[i] != NULL)
-	{
-		clean = remove_quotes(tokens[i]->token_value);
-		free(tokens[i]->token_value);
-		tokens[i]->token_value = clean;
-		i++;
-	}
-}
 
 t_token_node	**tokenizer(char *input)
 {
 	t_token_node	**tokens_list;
 	char			**token_storage;
 	int				token_count;
+	int				*pos;
 
 	token_count = 0;
 	token_storage = NULL;
 	if (!input || is_whitespace(input))
 		return (NULL);
 	token_count = count_tokens(input);
-	token_storage = tokenize_input(input, token_count);
-	tokens_list = create_node_list(token_storage, token_count);
-	process_quote_rem(tokens_list);
-	token_count = 0;
+	pos = (int *)ft_calloc(token_count, sizeof(int));
+	if (!pos)
+		return (NULL);
+	token_storage = tokenize_input(input, token_count, pos);
+	tokens_list = create_node_list(token_storage, token_count, pos);
+	process_quote_rem_and_concat(tokens_list);
+	token_count = -1;
+	free(pos);
 	return (tokens_list);
 }
 

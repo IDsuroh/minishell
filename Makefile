@@ -22,6 +22,7 @@ SRC_SRCS	=	handle_input.c \
 				signals.c
 			
 TOK_SRCS	=	tokenizer.c \
+				process_tokens.c \
 				tokenize_input.c \
 				tokenizer_counters.c \
 				tokenizer_flags_1.c \

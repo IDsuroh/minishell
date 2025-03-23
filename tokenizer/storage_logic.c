@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 16:33:07 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/20 23:19:19 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/23 18:18:49 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	*store_var(char *token_start, char *token_end, char **saveptr)
 	char	*token;
 	int		i;
 
-	
 	token_end = token_start + 1;
 	i = 1;
 	if (*token_end == '?' || *token_end == '$')
