@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:14:37 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 22:30:18 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/24 13:54:07 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,33 @@ static t_token_node	**duplicate(t_token_node **tokens)
 	return (copy);
 }
 
-static void	process_tokens(t_almighty *mighty, t_token_node **tokens)
+/*static void	process_tokens(t_almighty *mighty, t_token_node **tokens)
 {
 	t_op_sequence	*tmp_seq;
 	t_token_node	**tokens_dup;
 
-//	print_tokens_colors(tokens);
+	print_tokens_colors(tokens);
 	tokens_dup = duplicate(tokens);
 	if (!tokens_dup)
 		return (free_node_list(tokens), (void)0);
 	tmp_seq = parse_tokens(tokens_dup);
 	free_node_list(tokens_dup);
-//	print_parsing(tmp_seq);
+	print_parsing(tmp_seq);
+	execute_parsed_structure(tmp_seq, mighty);
+	free_op_sequence(tmp_seq);
+	free_node_list(tokens);
+}*/
+
+static void	process_tokens(t_almighty *mighty, t_token_node **tokens)
+{
+	t_op_sequence	*tmp_seq;
+	t_token_node	**tokens_dup;
+
+	tokens_dup = duplicate(tokens);
+	if (!tokens_dup)
+		return (free_node_list(tokens), (void)0);
+	tmp_seq = parse_tokens(tokens_dup);
+	free_node_list(tokens_dup);
 	execute_parsed_structure(tmp_seq, mighty);
 	free_op_sequence(tmp_seq);
 	free_node_list(tokens);

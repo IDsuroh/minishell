@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 21:37:23 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/24 15:25:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static char	*fetch_env_value(char *var_name, t_almighty *mighty)
 	env_var = get_value(mighty->var_list, var_name);
 	if (env_var)
 		return (ft_strdup(env_var->value));
-	return (ft_strdup(""));
+	else
+		return (ft_strdup("$"));
 }
 
 static char	*replace_variable(const char *str, t_almighty *mighty)
@@ -64,14 +65,17 @@ static char	*expand_token_value(char *str, t_almighty *mighty)
 	char	*result;
 	char	*temp;
 
-	if (ft_strcmp(str, "$") == 0)
-		return (ft_strdup("$"));
 	result = strip_var_quotes(str);
 	if (!result)
 		return (NULL);
 	while (ft_strchr(result, '$'))
 	{
 		temp = replace_variable(result, mighty);
+		if (ft_strcmp(temp, result) == 0)
+		{
+			free(temp);
+			break ;
+		}
 		free(result);
 		result = temp;
 	}
@@ -82,6 +86,7 @@ void	expand_env_variables(t_almighty *mighty, t_token_node **tokens)
 {
 	int		i;
 	char	*old_value;
+	char	*tmp;
 
 	i = -1;
 	while (tokens[++i] != NULL)
@@ -95,7 +100,11 @@ void	expand_env_variables(t_almighty *mighty, t_token_node **tokens)
 			else if (tokens[i]->type == T_PID)
 				tokens[i]->token_value = get_pid_from_proc();
 			else if (tokens[i]->type == T_XVAR)
-				tokens[i]->token_value = ft_itoa(mighty->exit_stat);
+			{
+				tmp = ft_itoa(mighty->exit_stat);
+				tokens[i]->token_value = ft_strjoin(tmp, old_value + 2);
+				free(tmp);
+			}
 			free(old_value);
 		}
 	}

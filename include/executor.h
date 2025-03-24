@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/20 22:56:46 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/24 16:03:37 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,13 @@ typedef struct s_pipeline_variables
 }					t_pipeline_variables;
 
 // cd_n_pwd.c
-void	_cd(t_almighty *mighty, char *dir);
+void	_cd(t_almighty *mighty, char **args);
 void	_pwd(void);
+
+// cd_helpers.c
+char	*resolve_dir(t_almighty *mighty, char **args);
+int		change_and_update_oldpwd(t_almighty *mighty, char *dir);
+void	update_new_pwd(t_almighty *mighty);
 
 // echo.c
 void	_echo(char **args);
@@ -42,7 +47,14 @@ void	_echo(char **args);
 void	_env(t_almighty *mighty);
 
 // exit.c
+int		exit_builtin(t_almighty *mighty, char **argv, int saved_stdout);
 void	_exit_(t_almighty *mighty, int *var_exit);
+
+// exit_helpers.c
+bool	is_numeric(char *str);
+void	handle_no_arg_exit(t_almighty *mighty, int saved_stdout);
+void	handle_non_numeric_exit(t_almighty *mighty, int saved_stdout);
+void	handle_numeric_exit(t_almighty *mighty, char **argv, int saved_stdout);
 
 // export.c
 void	_export(t_almighty *mighty, char *var);

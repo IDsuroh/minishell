@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:35:16 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 22:18:59 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/24 16:01:40 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	dispatch_builtin(t_simple_cmd *cmd, t_almighty *mighty,
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		_echo(cmd->argv + 1);
 	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
-		_cd(mighty, cmd->argv[1]);
+		_cd(mighty, &cmd->argv[1]);
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
 		_pwd();
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
@@ -54,26 +54,34 @@ static void	dispatch_builtin(t_simple_cmd *cmd, t_almighty *mighty,
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
 		_env(mighty);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-	{
-		close(saved_stdout);
-		_exit_(mighty, NULL);
-	}
+		exit_builtin(mighty, cmd->argv, saved_stdout);
 }
 
 int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	int	saved_stdout;
 	int	status;
+	int	exit_handled;
 
 	saved_stdout = apply_builtin_redir(cmd);
 	if (saved_stdout < 0)
 		return (-1);
-	dispatch_builtin(cmd, mighty, saved_stdout);
-	status = mighty->exit_stat;
-	if (dup2(saved_stdout, STDOUT_FILENO) < 0)
-		perror("dup2");
-	close(saved_stdout);
-	return (status);
+	if (ft_strcmp(cmd->argv[0], "exit") == 0)
+		exit_handled = exit_builtin(mighty, cmd->argv, saved_stdout);
+	else
+	{
+		dispatch_builtin(cmd, mighty, saved_stdout);
+		exit_handled = 0;
+	}
+	if (!exit_handled)
+	{
+		status = mighty->exit_stat;
+		if (dup2(saved_stdout, STDOUT_FILENO) < 0)
+			perror("dup2");
+		close(saved_stdout);
+		return (status);
+	}
+	return (mighty->exit_stat);
 }
 
 /*

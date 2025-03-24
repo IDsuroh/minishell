@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/20 22:47:52 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/24 15:13:49 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 # include "./parser.h"
 # include "./executor.h"
 # include "./envp.h"
-
-//extern volatile int	g_signal;
 
 typedef struct s_almighty
 {

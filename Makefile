@@ -67,9 +67,11 @@ EXC_SRCS	=	execute.c \
 				manage_pid_list.c
 
 BUIL_SRCS	=	cd_n_pwd.c \
+				cd_helpers.c \
 				echo.c \
 				env.c \
 				exit.c \
+				exit_helpers.c \
 				export.c \
 				unset.c
 

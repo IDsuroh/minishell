@@ -6,45 +6,22 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:12:33 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 20:59:12 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/24 15:11:20 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static void	update_pwd(t_almighty *mighty, char *buff, char *var)
+void	_cd(t_almighty *mighty, char **args)
 {
-	t_var_elm	*elm;
+	char	*dir;
 
-	elm = get_value(mighty->var_list, var);
-	if (elm)
-	{
-		free(elm->value);
-		elm->value = ft_strdup(buff);
-	}
-	else
-		add_var(mighty->var_list, create_var(ft_strdup(var),
-				ft_strdup(buff)));
-	free(buff);
-}
-
-void	_cd(t_almighty *mighty, char *dir)
-{
-	char	*buff;
-
-	buff = NULL;
-	buff = getcwd(buff, 0);
-	if (chdir(dir))
-	{
-		ft_putstr_fd("cd:", 2);
-		ft_putstr_fd(dir, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		mighty->exit_stat = 127;
+	dir = resolve_dir(mighty, args);
+	if (!dir)
 		return ;
-	}
-	update_pwd(mighty, buff, "OLDPWD");
-	buff = getcwd(buff, 0);
-	update_pwd(mighty, buff, "PWD");
+	if (change_and_update_oldpwd(mighty, dir) < 0)
+		return ;
+	update_new_pwd(mighty);
 }
 
 void	_pwd(void)
@@ -58,5 +35,8 @@ void	_pwd(void)
 		ft_putstr_fd(buff, 1);
 		ft_putstr_fd("\n", 1);
 	}
+	else
+		ft_putstr_fd("pwd:  error retrieving current directory\n",
+			STDERR_FILENO);
 	free(buff);
 }
