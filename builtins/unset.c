@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:18:36 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 20:09:31 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 19:27:08 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	_unset(t_almighty *mighty, char *key)
 {
 	t_var_elm	*node;
 
+	mighty->exit_stat = 0;
 	if (!key)
 		return ;
 	node = get_value(mighty->var_list, key);

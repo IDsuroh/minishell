@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/21 12:26:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 19:45:41 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 	struct stat	st;
 
 	if (execute_redirections(cmd->redir) < 0)
-		exit(EXIT_FAILURE);
+		exit(1);
 	exec_path = find_executable(cmd->argv[0]);
 	if (!exec_path || !validate_command_tokens(cmd))
 		handle_cmd_not_found(cmd, mighty, exec_path);
@@ -72,27 +72,36 @@ int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 	return (status);
 }
 
+static int	process_command(t_op_sequence *op, t_almighty *mighty)
+{
+	if (op->pipe)
+	{
+		if (op->pipe->next)
+			return (execute_pipeline(op->pipe, mighty));
+		if (is_builtin_command(op->pipe->cmd->argv[0])
+			&& !op->pipe->cmd->in_pipeline)
+			return (execute_builtin(op->pipe->cmd, mighty));
+		return (execute_command(op->pipe->cmd, mighty));
+	}
+	return (0);
+}
+
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
 {
 	t_op_sequence	*tmp_op;
 	int				status;
 
-	status = 0;
 	tmp_op = op_seq;
 	while (tmp_op)
 	{
-		if (tmp_op->pipe)
+		status = process_command(tmp_op, mighty);
+		if (mighty->interactive)
+			restore_stdin_to_tty();
+		else
 		{
-			if (tmp_op->pipe->next)
-				status = execute_pipeline(tmp_op->pipe, mighty);
-			else
-			{
-				if (is_builtin_command(tmp_op->pipe->cmd->argv[0])
-					&& !tmp_op->pipe->cmd->in_pipeline)
-					status = execute_builtin(tmp_op->pipe->cmd, mighty);
-				else
-					status = execute_command(tmp_op->pipe->cmd, mighty);
-			}
+			if (status < 256)
+				exit(status);
+			exit(WEXITSTATUS(status));
 		}
 		if ((tmp_op->op == OP_AND && status != 0)
 			|| (tmp_op->op == OP_OR && status == 0))
@@ -100,58 +109,3 @@ void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
 		tmp_op = tmp_op->next;
 	}
 }
-
-/*
- * void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
- * Execute Redirections:
- * 	starts by execute_redirections(cmd->redir)
- * 		to set up any file redirections
- * 		(like input/output redirection or heredoc)
- * 		for the command.
- *	redirections fail, it exits immediately
- *
- * PATH Expansion:
- * 	Next, find_executable(cmd->argv[0]) is called
- * 		to resolve the full path of the command.
- * 	This function searches through the directories listed
- * 		in the PATH environment variable.
- * 	If the executable cannot be found, perror("find_executable")
- * 		is called to print an error message, and the function exits
- *
- * Generate Updated Environment:
- * 	The function calls make_envp(mighty->var_list)
- * 		to convert the internal environment representation
- * 		(var_list) into a standard char ** array.
- *	ensures that any changes made to the environment via
- *		built-in commands are passed to the external command.
- *
- * Execute the Command with execve:
- * 	The command is executed with execve(exec_path, cmd->argv, new_envp).
- *	This replaces the current process image with the new executable.
- *		If execve is successful, it never returns; if it fails,
- *		it returns, and an error message is printed with perror("execve").
- *
- * 
- * static int	parent_exec(t_almighty *mighty, pid_t pid)
- *  Tracks the child process for later signal forwarding.
- *  Uses waitpid to block until the child completes.
- *  Removes the child’s PID from the active list.
- *  Returns the child's exit status.
- *
- *
- * int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
- *  Forks a child process.
- *  In the child branch, resets signal handlers to default
- *  	(via init_signals_subshell) and calls child_exec.
- *  In the parent branch, waits for the child and
- *  	returns its exit status.
- *
- *
- * void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty)
- *  Iterates through each command group (op_sequence).
- *  If there is more than one command in the pipeline, calls
- *  	execute_pipeline; otherwise, calls execute_command.
- *  Checks the logical operator (OP_AND or OP_OR) to decide whether to
- *  	continue executing subsequent command groups.
- *
- */

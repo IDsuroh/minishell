@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:12:33 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 15:11:20 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 19:25:13 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,37 @@ void	_cd(t_almighty *mighty, char **args)
 {
 	char	*dir;
 
+	mighty->exit_stat = 0;
 	dir = resolve_dir(mighty, args);
 	if (!dir)
+	{
+		mighty->exit_stat = 1;
 		return ;
+	}
 	if (change_and_update_oldpwd(mighty, dir) < 0)
+	{
+		mighty->exit_stat = 1;
 		return ;
+	}
 	update_new_pwd(mighty);
 }
 
-void	_pwd(void)
+void	_pwd(t_almighty *mighty)
 {
 	char	*buff;
 
-	buff = NULL;
-	buff = getcwd(buff, 0);
+	mighty->exit_stat = 0;
+	buff = getcwd(NULL, 0);
 	if (buff)
 	{
 		ft_putstr_fd(buff, 1);
 		ft_putstr_fd("\n", 1);
+		free(buff);
 	}
 	else
+	{
 		ft_putstr_fd("pwd:  error retrieving current directory\n",
 			STDERR_FILENO);
-	free(buff);
+		mighty->exit_stat = 1;
+	}
 }

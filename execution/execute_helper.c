@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:55:54 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 13:10:32 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 16:33:49 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,24 @@ bool	validate_command_tokens(t_simple_cmd *cmd)
 	return (true);
 }
 
-/*
- * Purpose of the Loop:
- * The goal of this loop is to check whether
- * every character in cmd->argv[0] is a digit.
- *
- * The loop increments i as long as each character is a digit.
- * When it encounters a character that is not a digit,
- * it breaks out of the loop.
- * What Happens Next:
- * After the loop, the condition if (i == ft_strlen(cmd->argv[0]))
- * checks whether the loop iterated over the entire string.
- *
- * If i equals the length of the string, it means every character
- * was a digit, so the command is considered invalid (return false).
- * If i is less than the length of the string, it means
- * at least one character is not a digit, and therefore the command name
- * is acceptable (return true).
- */
+void	restore_stdin_to_tty(void)
+{
+	int	tty_fd;
+
+	if (!isatty(STDIN_FILENO))
+	{
+		tty_fd = open("/dev/tty", O_RDONLY);
+		if (tty_fd < 0)
+		{
+			perror("open /dev/ tty");
+			exit(EXIT_FAILURE);
+		}
+		if (dup2(tty_fd, STDIN_FILENO) < 0)
+		{
+			perror("dup2");
+			close(tty_fd);
+			exit(EXIT_FAILURE);
+		}
+		close(tty_fd);
+	}
+}

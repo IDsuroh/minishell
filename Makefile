@@ -33,13 +33,15 @@ TOK_SRCS	=	tokenizer.c \
 				storage_logic_helper.c \
 				create_node_list.c
 
-PAR_SRCS	=	parser.c \
-				parse_sequence.c \
+PAR_SRCS	=	initiators.c \
+				parse_command.c \
+				parse_heredoc.c \
+				parse_normal_redir.c \
 				parse_pipe_sequence.c \
 				parse_redir.c \
-				parse_command.c \
+				parse_sequence.c \
+				parser.c \
 				parser_helpers.c \
-				initiators.c \
 				token_access.c
 
 ERR_SRCS	=	error_check_flags_1.c \

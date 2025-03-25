@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 19:43:54 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 15:11:31 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 16:29:09 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,37 +73,6 @@ int	execute_pipeline(t_pipe_sequence *pipe_seq, t_almighty *mighty)
 	}
 	while (wait(&status) > 0)
 		;
-	mighty->exit_stat = status;
-	return (status);
+	mighty->exit_stat = WEXITSTATUS(status);
+	return (WEXITSTATUS(status));
 }
-
-/*
- * static void	fork_pipeline:
- *	t_pipeline_variables: groups current pipeline node, previous
- *	pipe's read end, and current pipe descriptors.
- *	Forking: In the child, call child_pipeline_setup.
- *			In the parent, call parent_pipeline_setup and update
- *			prev_pipe_read.
- *
- *
- * static void	process_pipeline:
- * 	pipe(): if there is another command, a new pipe is created.
- * 			if not, pipe file descriptors are set to -1.
- *	Then call fork_pipeline().
- *
- *
- * int	execute_pipeline:
- * 	This function loops through each pipeline segment and waits
- * 	for all the children to finish.
- * 	Waiting: After all segments are launched, meaning that once the
- * 			pipeline code has finished creating (forking) all the
- * 			child processes for each command in the pipeline,
- * 			the parent process then enters a waiting phase.
- *	Then returns a status which is important for '||' and '&&'
- *
- * For pipelines, multiple child processes are created thus should be
- * connected through STDOUT and STDIN.
- *
- *
- *
- */

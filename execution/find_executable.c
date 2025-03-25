@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:14:40 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 19:58:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 16:29:33 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,34 +77,3 @@ char	*find_executable(char *cmd)
 	free_paths(paths);
 	return (result);
 }
-
-/*
- * build_candidate:
- * 	Concatenates a directory (dir) with a "/" and
- * 		the command name (cmd) to form a candidate
- * 		full path. It frees the temporary string
- * 		after use.
- *
- *
- * search_executable:
- * 	Iterates over the array of directories (paths),
- * 		calls build_candidate for each, and uses
- * 		access() with X_OK to check if the candidate
- * 		is executable. Returns the first candidate
- * 		that works.
- *
- * get_path_directories:
- * 	Retrieves the PATH environment variable and
- * 		splits it by ':' into an array of
- * 		directory strings.
- * 	
- * find_executable:
- * 	Checks if the command already contains a '/'
- * 		(using is_cmd_a_path).
- * 	If yes, returns a duplicate of the command.
- * 	Otherwise, it gets the PATH directories,
- * 		searches for an executable using search_executable,
- * 		frees the directories array, and returns the found
- * 		candidate or a duplicate of the command if none is found.
- *
- */

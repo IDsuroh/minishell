@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:20:39 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 14:13:34 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 18:54:20 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	_export(t_almighty *mighty, char *var)
 	char		*value;
 	t_var_elm	*node;
 
+	mighty->exit_stat = 0;
 	if (!var)
 		return ;
 	if (!is_valid_input(var))

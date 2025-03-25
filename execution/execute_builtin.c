@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:35:16 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 16:01:40 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 19:59:53 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static void	dispatch_builtin(t_simple_cmd *cmd, t_almighty *mighty,
 			int saved_stdout)
 {
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
-		_echo(cmd->argv + 1);
+		_echo(mighty, cmd->argv + 1);
 	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
 		_cd(mighty, &cmd->argv[1]);
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
-		_pwd();
+		_pwd(mighty);
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
 		_export(mighty, cmd->argv[1]);
 	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
@@ -65,9 +65,10 @@ int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 
 	saved_stdout = apply_builtin_redir(cmd);
 	if (saved_stdout < 0)
-		return (-1);
-	if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		exit_handled = exit_builtin(mighty, cmd->argv, saved_stdout);
+	{
+		mighty->exit_stat = 1;
+		return (1);
+	}
 	else
 	{
 		dispatch_builtin(cmd, mighty, saved_stdout);
@@ -83,17 +84,3 @@ int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 	}
 	return (mighty->exit_stat);
 }
-
-/*
- * bool	is_builtin_command(const char *cmd)
- *  This function checks if a given command name (passed as cmd)
- *  	is one of the built-in commands that the shell must handle
- *  	internally.
- *
- *
- * int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
- *  This function dispatches the execution of a built-in command
- *  	based on the command name found in cmd->argv[0].
-
- *
- */

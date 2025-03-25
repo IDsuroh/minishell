@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:10:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 15:19:51 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 18:42:13 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	count_args(char **args)
 char	*resolve_dir(t_almighty *mighty, char **args)
 {
 	char	*dir;
+	char	*home;
 	int		count;
 
 	count = count_args(args);
@@ -52,13 +53,14 @@ char	*resolve_dir(t_almighty *mighty, char **args)
 	}
 	if (count == 0)
 	{
-		dir = getenv("HOME");
-		if (!dir)
+		home = getenv("HOME");
+		if (!home)
 		{
 			ft_putstr_fd("cd: HOME not set\n", STDERR_FILENO);
 			mighty->exit_stat = 1;
 			return (NULL);
 		}
+		dir = ft_strdup(home);
 	}
 	else
 		dir = args[0];

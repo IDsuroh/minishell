@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 17:11:19 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 15:25:36 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,14 @@ t_pipe_sequence		*parse_pipe_sequence(t_parser *parser);
 // parse_redir.c
 void				append_redir(t_simple_cmd *cmd, t_redir *redir);
 t_redir				*parse_redir(t_parser *parse);
+bool				process_redir_token(t_parser *parser, t_simple_cmd *cmd);
+
+// parse_heredoc.c
+char				*parse_heredoc_content(char *delim);
+t_redir				*parse_heredoc_redir(t_parser *parser);
+
+// parse_normal_redir.c
+t_redir				*parse_normal_redir(t_parser *parser);
 
 // parse_sequence.c
 t_op_sequence		*parse_sequence(t_parser *parser);

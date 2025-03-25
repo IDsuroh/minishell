@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:30:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 17:22:15 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 15:47:43 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,3 @@ t_pipe_sequence	*parse_pipe_sequence(t_parser *parser)
 	}
 	return (pipe);
 }
-
-/*
- * static void	append_command(t_pipe_sequence **pipe, t_simple_cmd *command)
- * Purpose:
- * 		Creates a new pipe sequence node for a given command.
- * 		If the pipe list is empty, it initializes it;
- * 		otherwise, it appends the new node at the end.
- *
- *
- * t_pipe_sequence	*parse_pipe_sequence(t_parser *parser)
- * Purpose:
- *		Parses a series of commands that are connected by the pipe operator.
- * 		It repeatedly calls parse_command to build each command and uses
- * 		append_command to add the command to the pipe sequence.
- * 		It stops when encountering logical operators or
- * 		when no more tokens remain.
- */

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 22:49:29 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/13 17:22:09 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 15:48:03 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,3 @@ void	free_op_sequence(t_op_sequence *op_sequence)
 		op_sequence = tmp_seq;
 	}
 }
-
-/*
- * free_redirections:
- *   Frees the linked list of t_redir nodes.
- *   (If you used strdup for `filename`, remember to free it.)
- *
- * free_pipeline:
- *   Frees only the pipeline structs, not the token strings.
- */

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 16:03:37 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 18:08:13 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_pipeline_variables
 
 // cd_n_pwd.c
 void	_cd(t_almighty *mighty, char **args);
-void	_pwd(void);
+void	_pwd(t_almighty *mighty);
 
 // cd_helpers.c
 char	*resolve_dir(t_almighty *mighty, char **args);
@@ -41,7 +41,7 @@ int		change_and_update_oldpwd(t_almighty *mighty, char *dir);
 void	update_new_pwd(t_almighty *mighty);
 
 // echo.c
-void	_echo(char **args);
+void	_echo(t_almighty *mighty, char **args);
 
 // env.c
 void	_env(t_almighty *mighty);
@@ -75,6 +75,7 @@ void	handle_no_file_error(t_almighty *mighty, char *exec_path);
 
 // execute_helper.c
 bool	validate_command_tokens(t_simple_cmd *cmd);
+void	restore_stdin_to_tty(void);
 
 // execute_builtin.c
 bool	is_builtin_command(const char *cmd);

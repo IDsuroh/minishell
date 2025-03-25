@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 19:04:08 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 17:14:25 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	init_main_struct(t_almighty *mighty, char **envp)
 {
 	mighty->var_list = init_var_list(envp);
 	mighty->exit_stat = 0;
+	mighty->interactive = isatty(STDIN_FILENO);
 	mighty->acpl = NULL;
 	init_signals_interactive();
 }

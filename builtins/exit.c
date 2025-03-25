@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 19:10:17 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/24 16:04:24 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 19:33:44 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ int	exit_builtin(t_almighty *mighty, char **argv, int saved_stdout)
 	{
 		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 		mighty->exit_stat = 1;
-		if (dup2(saved_stdout, STDOUT_FILENO) < 0)
-			perror("dup2");
-		close(saved_stdout);
 		return (1);
 	}
 	else
