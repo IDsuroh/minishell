@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 15:25:03 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 20:59:24 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,67 +109,3 @@ void	expand_env_variables(t_almighty *mighty, t_token_node **tokens)
 		}
 	}
 }
-
-/*
- * static char	*assemble_expanded(char *prefix, char *env_value, char *suffix)
- * 		Concatenates three parts of a string into one final expanded string.
- *
- *
- * static char	*fetch_env_value(char *var_name, t_list_header *var_list)
- *		Retrieves the value associated with a given environment variable name.
- *
- *		Lookup in the Variable List:
- *			It uses get_value(var_list, var_name) to search
- *			the linked list of environment variables.
- *			If found, it returns the corresponding value;
- *			otherwise, it returns an empty string.
- *
- * 
- * static char	*replace_variable(const char *str, t_list_header *var_list)
- *		Replaces the first occurrence of a variable in the string with
- *		its corresponding value.
- *
- * How It Works:
- *
- *	Locate the Dollar Sign:
- *		It uses ft_strchr to find the first $ in the string.
- *		If none is found, it simply duplicates and returns the string.
- *	Extract Parts Around the Variable:
- *		get_prefix(str) extracts the substring before the variable.
- *		get_var_name(dollar_ptr) extracts the variable name starting at the $.
- *		get_suffix(dollar_ptr) extracts the substring after the variable.
- *	Fetch the Variable’s Value:
- *		Calls fetch_env_value with the extracted variable name and
- *		the variable list.
- *	Reassemble the String:
- *		Finally, assemble_expanded is used to concatenate the prefix,
- *		the fetched value, and the suffix.
- *
- *
- * static char	*expand_token_value(char *str, t_list_header *var_list)
- * 		Fully expands all environment variable references in a token.
- *
- * How It Works:
- *
- * 	Initial Duplication:
- * 		Duplicates the original token string.
- * 	Iterative Replacement:
- * 		In a loop, as long as the result contains a $ character,
- * 		it calls replace_variable to replace the first occurrence.
- * 		The old string is freed and replaced by the new expanded string.
- * 	Return:
- * 		Once no more $ characters are found,
- * 		the fully expanded string is returned.
- *
- * 
- * void	expand_env_variables(t_list_header *var_list, t_token_node **tokens)
- *		Iterates over an array of token nodes and expands
- *		environment variable tokens.
- *
- *
- *
- *
- *
- *
- *
- */

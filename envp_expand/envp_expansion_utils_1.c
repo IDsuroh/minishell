@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:04:07 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 12:02:26 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 20:59:31 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,29 +110,3 @@ char	*get_pid_from_proc(void)
 	pid_str = extract_pid_from_stat(buffer);
 	return (pid_str);
 }
-
-/*
- * get_prefix:
- * Returns a duplicate of everything before the first '$' in 'str'.
- * pos - str calculates the number of characters from
- * the start of the string (str) to the first occurrence of
- * the dollar sign ('$').
- *
- * get_var_name:
- * Given a pointer to '$' in 'str', extracts the variable name.
- * Assumes variable names consist of alphanumerics and underscores.
- * For special cases ($$ or $?), the name length is 1.
- *
- * get_suffix:
- * Given a pointer to '$' in 'str',
- * extracts the suffix (text after the variable name).
- *
- * get_pid_from_proc:
- * The file /proc/self/stat begins with the current process ID
- * (PID). This code opens that file, reads its contents into
- * a buffer, and then uses ft_atoi to convert the first part
- * of the string (which is the PID) into an integer.
- * Since ft_atoi stops reading once it encounters a non-numeric
- * character (like the space after the PID), it effectively
- * extracts just the PID.
- */

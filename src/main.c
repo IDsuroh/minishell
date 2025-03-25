@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 17:14:25 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 21:01:17 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,3 @@ int	main(int argc, char **argv, char **envp)
 	free_all(&main_struct);
 	return (0);
 }
-
-/*
- * int	main:
- * 	classic int main that run the program.
- * 	init_var_list(envp);
- * 	a structure that contains the information of the system's envp.
- *
- * the parsing and the error checking in the handle_input function.
- */

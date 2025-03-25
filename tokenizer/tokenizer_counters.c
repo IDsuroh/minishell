@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:48:04 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/06 20:49:38 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 21:02:16 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,3 @@ int	count_tokens(char *input)
 	}
 	return (count);
 }
-
-/*
- * These functions will count how many tokens there will be in the input
- * and will return the count as an int.
- *
- * It has to be very accurate and it shouldn't collide with the storage logic
- * which will be explained later on through out the files.
- *
- * The counter is categorized into 5 different ifs.
- * 1. quoted phrases.
- * 2. separators. ('|', '>', '<', '&')
- * 3. env_variables (anything that starts with $)
- * 4. delimiters (' ', etc.)
- * 5. strings.
- *
- * The categorized order is also the priority order as well.
- * So the counter will identify and count the input according to this
- * priority order. (the is_delimiter flag will simply ignore the delimiters.)
- *
- * 			*next file to check:
- * 				./tokenize_input.c
- */

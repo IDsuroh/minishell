@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 18:08:13 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 21:02:48 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,37 +108,3 @@ void	remove_child_pid(t_almighty *mighty, pid_t pid);
 void	send_signal_to_all_children(t_almighty *mighty, int sig);
 
 #endif
-
-/*
- * typedef enum e_token_type
- * {
- * T_NONE,
- * T_IDENTIFIER,
- * T_LESS,
- * T_GREAT,
- * T_DLESS,
- * T_DGREAT,
- * T_PIPE,
- * T_AND,
- * T_OR,
- * T_VAR,
- * T_XVAR,
- * T_PID,
- * }	t_token_type;
- *
- * typedef struct s_redir
- * {
- * t_token_type		type;
- * char				*filename;
- * struct s_redir		*next;
- * }	t_redir;
- *
- * typedef struct s_op_sequence
- * {
- * t_pipe_sequence				*pipe;
- * t_operator				op;
- * struct s_op_sequence		*next;
- * struct s_op_sequence		*prev;
- * }	t_op_sequence;
- *
- */

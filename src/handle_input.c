@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:14:37 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 18:54:43 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/25 21:01:10 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,65 +114,3 @@ void	handle_input(t_almighty *mighty, char *input)
 	}
 	process_tokens(mighty, tokens);
 }
-
-/* 
- * static t_token_node	**handle_error_input(char *input)
- * Purpose:
- * 		This function is used when the initial tokenization of
- * 		the user input has detected an error—often related to
- * 		open operators such as '|', '||', '&&'.
- *
- * 		 - starts by converting raw input strings into tokens
- * 		 - this function is only called when the op_open flag in the
- * 		 	handle_input function is true.
- * 		 - it returns the new tokens array.
- * 		 This function leads to the error checking process which
- * 		 is done after the tokenizing or after it goes through the
- * 		 lexer.
- *
- * 		 * next file to check for this function:
- * 		 	./../error_check/open_input_checker.c
- *
- *
- * static t_token_node	**duplicate(t_token_node **tokens)
- * Purpose:
- * 		This function creates a duplicate (deep copy) of an array of token nodes.
- * 		Solely to properly and safely free the tokenized assets after parsing.
- *
- * 		* next function to check for this function:
- *			static void	process_tokens(t_token_node **tokens)
- *
- * 
- * static void	process_tokens(t_token_node **tokens)
- * Purpose:
- * 		This function handles the further processing of the tokens after
- * 		initial validation and error-checking.
- *
- * 		 - where the printing of the tokens and the parsed tokens happen.
- * 		
- * 		* next function to check for this function:
- * 			static void	handle_input(t_list_header *var_list, char *input)
- *
- * 		* next file to check after tokenization:
- * 			./../parser/parser.c
- *
- *
- * static void	handle_input(t_almighty *mighty, char *input)
- * Purpose:
- * 		This is the primary function that handles a user’s input string
- * 		in the shell. It coordinates tokenization, error checking,
- * 		environment variable expansion, and processing of tokens.
- *
- *		 - the bool op_open is to check if there are open inputs.
- *
- *		* next functions and files to check for this function:
- *			./../include/minishell.h
- *			./../include/tokenizer.h
- *			./../include/parser.h
- *			./../tokenizer/tokenizer.c
- *			./../error_check/error_check_flags_1.c
- *			./env_expansion.c
- *			**for printing:
- *			./print_utils_1.c
- *			./print_utils_2.c
- */
