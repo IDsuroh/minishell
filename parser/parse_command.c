@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:58:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 15:47:30 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:10:34 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void	process_command_tokens(t_parser *parser, t_simple_cmd *cmd)
 		else if (token->type == T_IDENTIFIER || token->type == T_VAR
 			|| token->type == T_XVAR || token -> type == T_PID)
 		{
-			append_argv(cmd, ft_strdup(token->token_value));
+			if (cmd->argv[0] != NULL || token->token_value[0] != '\0')
+				append_argv(cmd, ft_strdup(token->token_value));
 			advance_token(parser);
 		}
 		else

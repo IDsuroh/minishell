@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 23:07:44 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 15:57:00 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 18:42:30 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 static char	*parse_redir_filename(t_parser *parser)
 {
 	char			*filename;
+	int				skip;
 	t_token_node	*token;
 
+	skip = 1;
 	token = get_current_token(parser);
 	if (!token)
 		return (NULL);
-	filename = ft_strtrim(token->token_value + 1, " \t");
+	if (token->type == T_DGREAT || token->type == T_DLESS)
+		skip = 2;
+	filename = ft_strtrim(token->token_value + skip, " \t");
 	if (ft_strlen(filename) > 0)
 	{
 		advance_token(parser);

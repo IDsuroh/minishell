@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:53:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 21:01:32 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 18:56:07 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ static bool	compute_adjacent_flag(int i, int *pos, char **token_storage)
 	int	prev_end;
 
 	if (i <= 0)
+		return (false);
+	if (is_separator(token_storage[i - 1][0])
+		|| is_separator(token_storage[i][0]))
 		return (false);
 	prev_end = pos[i - 1] + ft_strlen(token_storage[i - 1]);
 	return (pos[i] == prev_end);

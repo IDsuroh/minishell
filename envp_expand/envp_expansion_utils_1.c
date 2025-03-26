@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 15:04:07 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 20:59:31 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:27:43 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,17 @@ char	*get_prefix(const char *str)
 char	*get_var_name(const char *dollar_ptr)
 {
 	const char	*var_start;
+	int			var_len;
 
 	var_start = dollar_ptr + 1;
+	if (!*var_start)
+		return (ft_strdup("$"));
 	if (*var_start == '$' || *var_start == '?')
 		return (get_special_var_name(var_start));
-	else
-		return (get_normal_var_name(var_start));
+	var_len = get_var_len(var_start);
+	if (var_len == 0)
+		return (ft_strdup("$"));
+	return (get_normal_var_name(var_start));
 }
 
 char	*get_suffix(const char *dollar_ptr)

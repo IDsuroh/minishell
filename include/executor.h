@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 21:02:48 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:44:41 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ void	handle_cmd_not_found(t_simple_cmd *cmd, t_almighty *mighty,
 			char *exec_path);
 void	handle_dir_error(t_almighty *mighty, char *exec_path);
 void	handle_no_file_error(t_almighty *mighty, char *exec_path);
+void	check_executable_status(t_simple_cmd *cmd, t_almighty *mighty,
+			char *exec_path);
+void	handle_exec_failure(char *exec_path);
 
 // execute_helper.c
 bool	validate_command_tokens(t_simple_cmd *cmd);

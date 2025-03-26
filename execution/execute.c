@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 19:45:41 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:46:16 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,16 @@ void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	char		*exec_path;
 	char		**new_envp;
-	struct stat	st;
 
 	if (execute_redirections(cmd->redir) < 0)
 		exit(1);
 	exec_path = find_executable(cmd->argv[0]);
 	if (!exec_path || !validate_command_tokens(cmd))
 		handle_cmd_not_found(cmd, mighty, exec_path);
-	else if (ft_strchr(cmd->argv[0], '/') != NULL)
-	{
-		if (stat(exec_path, &st) != 0)
-			handle_no_file_error(mighty, exec_path);
-		else if (S_ISDIR(st.st_mode))
-			handle_dir_error(mighty, exec_path);
-	}
-	else if (stat(exec_path, &st) != 0)
-		handle_cmd_not_found(cmd, mighty, exec_path);
-	else if (S_ISDIR(st.st_mode))
-		handle_dir_error(mighty, exec_path);
+	check_executable_status(cmd, mighty, exec_path);
 	new_envp = make_envp(mighty->var_list);
 	execve(exec_path, cmd->argv, new_envp);
-	perror("execve");
-	free(exec_path);
-	exit(EXIT_FAILURE);
+	handle_exec_failure(exec_path);
 }
 
 static int	parent_exec(t_almighty *mighty, pid_t pid)
@@ -76,6 +63,12 @@ static int	process_command(t_op_sequence *op, t_almighty *mighty)
 {
 	if (op->pipe)
 	{
+		if (!op->pipe->cmd->argv || !op->pipe->cmd->argv[0]
+			|| op->pipe->cmd->argv[0][0] == '\0')
+		{
+			mighty->exit_stat = 0;
+			return (0);
+		}
 		if (op->pipe->next)
 			return (execute_pipeline(op->pipe, mighty));
 		if (is_builtin_command(op->pipe->cmd->argv[0])

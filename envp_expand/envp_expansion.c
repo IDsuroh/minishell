@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:28:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 20:59:24 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 19:14:43 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ static char	*fetch_env_value(char *var_name, t_almighty *mighty)
 {
 	t_var_elm	*env_var;
 
-	if (ft_strcmp(var_name, "$") == 0)
+	if (ft_strcmp(var_name, "$$") == 0)
 		return (get_pid_from_proc());
+	if (ft_strcmp(var_name, "$") == 0)
+		return (ft_strdup("$"));
 	if (ft_strcmp(var_name, "?") == 0)
 		return (ft_itoa(mighty->exit_stat));
 	env_var = get_value(mighty->var_list, var_name);
 	if (env_var)
 		return (ft_strdup(env_var->value));
 	else
-		return (ft_strdup("$"));
+		return (ft_strdup(""));
 }
 
 static char	*replace_variable(const char *str, t_almighty *mighty)
