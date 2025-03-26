@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:12:33 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 19:25:13 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 22:39:29 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 void	_cd(t_almighty *mighty, char **args)
 {
 	char	*dir;
+	int		alloc;
 
+	alloc = 0;
+	if (count_args(args) == 0)
+		alloc = 1;
 	mighty->exit_stat = 0;
 	dir = resolve_dir(mighty, args);
 	if (!dir)
@@ -29,6 +33,8 @@ void	_cd(t_almighty *mighty, char **args)
 		return ;
 	}
 	update_new_pwd(mighty);
+	if (alloc)
+		free(dir);
 }
 
 void	_pwd(t_almighty *mighty)

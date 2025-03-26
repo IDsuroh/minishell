@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/26 19:44:41 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 22:38:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	_cd(t_almighty *mighty, char **args);
 void	_pwd(t_almighty *mighty);
 
 // cd_helpers.c
+int		count_args(char **args);
 char	*resolve_dir(t_almighty *mighty, char **args);
 int		change_and_update_oldpwd(t_almighty *mighty, char *dir);
 void	update_new_pwd(t_almighty *mighty);

@@ -6,27 +6,11 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:04:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 20:56:43 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 22:30:40 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*static void	print_redirection_error(const char *filename)
-{
-	if (errno == EACCES)
-	{
-		write(STDERR_FILENO, filename, ft_strlen(filename));
-		write(STDERR_FILENO, ": Permission denied\n", 21);
-	}
-	else if (errno == ENOENT)
-	{
-		write(STDERR_FILENO, filename, ft_strlen(filename));
-		write(STDERR_FILENO, ": No such file or directory\n", 29);
-	}
-	else
-		perror(filename);
-}*/
 
 static int	handle_input_redirection(const char *filename)
 {

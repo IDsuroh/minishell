@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:10:10 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 18:42:13 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/26 22:38:30 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	update_pwd(t_almighty *mighty, char *buff, char *var)
 	free(buff);
 }
 
-static int	count_args(char **args)
+int	count_args(char **args)
 {
 	int	i;
 
