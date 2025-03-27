@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:23:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 20:35:26 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 22:22:26 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void			rem_var(t_list_header *header, t_var_elm *var);
 
 // envp_utils_2.c
 void			free_var_list(t_list_header *header);
-void			free_pid_list(t_pid_node *acpl);
-void			free_all(t_almighty *mighty);
 void			free_envp_array(char **envp, size_t count);
 
 // envp_utils_3.c

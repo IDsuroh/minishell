@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 17:13:42 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 22:10:41 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,15 @@ typedef struct s_almighty
 	t_list_header	*var_list;
 	int				exit_stat;
 	int				interactive;
+	int				pending_fd;
 	t_pid_node		*acpl; //active_child_pid_list
 }	t_almighty;
 
 // handle_input.c
 void	handle_input(t_almighty *mighty, char *input);
+
+// main.c
+void	free_all(t_almighty *mighty);
 
 //
 void	init_signals(void);

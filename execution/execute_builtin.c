@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:35:16 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 19:59:53 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 22:07:25 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	is_builtin_command(const char *cmd)
 		|| ft_strcmp(cmd, "exit") == 0);
 }
 
-static int	apply_builtin_redir(t_simple_cmd *cmd)
+static int	apply_builtin_redir(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	int	saved_stdout;
 
@@ -33,6 +33,7 @@ static int	apply_builtin_redir(t_simple_cmd *cmd)
 		perror("dup");
 		return (-1);
 	}
+	mighty->pending_fd = saved_stdout;
 	if (execute_redirections(cmd->redir) < 0)
 		return (-1);
 	return (saved_stdout);
@@ -57,13 +58,22 @@ static void	dispatch_builtin(t_simple_cmd *cmd, t_almighty *mighty,
 		exit_builtin(mighty, cmd->argv, saved_stdout);
 }
 
+static void	close_pending_fd(t_almighty *mighty)
+{
+	if (mighty->pending_fd != -1)
+	{
+		close(mighty->pending_fd);
+		mighty->pending_fd = -1;
+	}
+}
+
 int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	int	saved_stdout;
 	int	status;
 	int	exit_handled;
 
-	saved_stdout = apply_builtin_redir(cmd);
+	saved_stdout = apply_builtin_redir(cmd, mighty);
 	if (saved_stdout < 0)
 	{
 		mighty->exit_stat = 1;
@@ -79,8 +89,9 @@ int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 		status = mighty->exit_stat;
 		if (dup2(saved_stdout, STDOUT_FILENO) < 0)
 			perror("dup2");
-		close(saved_stdout);
+		close_pending_fd(mighty);
 		return (status);
 	}
+	close_pending_fd(mighty);
 	return (mighty->exit_stat);
 }

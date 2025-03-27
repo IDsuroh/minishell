@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:55:54 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 16:33:49 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 22:22:05 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,17 @@ void	restore_stdin_to_tty(void)
 			exit(EXIT_FAILURE);
 		}
 		close(tty_fd);
+	}
+}
+
+void	free_pid_list(t_pid_node *acpl)
+{
+	t_pid_node	*tmp;
+
+	while (acpl)
+	{
+		tmp = acpl;
+		acpl = acpl->next;
+		free(tmp);
 	}
 }

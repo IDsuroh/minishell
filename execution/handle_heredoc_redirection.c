@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:42:33 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 16:29:43 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 21:20:13 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	handle_heredoc_redirection(t_redir *redir)
 {
 	int		pipefd[2];
 
-	if (setup_heredoc_pipe(pipefd) > 0)
+	if (setup_heredoc_pipe(pipefd) < 0)
 		return (-1);
 	if (write_heredoc_to_pipe(redir->heredoc_content, pipefd[1]) < 0)
 	{

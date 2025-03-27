@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 07:58:58 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/19 17:21:02 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 22:22:14 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,6 @@ void	free_var_list(t_list_header *header)
 		current = next;
 	}
 	free(header);
-}
-
-void	free_pid_list(t_pid_node *acpl)
-{
-	t_pid_node	*tmp;
-
-	while (acpl)
-	{
-		tmp = acpl;
-		acpl = acpl->next;
-		free(tmp);
-	}
-}
-
-void	free_all(t_almighty *mighty)
-{
-	if (mighty->var_list)
-	{
-		free_var_list(mighty->var_list);
-		mighty->var_list = NULL;
-	}
-	if (mighty->acpl)
-	{
-		free_pid_list(mighty->acpl);
-		mighty->acpl = NULL;
-	}
 }
 
 void	free_envp_array(char **envp, size_t count)

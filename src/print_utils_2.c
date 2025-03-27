@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:59:43 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 17:10:04 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 21:29:16 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 void	print_tokens_colors(t_token_node **current)
 {
-	int	i;
+	int		i;
+	char	*bool_str;
 
 	printf("\n");
 	i = 0;
 	while (current[i] != NULL)
 	{
-		printf("Token[%d]: %s%s%s, Type: %s%s%s\n",
+		bool_str = "false";
+		if (current[i]->processed_quote)
+			bool_str = "true";
+		printf("Token[%d]: %s%s%s, Type: %s%s%s, processed_quotes = %s\n",
 			i,
 			get_token_color(current[i]->type),
 			current[i]->token_value, RESET,
 			get_token_color(current[i]->type),
-			token_type_to_string(current[i]->type), RESET);
+			token_type_to_string(current[i]->type), RESET, bool_str);
 		i++;
 	}
 }
@@ -33,6 +37,7 @@ void	print_tokens_colors(t_token_node **current)
 void	print_pipe(t_pipe_sequence *pipe)
 {
 	int		i;
+	char	*quote_str;
 	t_redir	*redir;
 
 	i = 0;
@@ -44,7 +49,11 @@ void	print_pipe(t_pipe_sequence *pipe)
 	redir = pipe->cmd->redir;
 	while (redir)
 	{
-		printf("\t\tRedir: type = %d to %s\n", redir->type, redir->filename);
+		quote_str = "false";
+		if (redir->is_quote)
+			quote_str = "true";
+		printf("\t\tRedir: type = %d to %s, is_quote = %s\n",
+			redir->type, redir->filename, quote_str);
 		redir = redir->next;
 	}
 }

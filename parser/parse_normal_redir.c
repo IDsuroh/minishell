@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 23:07:44 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/26 18:42:30 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 21:45:36 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,10 @@ t_redir	*parse_normal_redir(t_parser *parser)
 	token = get_current_token(parser);
 	if (!token)
 		return (NULL);
-	redir = malloc(sizeof(t_redir));
+	redir = malloc_t_redir(token->type, parse_redir_filename(parser));
 	if (!redir)
 		return (NULL);
-	redir->type = token->type;
-	redir->next = NULL;
-	redir->filename = parse_redir_filename(parser);
-	if (!redir->filename)
-	{
-		free(redir);
-		return (NULL);
-	}
+	redir->is_quote = false;
 	redir->heredoc_content = NULL;
 	return (redir);
 }

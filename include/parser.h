@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 19:12:28 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 21:03:04 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 20:49:32 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@
 
 typedef struct s_redir
 {
-	t_token_type		type;
-	char				*filename;
-	char				*heredoc_content;
-	struct s_redir		*next;
+	t_token_type	type;
+	char			*filename;
+	char			*heredoc_content;
+	bool			is_quote;
+	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_simple_cmd
 {
-	char		**argv;
-	t_redir		*redir;
-	bool		in_pipeline;
+	char	**argv;
+	t_redir	*redir;
+	bool	in_pipeline;
 }	t_simple_cmd;
 
 typedef struct s_pipe_sequence
 {
-	t_simple_cmd				*cmd;
-	struct s_pipe_sequence		*next;
+	t_simple_cmd			*cmd;
+	struct s_pipe_sequence	*next;
 }	t_pipe_sequence;
 
 typedef enum e_operator
@@ -45,10 +46,10 @@ typedef enum e_operator
 
 typedef struct s_op_sequence
 {
-	t_pipe_sequence				*pipe;
-	t_operator					op;
-	struct s_op_sequence		*next;
-	struct s_op_sequence		*prev;
+	t_pipe_sequence			*pipe;
+	t_operator				op;
+	struct s_op_sequence	*next;
+	struct s_op_sequence	*prev;
 }	t_op_sequence;
 
 typedef struct s_parser

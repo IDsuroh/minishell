@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 16:21:35 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 15:47:21 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 21:41:45 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ t_redir	*malloc_t_redir(t_token_type type, char *filename)
 {
 	t_redir	*r;
 
-	r = (t_redir *)malloc(sizeof(t_redir));
+	r = (t_redir *)ft_calloc(1, sizeof(t_redir));
 	if (!r)
 		return (NULL);
 	r->type = type;
 	r->filename = filename;
-	r->next = NULL;
 	return (r);
 }

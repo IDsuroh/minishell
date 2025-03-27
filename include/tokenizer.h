@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 18:17:55 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/27 20:38:25 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_token_node
 	char			*token_value;
 	int				start_idx;
 	bool			adjacent;
+	bool			processed_quote;
 }	t_token_node;
 
 // tokenizer.c
