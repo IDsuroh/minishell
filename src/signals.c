@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:52:20 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/13 18:24:52 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/28 15:22:33 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	terminal_interrupt(t_pid_node *acpl)
 
 void	signalhandler_interactive(int signum)
 {
-	if (signum == SIGINT)
+	if (signum == SIGINT || signum == SIGQUIT)
 		g_signal = signum;
 }
 

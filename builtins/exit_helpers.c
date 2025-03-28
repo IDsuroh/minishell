@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:30:59 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/24 15:46:58 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/28 15:33:49 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void	handle_non_numeric_exit(t_almighty *mighty, int saved_stdout)
 
 	ft_putstr_fd("exit: numeric argument required\n", STDERR_FILENO);
 	close(saved_stdout);
-	{
-		code = 2;
-		_exit_(mighty, &code);
-	}
+	code = 2;
+	_exit_(mighty, &code);
 }
 
 void	handle_numeric_exit(t_almighty *mighty, char **argv, int saved_stdout)
