@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:20:39 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/25 18:54:20 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/28 14:09:59 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	_export(t_almighty *mighty, char *var)
 	char		*value;
 	t_var_elm	*node;
 
-	mighty->exit_stat = 0;
 	if (!var)
 		return ;
 	if (!is_valid_input(var))
@@ -81,4 +80,27 @@ void	_export(t_almighty *mighty, char *var)
 	}
 	else
 		add_var(mighty->var_list, create_var(key, value));
+}
+
+void	builtin_export(t_almighty *mighty, char **args)
+{
+	int			i;
+	t_var_elm	*node;
+
+	mighty->exit_stat = 0;
+	i = 1;
+	while (args[i])
+	{
+		if (!is_valid_input(args[i]))
+			print_export_error(args[i], mighty);
+		else if (ft_strchr(args[i], '='))
+			_export(mighty, args[i]);
+		else
+		{
+			node = get_value(mighty->var_list, args[i]);
+			if (!node)
+				print_export_error(args[i], mighty);
+		}
+		i++;
+	}
 }

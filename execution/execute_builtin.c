@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:35:16 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/27 22:07:25 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/28 14:17:30 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	dispatch_builtin(t_simple_cmd *cmd, t_almighty *mighty,
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
 		_pwd(mighty);
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
-		_export(mighty, cmd->argv[1]);
+		builtin_export(mighty, cmd->argv);
 	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
 		_unset(mighty, cmd->argv[1]);
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
@@ -71,7 +71,6 @@ int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 {
 	int	saved_stdout;
 	int	status;
-	int	exit_handled;
 
 	saved_stdout = apply_builtin_redir(cmd, mighty);
 	if (saved_stdout < 0)
@@ -80,18 +79,10 @@ int	execute_builtin(t_simple_cmd *cmd, t_almighty *mighty)
 		return (1);
 	}
 	else
-	{
 		dispatch_builtin(cmd, mighty, saved_stdout);
-		exit_handled = 0;
-	}
-	if (!exit_handled)
-	{
-		status = mighty->exit_stat;
-		if (dup2(saved_stdout, STDOUT_FILENO) < 0)
-			perror("dup2");
-		close_pending_fd(mighty);
-		return (status);
-	}
+	status = mighty->exit_stat;
+	if (dup2(saved_stdout, STDOUT_FILENO) < 0)
+		perror("dup2");
 	close_pending_fd(mighty);
-	return (mighty->exit_stat);
+	return (status);
 }
