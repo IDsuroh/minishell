@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/27 23:21:21 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/28 20:33:25 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,13 @@ static void	shell_loop(t_almighty *mighty)
 		input = readline("minishell$ ");
 		if (!input)
 			break ;
-		if (ft_strspn(input, " ") == ft_strlen(input))
+		if (!*input || ft_strspn(input, " ") == ft_strlen(input))
 		{
 			free(input);
 			continue ;
 		}
-		if (*input)
-		{
-			add_history(input);
-			handle_input(mighty, input);
-		}
+		add_history(input);
+		handle_input(mighty, input);
 		terminal_interrupt(mighty->acpl);
 		free(input);
 	}

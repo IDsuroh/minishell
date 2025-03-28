@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:52:20 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/28 15:22:33 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/28 21:06:00 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,20 @@ void	terminal_interrupt(t_pid_node *acpl)
 			curr = curr->next;
 		}
 	}
-	if (g_signal == SIGINT)
-	{
-		ft_putchar_fd('\n', 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
 	g_signal = 0;
 }
 
 void	signalhandler_interactive(int signum)
 {
-	if (signum == SIGINT || signum == SIGQUIT)
+	if (signum == SIGINT)
+	{
+		g_signal = SIGINT;
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (signum == SIGQUIT)
 		g_signal = signum;
 }
 

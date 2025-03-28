@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/27 22:10:41 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/28 20:35:32 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ void	handle_input(t_almighty *mighty, char *input);
 
 // main.c
 void	free_all(t_almighty *mighty);
-
-//
-void	init_signals(void);
 
 // signals.c
 void	terminal_interrupt(t_pid_node *acpl);
