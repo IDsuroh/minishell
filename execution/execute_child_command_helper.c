@@ -20,6 +20,8 @@ void	handle_cmd_not_found(t_simple_cmd *cmd, t_almighty *mighty,
 	mighty->exit_stat = 127;
 	if (exec_path)
 		free(exec_path);
+	free_all(mighty);
+	free(mighty);
 	exit(127);
 }
 
@@ -29,6 +31,8 @@ void	handle_dir_error(t_almighty *mighty, char *exec_path)
 	write(STDERR_FILENO, ": Is a directory\n", 17);
 	mighty->exit_stat = 126;
 	free(exec_path);
+	free_all(mighty);
+	free(mighty);
 	exit(126);
 }
 
@@ -38,6 +42,8 @@ void	handle_no_file_error(t_almighty *mighty, char *exec_path)
 	write(STDERR_FILENO, ": No such file or directory\n", 28);
 	mighty->exit_stat = 127;
 	free(exec_path);
+	free_all(mighty);
+	free(mighty);
 	exit(127);
 }
 
@@ -56,6 +62,8 @@ void	check_executable_status(t_simple_cmd *cmd, t_almighty *mighty,
 		{
 			perror(exec_path);
 			free(exec_path);
+			free_all(mighty);
+			free(mighty);
 			exit(126);
 		}
 	}
