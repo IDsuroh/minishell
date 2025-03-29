@@ -6,7 +6,7 @@
 /*   By: miteixei <miteixei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 20:42:03 by miteixei          #+#    #+#             */
-/*   Updated: 2025/03/25 20:59:16 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/29 19:59:42 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,14 @@ t_list_header	*init_var_list(char **envp)
 	t_list_header	*header;
 	t_var_elm		*var;
 
-	header = malloc(sizeof(t_list_header));
-	header->size = 0;
-	header->head = extract_var(*envp);
-	++(header->size);
-	var = header->head;
-	while (*(++envp))
+	header = ft_calloc(1, sizeof(t_list_header));
+	if (*envp)
+	{
+		header->head = extract_var(*envp);
+		++(header->size);
+		var = header->head;
+	}
+	while (*envp && *(++envp))
 	{
 		var->next = extract_var(*envp);
 		var->next->prev = var;
@@ -86,6 +88,7 @@ t_list_header	*init_var_list(char **envp)
 		if (var->next)
 			var = var->next;
 	}
-	header->tail = var;
+	if (*envp)
+		header->tail = var;
 	return (header);
 }

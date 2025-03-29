@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/28 20:51:49 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/29 20:34:09 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,7 @@ int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 		init_signals_subshell();
 		execute_child_command(cmd, mighty);
 	}
-	signal(SIGINT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
 	status = parent_exec(mighty, pid);
-	if (mighty->interactive)
-		init_signals_interactive();
 	mighty->exit_stat = WEXITSTATUS(status);
 	return (status);
 }

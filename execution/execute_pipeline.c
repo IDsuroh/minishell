@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 19:43:54 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/28 20:55:26 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/29 20:34:37 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,8 @@ int	execute_pipeline(t_pipe_sequence *pipe_seq, t_almighty *mighty)
 		process_pipeline(pipe_point, &prev_pipe_read, mighty);
 		pipe_point = pipe_point->next;
 	}
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 	while (wait(&status) > 0)
 		;
-	if (mighty->interactive)
-		init_signals_interactive();
 	mighty->exit_stat = WEXITSTATUS(status);
 	free_pid_list(mighty->acpl);
 	mighty->acpl = NULL;
