@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/29 18:12:15 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:45:00 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_almighty
 	int				pending_fd;
 	t_pid_node		*acpl; //active_child_pid_list
 	t_token_node	**tokens;
+	t_op_sequence	*tmp_seq;
+	char			*input;
 }	t_almighty;
 
 // handle_input.c

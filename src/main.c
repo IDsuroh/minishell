@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/29 18:14:53 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/29 18:45:14 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ static void	shell_loop(t_almighty *mighty)
 		add_history(input);
 		init_signals_execution();
 		terminal_interrupt(mighty);
+		mighty->input = input;
 		handle_input(mighty, input);
+		mighty->input = NULL;
 		free(input);
 	}
 }
@@ -64,6 +66,11 @@ void	free_all(t_almighty *mighty)
 	}
 	if (mighty->tokens)
 		free_node_list(mighty->tokens);
+	if (mighty->tmp_seq)
+		free_op_sequence(mighty->tmp_seq);
+	if (mighty->input)
+		free(mighty->input);
+	rl_clear_history();
 }
 
 int	main(int argc, char **argv, char **envp)

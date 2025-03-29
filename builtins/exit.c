@@ -38,5 +38,6 @@ void	_exit_(t_almighty *mighty, int *var_exit)
 	else
 		exit_val = mighty->exit_stat;
 	free_all(mighty);
+	free(mighty);
 	exit(exit_val);
 }
