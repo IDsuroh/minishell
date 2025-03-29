@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/28 20:35:32 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/29 18:12:15 by miteixei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_almighty
 	int				interactive;
 	int				pending_fd;
 	t_pid_node		*acpl; //active_child_pid_list
+	t_token_node	**tokens;
 }	t_almighty;
 
 // handle_input.c
@@ -51,9 +52,10 @@ void	handle_input(t_almighty *mighty, char *input);
 void	free_all(t_almighty *mighty);
 
 // signals.c
-void	terminal_interrupt(t_pid_node *acpl);
+void	terminal_interrupt(t_almighty *mighty);
 void	signalhandler_interactive(int signum);
 void	init_signals_interactive(void);
+void	init_signals_execution(void);
 void	init_signals_subshell(void);
 
 #endif

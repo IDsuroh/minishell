@@ -67,7 +67,9 @@ static void	process_tokens(t_almighty *mighty, t_token_node **tokens)
 		return (free_node_list(tokens), (void)0);
 	tmp_seq = parse_tokens(tokens_dup);
 	free_node_list(tokens_dup);
+	mighty->tokens = tokens;
 	execute_parsed_structure(tmp_seq, mighty);
+	mighty->tokens = NULL;
 	free_op_sequence(tmp_seq);
 	free_node_list(tokens);
 }
