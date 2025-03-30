@@ -1,0 +1,99 @@
+❯ ./minishell
+minishell$ ls
+builtins     error_check  include   minishell  parser  tokenizer
+envp_expand  execution	  Makefile  obj_dir    src
+minishell$ 
+❯ ./minishell
+minishell$ cd ~
+cd:~: No such file or directory
+minishell$ cd
+minishell$ pwd
+/home/suroh
+minishell$ ls
+Desktop    Downloads  norminette-env  prog    snap	 Videos
+Documents  Music      Pictures	      Public  Templates  woeusb-env
+minishell$ mkdir test
+minishell$ cd test
+minishell$ pwd
+/home/suroh/test
+minishell$ pwd
+pwd:  error retrieving current directory
+minishell$ cd 
+cd: error retrieving current directory
+minishell$ cd ..
+cd: error retrieving current directory
+minishell$ cd ..
+cd: error retrieving current directory
+minishell$ cd ..
+cd: error retrieving current directory
+minishell$ ls
+minishell$ ls
+minishell$ ls
+minishell$ pwd
+pwd:  error retrieving current directory
+minishell$ cd..
+cd..: command not found
+minishell$ cd 
+cd: error retrieving current directory
+minishell$ cd ..
+cd: error retrieving current directory
+minishell$ cd ~
+cd: error retrieving current directory
+minishell$ cd ~
+cd: error retrieving current directory
+minishell$ 
+❯ ./minishell
+minishell$ ls
+builtins     error_check  include   minishell  parser  tokenizer
+envp_expand  execution	  Makefile  obj_dir    src
+minishell$ cd src
+minishell$ ls
+handle_input.c	main.c	print_utils_1.c  print_utils_2.c  signals.c
+minishell$ cd ..
+minishell$ ls
+builtins     error_check  include   minishell  parser  tokenizer
+envp_expand  execution	  Makefile  obj_dir    src
+minishell$ cd ~
+cd:~: No such file or directory
+minishell$ cd ~
+cd:~: No such file or directory
+minishell$ cd 
+minishell$ pwd
+/home/suroh
+minishell$ 
+
+
+❯ bash
+❯ ls
+Desktop    Downloads  norminette-env  prog    snap       test    woeusb-env
+Documents  Music      Pictures        Public  Templates  Videos
+❯ rm -rf test
+❯ cd Documents/TESTS
+❯ cd ~
+❯ pwd
+/home/suroh
+❯ ls
+Desktop    Downloads  norminette-env  prog    snap       Videos
+Documents  Music      Pictures        Public  Templates  woeusb-env
+❯ cd
+❯ cd
+
+
+
+just input export.
+should output a lot of things.
+
+export hi
+
+should be added to the export list but not the env.
+
+cat << eof | cat << eof
+should act like
+>pwd
+>eof
+>ls
+>eof
+ls
+
+unset PATH
+should imidiately make ls or other commands not recognized.
