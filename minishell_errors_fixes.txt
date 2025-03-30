@@ -97,3 +97,9 @@ ls
 
 unset PATH
 should imidiately make ls or other commands not recognized.
+
+click here for contact info
+YESTERDAY
+YESTERDAY
+9:10 PM
+It doesn't run the command where it's "echo $TEST", but when it's just "$TEST".
