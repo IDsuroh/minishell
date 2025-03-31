@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:14:37 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/28 20:33:59 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 23:15:43 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	handle_input(t_almighty *mighty, char *input)
 	op_open = false;
 	tokens = tokenizer(input);
 	expand_env_variables(mighty, tokens);
+	tokens = perform_ws(tokens);
 	if (error_prompt(tokens, &op_open))
 	{
 		if (op_open == true)

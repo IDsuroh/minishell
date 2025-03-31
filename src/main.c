@@ -6,12 +6,11 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:57:19 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/29 20:54:11 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/31 01:41:02 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-extern volatile int g_signal;
 
 static void	init_main_struct(t_almighty *mighty, char **envp)
 {

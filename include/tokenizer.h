@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 23:08:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/27 20:38:25 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 21:39:57 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void			handle_short_var(char **token_end, int *i);
 void			handle_normal_var(char **token_end, int *i);
 
 // tokenizer_helpers.c
-char			*ft_strndup(const char *s, size_t n);
 void			free_tokens(char **token_storage);
 void			free_node_list(t_token_node **node_list);
 void			free_incomp_node_list(t_token_node **token_list, int allocated);
 void			free_node_list_no_values(t_token_node **node_list);
+void			free_tokstor(char **token_storage);
 
 // tokenizer_flags_1.c
 bool			is_quote(char c);

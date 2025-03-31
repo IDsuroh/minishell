@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:44:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/02/23 19:39:10 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 21:41:05 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,16 @@ void	free_node_list_no_values(t_token_node **node_list)
 		i++;
 	}
 	free(node_list);
+}
+
+void	free_tokstor(char **token_storage)
+{
+	int	i;
+
+	if (!token_storage)
+		return ;
+	i = -1;
+	while (token_storage[++i])
+		free(token_storage[i]);
+	free(token_storage);
 }

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 20:10:39 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 20:37:20 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 16:26:51 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_var_elm	*create_var(char *key, char *value)
 	var->value = value;
 	var->prev = NULL;
 	var->next = NULL;
+	var->exported = false;
 	return (var);
 }
 
@@ -47,7 +48,7 @@ void	add_var(t_list_header *header, t_var_elm *var)
 	if (!elm)
 		insert_new_var(header, var);
 	else
-		update_existing_var(elm, var);
+		update_existing_var(elm, var->key, var->value);
 }
 
 void	del_var(t_var_elm *var)
@@ -68,12 +69,17 @@ void	rem_var(t_list_header *header, t_var_elm *var)
 	next = var->next;
 	if (prev)
 		prev->next = next;
+	else
+		header->head = next;
 	if (next)
 		next->prev = prev;
-	if (var == header->head)
-		header->head = var->next;
-	if (var == header->tail)
-		header->tail = var->prev;
-	del_var(var);
+	else
+		header->tail = prev;
 	--(header->size);
+	if (header->size == 0)
+	{
+		header->head = NULL;
+		header->tail = NULL;
+	}
+	del_var(var);
 }

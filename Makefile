@@ -3,6 +3,7 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g
 LDFLAGS	=	-lreadline
 
+SIGDIR	=	signals
 TOKDIR	=	tokenizer
 PARDIR	=	parser
 SRCDIR	= 	src
@@ -13,14 +14,16 @@ BUILTIN	=	builtins
 
 OBJDIR	= 	obj_dir
 
-VPATH	=	$(SRCDIR):$(TOKDIR):$(PARDIR):$(ERRDIR):$(ENVDIR):$(BUILTIN):$(EXCDIR)
+VPATH	=	$(SIGDIR):$(SRCDIR):$(TOKDIR):$(PARDIR):$(ERRDIR):$(ENVDIR):$(BUILTIN):$(EXCDIR)
 
 SRC_SRCS	=	handle_input.c \
 				main.c \
 				print_utils_1.c \
-				print_utils_2.c \
-				signals.c
-			
+				print_utils_2.c
+
+SIG_SRCS	=	signals1.c \
+				signals2.c
+
 TOK_SRCS	=	tokenizer.c \
 				process_tokens.c \
 				tokenize_input.c \
@@ -48,10 +51,12 @@ ERR_SRCS	=	error_check_flags_1.c \
 				error_check_flags_2.c \
 				open_input_checker.c
 
-ENV_SRCS	=	envp.c \
+ENV_SRCS	=	perform_word_split.c \
+				envp.c \
 				envp_expansion.c \
 				envp_expansion_utils_1.c \
 				envp_expansion_utils_2.c \
+				envp_make.c \
 				envp_utils_1.c \
 				envp_utils_2.c \
 				envp_utils_3.c
@@ -69,12 +74,15 @@ EXC_SRCS	=	execute.c \
 				manage_pid_list.c
 
 BUIL_SRCS	=	cd_n_pwd.c \
-				cd_helpers.c \
+				cd_helpers_1.c \
+				cd_helpers_2.c \
 				echo.c \
 				env.c \
 				exit.c \
 				exit_helpers.c \
 				export.c \
+				export_helpers_1.c \
+				export_helpers_2.c \
 				unset.c
 
 SRCS		= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
@@ -83,7 +91,8 @@ SRCS		= 	$(addprefix $(SRCDIR)/, $(SRC_SRCS)) \
 				$(addprefix $(ERRDIR)/, $(ERR_SRCS)) \
 				$(addprefix $(ENVDIR)/, $(ENV_SRCS)) \
 				$(addprefix $(EXCDIR)/, $(EXC_SRCS)) \
-				$(addprefix $(BUILTIN)/, $(BUIL_SRCS))
+				$(addprefix $(BUILTIN)/, $(BUIL_SRCS)) \
+				$(addprefix $(SIGDIR)/, $(SIG_SRCS))
 
 OBJS		= 	$(patsubst %.c, $(OBJDIR)/%.o, $(notdir $(SRCS)))
 

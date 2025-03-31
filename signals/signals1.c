@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   signals1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 15:52:20 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/29 20:40:53 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/31 01:17:44 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	terminal_interrupt(t_almighty *mighty)
 			curr = curr->next;
 		}
 	}
+	g_signal = 0;
+}
+
+void	signalhandler_execution(int signum)
+{
+	g_signal = signum;
 }
 
 void	signalhandler_interactive(int signum)
@@ -45,22 +51,4 @@ void	signalhandler_interactive(int signum)
 	}
 	else if (signum == SIGQUIT)
 		g_signal = signum;
-}
-
-void	init_signals_execution(void)
-{
-	signal(SIGINT, signalhandler_interactive);
-	signal(SIGQUIT, signalhandler_interactive);
-}
-
-void	init_signals_interactive(void)
-{
-	signal(SIGINT, signalhandler_interactive);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	init_signals_subshell(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
 }

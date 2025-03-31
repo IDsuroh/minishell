@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:13:52 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/29 20:34:09 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/31 01:43:32 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty)
 
 	if (execute_redirections(cmd->redir) < 0)
 		exit(1);
-	exec_path = find_executable(cmd->argv[0]);
+	exec_path = find_executable(cmd->argv[0], mighty);
 	if (!exec_path || !validate_command_tokens(cmd))
 		handle_cmd_not_found(cmd, mighty, exec_path);
 	check_executable_status(cmd, mighty, exec_path);
@@ -33,8 +33,10 @@ static int	parent_exec(t_almighty *mighty, pid_t pid)
 	int	status;
 
 	add_child_pid(mighty, pid);
+	signal(SIGINT, SIG_IGN);
 	waitpid(pid, &status, 0);
 	remove_child_pid(mighty, pid);
+	init_signals_interactive();
 	return (status);
 }
 
@@ -55,7 +57,12 @@ int	execute_command(t_simple_cmd *cmd, t_almighty *mighty)
 		execute_child_command(cmd, mighty);
 	}
 	status = parent_exec(mighty, pid);
-	mighty->exit_stat = WEXITSTATUS(status);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	if (WIFSIGNALED(status))
+		mighty->exit_stat = 128 + WTERMSIG(status);
+	else if (WIFEXITED(status))
+		mighty->exit_stat = WEXITSTATUS(status);
 	return (status);
 }
 

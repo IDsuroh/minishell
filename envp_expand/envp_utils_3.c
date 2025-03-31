@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:25:36 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/23 20:35:10 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 16:08:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	insert_new_var(t_list_header *header, t_var_elm *var)
 {
-	if (!header->head)
+	if (!header->head || header->tail == NULL)
 	{
 		header->head = var;
 		header->tail = var;
@@ -28,12 +28,10 @@ void	insert_new_var(t_list_header *header, t_var_elm *var)
 	header->size++;
 }
 
-void	update_existing_var(t_var_elm *existing, t_var_elm *new_var)
+void	update_existing_var(t_var_elm *node, char *key, char *value)
 {
-	free(existing->value);
-	if (new_var->value)
-		existing->value = ft_strdup(new_var->value);
-	else
-		existing->value = NULL;
-	del_var(new_var);
+	free(node->value);
+	node->value = value;
+	node->exported = true;
+	free(key);
 }

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:22:45 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/18 19:57:50 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/31 01:02:55 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	free_paths(char **paths)
 {
 	int	i;
 
+	if (!paths)
+		return ;
 	i = 0;
 	while (paths[i])
 	{

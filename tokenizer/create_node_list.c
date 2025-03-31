@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 20:53:08 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/26 18:56:07 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 23:00:12 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,6 @@ static bool	compute_adjacent_flag(int i, int *pos, char **token_storage)
 		return (false);
 	prev_end = pos[i - 1] + ft_strlen(token_storage[i - 1]);
 	return (pos[i] == prev_end);
-}
-
-static void	free_tokstor(char **token_storage)
-{
-	int	i;
-
-	i = -1;
-	while (token_storage[++i])
-		free(token_storage[i]);
-	free(token_storage);
 }
 
 t_token_node	**create_node_list(char **token_storage, int token_count,

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:12:33 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/26 22:39:29 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 13:42:21 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	_cd(t_almighty *mighty, char **args)
 	int		alloc;
 
 	alloc = 0;
-	if (count_args(args) == 0)
+	if (count_args(args) == 0
+		|| (count_args(args) == 1 && ft_strcmp(args[0], "~") == 0))
 		alloc = 1;
 	mighty->exit_stat = 0;
 	dir = resolve_dir(mighty, args);

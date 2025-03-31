@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:38:48 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/29 18:45:00 by miteixei         ###   ########.fr       */
+/*   Updated: 2025/03/31 01:20:29 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ void	handle_input(t_almighty *mighty, char *input);
 // main.c
 void	free_all(t_almighty *mighty);
 
-// signals.c
+// signals1.c
 void	terminal_interrupt(t_almighty *mighty);
+void	signalhandler_execution(int signum);
 void	signalhandler_interactive(int signum);
+// signals2.c
 void	init_signals_interactive(void);
 void	init_signals_execution(void);
 void	init_signals_subshell(void);

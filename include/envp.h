@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 19:23:11 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/27 22:22:26 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/31 00:56:47 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_var_elm
 	char				*value;
 	struct s_var_elm	*prev;
 	struct s_var_elm	*next;
+	bool				exported;
 }	t_var_elm;
 
 typedef struct s_list_header
@@ -31,11 +32,16 @@ typedef struct s_list_header
 	int			size;
 }	t_list_header;
 
+// perform_word_split.c
+t_token_node	**perform_ws(t_token_node **tokens);
+
 // envp.c
-char			**make_envp(t_list_header *header);
 t_var_elm		*extract_var(char *var);
 t_var_elm		*get_value(t_list_header *header, char *key);
 t_list_header	*init_var_list(char **envp);
+
+// envp_make.c
+char			**make_envp(t_list_header *header);
 
 // envp_expansion.c
 void			expand_env_variables(t_almighty *mighty, t_token_node **tokens);
@@ -66,6 +72,5 @@ void			free_envp_array(char **envp, size_t count);
 
 // envp_utils_3.c
 void			insert_new_var(t_list_header *header, t_var_elm *var);
-void			update_existing_var(t_var_elm *existing, t_var_elm *new_var);
-
+void			update_existing_var(t_var_elm *node, char *key, char *value);
 #endif

@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:12:24 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/28 14:04:01 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/31 00:51:16 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ typedef struct s_pipeline_variables
 // cd_n_pwd.c
 void	_cd(t_almighty *mighty, char **args);
 void	_pwd(t_almighty *mighty);
-
-// cd_helpers.c
+// cd_helpers_1.c
+void	update_pwd(t_almighty *mighty, char *buff, char *var);
 int		count_args(char **args);
 char	*resolve_dir(t_almighty *mighty, char **args);
+// cd_helpers_2.c
+char	*retrieve_old_pwd(t_almighty *mighty);
 int		change_and_update_oldpwd(t_almighty *mighty, char *dir);
 void	update_new_pwd(t_almighty *mighty);
 
@@ -50,7 +52,6 @@ void	_env(t_almighty *mighty);
 // exit.c
 int		exit_builtin(t_almighty *mighty, char **argv, int saved_stdout);
 void	_exit_(t_almighty *mighty, int *var_exit);
-
 // exit_helpers.c
 bool	is_numeric(char *str);
 void	handle_no_arg_exit(t_almighty *mighty, int saved_stdout);
@@ -58,16 +59,26 @@ void	handle_non_numeric_exit(t_almighty *mighty, int saved_stdout);
 void	handle_numeric_exit(t_almighty *mighty, char **argv, int saved_stdout);
 
 // export.c
-void	_export(t_almighty *mighty, char *var);
 void	builtin_export(t_almighty *mighty, char **args);
+void	_export(t_almighty *mighty, char *var);
+// export_helpers_1.c
+bool	is_valid_input(char *str);
+void	print_export_error(char *var, t_almighty *mighty);
+void	parse_export_var(char *var, char **key, char **value);
+// export_helpers_2.c
+void	print_export_list(t_almighty *mighty);
 
 // unset.c
-void	_unset(t_almighty *mighty, char *key);
+void	_unset(t_almighty *mighty, char **keys);
 
 // execute.c
 void	execute_child_command(t_simple_cmd *cmd, t_almighty *mighty);
 int		execute_command(t_simple_cmd *cmd, t_almighty *mighty);
 void	execute_parsed_structure(t_op_sequence *op_seq, t_almighty *mighty);
+// execute_helper.c
+bool	validate_command_tokens(t_simple_cmd *cmd);
+void	restore_stdin_to_tty(void);
+void	free_pid_list(t_pid_node *acpl);
 
 // execute_child_command_helper.c
 void	handle_cmd_not_found(t_simple_cmd *cmd, t_almighty *mighty,
@@ -78,18 +89,12 @@ void	check_executable_status(t_simple_cmd *cmd, t_almighty *mighty,
 			char *exec_path);
 void	handle_exec_failure(char *exec_path);
 
-// execute_helper.c
-bool	validate_command_tokens(t_simple_cmd *cmd);
-void	restore_stdin_to_tty(void);
-void	free_pid_list(t_pid_node *acpl);
-
 // execute_builtin.c
 bool	is_builtin_command(const char *cmd);
 int		execute_builtin(t_simple_cmd *cmd, t_almighty *mighty);
 
 // execute_pipeline.c
 int		execute_pipeline(t_pipe_sequence *pipe_seq, t_almighty *mighty);
-
 // execute_pipeline_helper.c
 void	child_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty);
 void	parent_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty,
@@ -99,8 +104,7 @@ void	parent_pipeline_setup(t_pipeline_variables *pvs, t_almighty *mighty,
 int		execute_redirections(t_redir *redir);
 
 // find_executable.c
-char	*find_executable(char *cmd);
-
+char	*find_executable(char *cmd, t_almighty *mighty);
 // find_executable_helper.c
 bool	is_cmd_a_path(char *cmd);
 void	free_paths(char **paths);

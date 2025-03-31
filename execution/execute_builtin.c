@@ -6,7 +6,7 @@
 /*   By: suroh <suroh@student.42lisboa.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:35:16 by suroh             #+#    #+#             */
-/*   Updated: 2025/03/28 14:17:30 by suroh            ###   ########.fr       */
+/*   Updated: 2025/03/30 20:32:31 by suroh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	dispatch_builtin(t_simple_cmd *cmd, t_almighty *mighty,
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
 		builtin_export(mighty, cmd->argv);
 	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
-		_unset(mighty, cmd->argv[1]);
+		_unset(mighty, cmd->argv + 1);
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
 		_env(mighty);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
